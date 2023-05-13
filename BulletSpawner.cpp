@@ -17,7 +17,7 @@ std::vector<Entity> BulletSpawner::Spawn(Position& position, char subType) {
 
 	switch (subType)
 	{
-	case 'b': // banner 
+	case 'b': // bullet 
 		bullet.loadFromFile("Image/Bullet_20_40.png");
 		graph_to_add->setImage(bullet);
 		break;
