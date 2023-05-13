@@ -11,8 +11,9 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	int map_width = 0;
 	int map_height = 0;
 
-	std::vector<Entity> to_add;
-
+	std::vector<Entity> scene;
+	
+	WallSpawner ws;
 	std::ifstream map_file("Maps/lvl1.txt");
 
 	map_file >> map_width;
@@ -23,8 +24,11 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			char current_block = 0;
 			map_file >> current_block;
 
+			Position curr_pos;
+
 			switch (current_block) {
 			case 'w':
+				scene.push_back(ws.Spawn(curr_pos, 'w')[0]);
 				break;
 			case' ':
 				break;

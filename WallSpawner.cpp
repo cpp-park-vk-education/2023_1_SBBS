@@ -1,28 +1,29 @@
 #include "SpawnerSystem.h"
+#include "GraphicsComponent.h"
+#include "PositionComponent.h"
+#include <SFML/Graphics.hpp>
 #include <fstream>
 
 std::vector<Entity> WallSpawner::Spawn(Position position, char subType) {
-	int map_width = 0;
-	int map_height = 0;
+	std::vector<Entity> to_add_vec;
 
-	std::vector<Entity> to_add;
+	Entity to_add;
+	static sf::Image wood_wall;
+	wood_wall.loadFromFile("Image/Stone.png");
+	GraphicsComponent* graph_to_add = new GraphicsComponent();
+	PositionComponent* pos_to_add = new PositionComponent();
 
-	std::ifstream map_file("Maps/lvl1.txt");
-
-	map_file >> map_width;
-	map_file >> map_height;
-
-
-	switch (subType) {
-	case 'w':
+	switch (subType)
+	{
+	case 'w' : // wood wall 
+		graph_to_add->setImage(wood_wall);
 		break;
-	case' ':
-		break;
-	case 'b':
-		break;
+
 	default:
 		break;
 	}
 
-	return to_add;
+	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add_vec.push_back(to_add);
+	return to_add_vec;
 }

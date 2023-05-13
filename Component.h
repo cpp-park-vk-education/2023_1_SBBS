@@ -14,7 +14,7 @@ struct Position {
 
 class Component {
 public:
-    Component();
+    Component() = default;
 
-    virtual ~Component() {}
+    virtual ~Component() = default;
 };

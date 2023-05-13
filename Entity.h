@@ -8,13 +8,13 @@ class Component;
 class Entity {
 public:
 
-    Entity();
+    Entity() = default;
 
     Component* getComponentByID(const ComponentID& id) {
         return components_.at(id);
     }
 
-    //void putComponent(Component* to_add) {components_.insert() };
+    void putComponent(ComponentID id, Component* to_add) { components_.insert({ id,to_add }); };
 
     int getEntityID();
 

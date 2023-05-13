@@ -5,7 +5,7 @@
 
 class PositionComponent : public Component {
 public:
-    PositionComponent();
+    PositionComponent() = default;
 
     Position* getPosition() const { return parent_ ? parent_->getPosition() : position_; }
     double getRotation () const { return rotation; }

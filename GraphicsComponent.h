@@ -5,11 +5,11 @@
 
 class GraphicsComponent : public Component {
 public:
-    GraphicsComponent();
+    GraphicsComponent() = default;
 
     bool layer;
 
-    void setImage(sf::Image image);
+    void setImage(sf::Image image) {};
 
     void setTexture(sf::Texture texture);
 
