@@ -8,12 +8,12 @@ public:
 
     bool isMortal();
 
-    int getHealth() const;
+    int getHealth() const { return health_; };
 
     void setHealth(int health);
 
 private:
 
-    bool mortal_;
+    bool mortal_ = false; 
     int health_ = -1;
 };

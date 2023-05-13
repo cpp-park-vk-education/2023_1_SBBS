@@ -7,6 +7,6 @@
 class AudioSystem : public System {
 public:
 
-    void playEffects(std::vector<Entity> scene);
+    void playEffects(std::vector<Entity>& scene);
 
 };

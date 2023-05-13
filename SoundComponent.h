@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
+#include "SoundComponent.h"
+#include <SFML/Audio.hpp>
 
 class SoundComponent : public Component {
 public:

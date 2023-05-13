@@ -3,6 +3,7 @@
 #include "Component.h"
 #include <unordered_map>
 #include "Types.h"
+#include "HealthComponent.h"
 
 class Component;
 
@@ -30,3 +31,4 @@ private:
     int entity_id_ = -1;
 
 };
+
