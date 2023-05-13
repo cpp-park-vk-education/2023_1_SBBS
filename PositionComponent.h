@@ -2,10 +2,7 @@
 #include "Entity.h"
 #include "Component.h"
 
-struct Speed {
-    int speed_x_;
-    int speed_y_;
-};
+
 
 
 class PositionComponent : public Component {
@@ -17,7 +14,7 @@ public:
         return parent_ ? parent_->getPosition() : position_; 
     }
 
-    Speed* getSpeed() const { 
+    int getSpeed() const { 
         return speed_; 
     }
 
@@ -35,7 +32,7 @@ private:
 
     Position* position_;
 
-    Speed* speed_;
+    int speed_;
 
     double rotation = -1;
 };

@@ -15,11 +15,6 @@ public:
 
 private:
 
-    Entity* owner = nullptr;
-
-    int pos_x_ = -1;
-    int pos_y_ = -1;
-
     int height_ = -1;
     int width_ = -1;
 
