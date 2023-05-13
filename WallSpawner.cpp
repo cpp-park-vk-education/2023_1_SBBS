@@ -8,15 +8,17 @@ std::vector<Entity> WallSpawner::Spawn(Position position, char subType) {
 	std::vector<Entity> to_add_vec;
 
 	Entity to_add;
-	static sf::Image wood_wall;
-	wood_wall.loadFromFile("Image/Stone.png");
+	static sf::Image wall;
+	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
+	pos_to_add->setPosition(position);
 
 	switch (subType)
 	{
 	case 'w' : // wood wall 
-		graph_to_add->setImage(wood_wall);
+		wall.loadFromFile("Image/Stone.png");
+		graph_to_add->setImage(wall);
 		break;
 
 	default:
