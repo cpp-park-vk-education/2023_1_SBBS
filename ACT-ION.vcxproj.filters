@@ -51,6 +51,9 @@
     <ClCompile Include="SpawnerSystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="BannerSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

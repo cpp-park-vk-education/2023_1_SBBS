@@ -7,9 +7,14 @@ class GraphicsComponent : public Component {
 public:
     GraphicsComponent() = default;
 
-    bool layer;
+    bool layer = 0;
 
-    void setImage(sf::Image image) {};
+    void setImage(sf::Image image) {
+        obj_image_ = image;
+        obj_texture_.loadFromImage(obj_image_);
+        obj_sprite_.setTexture(obj_texture_);
+        //Возможно, сюда надо передать коэффициент сжатия. Либо же сделать его одинаковым для всех
+    };
 
     void setTexture(sf::Texture texture);
 
