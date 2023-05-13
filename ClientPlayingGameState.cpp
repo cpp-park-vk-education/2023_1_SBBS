@@ -13,7 +13,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 
 	std::vector<Entity> scene;
 	
-	WallSpawner ws;
+	MapSpawner ws;
 	std::ifstream map_file("Maps/lvl1.txt");
 
 	map_file >> map_width;
@@ -48,7 +48,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	GraphicsSystem gs;
 	PhysicsSystem ps;
 
-	ps.updatePositions(handleInput(window));
+	ps.updatePositions(handleInput(window), scene);
 
 	return this;
 }
