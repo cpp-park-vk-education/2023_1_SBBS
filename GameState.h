@@ -2,9 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-enum class Input {
-    MoveUp,MoveDown,MoveLeft,MoveRight
-};
 
 class GameState {
 public:
