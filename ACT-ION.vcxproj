@@ -172,6 +172,8 @@
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="MusicComponent.h" />
     <ClInclude Include="NetworkSystem.h" />

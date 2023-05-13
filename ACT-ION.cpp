@@ -7,23 +7,13 @@
 
 
 int main() {
-<<<<<<< Updated upstream
+
 	GameState* curr_state = new ClientPlayingGameState();
-	std::vector<sf::Event> events;
-	sf::Mouse mouse;
+
+	sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "ACT-ION", sf::Style::Fullscreen);
 
 	while (1) {
-		curr_state = curr_state->update(events,mouse);
+		curr_state = curr_state->update(window);
 
 	}
 }
-=======
-	sf::Music music;
-	sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "ACT-ION");
-
-	music.openFromFile("Sound/baraban.ogg"); 
-	music.play();
-
-	while (window.isOpen());
-}
->>>>>>> Stashed changes

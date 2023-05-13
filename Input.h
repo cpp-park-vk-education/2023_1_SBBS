@@ -9,5 +9,4 @@ struct Input {
 	bool shoot_ = false;
 	int mouse_x_ = 0;
 	int mouse_y_ = 0;
-	
 };

@@ -6,37 +6,37 @@
 class GameState {
 public:
 
-    virtual GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) = 0;
+    virtual GameState* update(sf::RenderWindow& window) = 0;
 };
 
 class MainMenuGameState :public GameState {
 public:
 
-    GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) override;
+    GameState* update(sf::RenderWindow& window) override;
 };
 
 class HostMenuGameState :public GameState {
 public:
 
-    GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) override;
+    GameState* update(sf::RenderWindow& window) override;
 };
 
 class ClientMenuGameState :public GameState {
 public:
 
-    GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) override;
+    GameState* update(sf::RenderWindow& window) override;
 };
 
 class HostPlayingGameState : public GameState {
 public:
 
-    GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) override;
+    GameState* update(sf::RenderWindow& window) override;
 };
 
 class ClientPlayingGameState : public GameState {
 public:
 
-    GameState* update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) override;
+    GameState* update(sf::RenderWindow& window) override;
 };
 
 

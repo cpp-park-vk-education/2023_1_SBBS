@@ -1,13 +1,13 @@
 #include "GameState.h"
 #include "AudioSystem.h"
 #include "GraphicsSystem.h"
+#include "PhysicsSystem.h"
+#include "InputHandler.h"
 #include "SpawnerSystem.h"
 #include <fstream>
 
-GameState* ClientPlayingGameState::update(const std::vector<sf::Event>& events, const sf::Mouse& mouse) {
-	AudioSystem as;
-	GraphicsSystem gs;
-	
+GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
+
 	int map_width = 0;
 	int map_height = 0;
 
@@ -36,5 +36,13 @@ GameState* ClientPlayingGameState::update(const std::vector<sf::Event>& events, 
 
 
 		}
+
+
+	AudioSystem as;
+	GraphicsSystem gs;
+	PhysicsSystem ps;
+
+	ps.updatePositions(handleInput(window));
+
 	return this;
 }

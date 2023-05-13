@@ -8,10 +8,8 @@
 class PhysicsSystem : public System {
 public:
 
-    void updatePositions(const Input& inputs) {
+    void updatePositions(const Input& inputs) {}
 
         /*HealthComponent* temp_component = dynamic_cast<HealthComponent*>(scene[1].getComponentByID(ComponentID::HealthComponent));
         temp_component->setHealth(10);*/
-    }
-
 };
