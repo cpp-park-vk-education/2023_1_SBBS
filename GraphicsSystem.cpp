@@ -26,6 +26,10 @@ void GraphicsSystem::renderScene(std::vector<Entity>& scene) {
     for (int i = 0; i < upper_layer.size(); ++i) {
         GraphicsComponent* current_graph = dynamic_cast<GraphicsComponent*>(scene[upper_layer[i]].getComponentByID(ComponentID::GraphicsComponent));
         PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
+
+        if (current_pos->getRotation() >= 0) {
+            current_graph->getSprite()->setRotation(current_pos->getRotation());
+        }
         current_graph->getSprite()->setPosition(current_pos->getPosition()->x, current_pos->getPosition()->y);
     }
 }

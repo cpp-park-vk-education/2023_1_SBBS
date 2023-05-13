@@ -13,7 +13,8 @@ public:
 
     void setTexture(sf::Texture texture);
 
-    void setSprite(sf::Sprite sprite); // Тут можно поментять изображение
+    void setSprite(sf::Sprite sprite);
+
 
     sf::Sprite* getSprite() { return& obj_sprite_; }
 

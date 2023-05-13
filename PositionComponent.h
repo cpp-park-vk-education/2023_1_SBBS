@@ -7,9 +7,14 @@ class PositionComponent : public Component {
 public:
     PositionComponent();
 
-    Position* getPosition() const { return position_; }
+    Position* getPosition() const { return parent_ ? parent_->getPosition() : position_; }
+    double getRotation () const { return rotation; }
 
     void setPosition(Position position);
+
+    void setRotation();
+
+
 
 private:
 
@@ -21,4 +26,5 @@ private:
 
     int speed_x_;
     int speed_y_;
+    double rotation = -1;
 };
