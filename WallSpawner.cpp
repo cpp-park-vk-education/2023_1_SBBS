@@ -5,11 +5,11 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-std::vector<Entity> WallSpawner::Spawn(Position& position, char subType) {
+std::vector<Entity> MapSpawner::Spawn(Position& position, char subType) {
 	std::vector<Entity> to_add_vec;
 
-	Entity to_add(ObjectType::Wall);
-	static sf::Image wall;
+	Entity to_add(ObjectType::Map);
+	static sf::Image img;
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
@@ -17,9 +17,14 @@ std::vector<Entity> WallSpawner::Spawn(Position& position, char subType) {
 
 	switch (subType)
 	{
-	case 'w' : // wood wall 
-		wall.loadFromFile("Image/Stone_100_100.png");
-		graph_to_add->setImage(wall);
+	case 'w' : // stone wall 
+		img.loadFromFile("Image/Stone_100_100.png");
+		graph_to_add->setImage(img);
+		break;
+
+	case ' ' : // send floor
+		img.loadFromFile("Image/Send_100_100.png");
+		graph_to_add->setImage(img);
 		break;
 
 	default:
