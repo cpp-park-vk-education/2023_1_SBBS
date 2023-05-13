@@ -5,26 +5,21 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-std::vector<Entity> MapSpawner::Spawn(Position& position, char subType) {
+std::vector<Entity> BulletSpawner::Spawn(Position& position, char subType) {
 	std::vector<Entity> to_add_vec;
 
-	Entity to_add(ObjectType::Map);
-	static sf::Image img;
-	
+	Entity to_add(ObjectType::Bullet);
+	static sf::Image bullet;
+
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	pos_to_add->setPosition(position);
 
 	switch (subType)
 	{
-	case 'w' : // stone wall 
-		img.loadFromFile("Image/Stone_100_100.png");
-		graph_to_add->setImage(img);
-		break;
-
-	case ' ' : // send floor
-		img.loadFromFile("Image/Send_100_100.png");
-		graph_to_add->setImage(img);
+	case 'b': // bullet 
+		bullet.loadFromFile("Image/Bullet_20_40.png");
+		graph_to_add->setImage(bullet);
 		break;
 
 	default:

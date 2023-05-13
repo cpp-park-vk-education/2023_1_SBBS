@@ -21,7 +21,7 @@ public:
     std::vector<Entity> Spawn(Position& position, char subType) override;
 };
 
-class WallSpawner : public SpawnerSystem {
+class MapSpawner : public SpawnerSystem {
 public:
     std::vector<Entity> Spawn(Position& position, char subType) override;
 };
