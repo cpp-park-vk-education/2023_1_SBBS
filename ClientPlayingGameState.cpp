@@ -25,6 +25,8 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			map_file >> current_block;
 
 			Position curr_pos;
+			curr_pos.x = j * 10;
+			curr_pos.y = i * 10;
 
 			switch (current_block) {
 			case 'w':

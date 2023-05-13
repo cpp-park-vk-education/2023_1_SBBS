@@ -1,13 +1,14 @@
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"
+#include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-std::vector<Entity> WallSpawner::Spawn(Position position, char subType) {
+std::vector<Entity> WallSpawner::Spawn(Position& position, char subType) {
 	std::vector<Entity> to_add_vec;
 
-	Entity to_add;
+	Entity to_add(ObjectType::Wall);
 	static sf::Image wall;
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();

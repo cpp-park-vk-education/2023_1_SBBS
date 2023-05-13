@@ -7,10 +7,11 @@ class PositionComponent : public Component {
 public:
     PositionComponent() = default;
 
+    
     Position* getPosition() const { return parent_ ? parent_->getPosition() : position_; }
     double getRotation () const { return rotation; }
 
-    void setPosition(Position position);
+    void setPosition(Position& position) { position_ = &position; };
 
     void setRotation();
 
