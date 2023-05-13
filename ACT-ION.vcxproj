@@ -154,7 +154,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ACT-ION.cpp" />
+    <ClCompile Include="ClientPlayingGameState.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="SpawnerSystem.cpp" />
+    <ClCompile Include="WallSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

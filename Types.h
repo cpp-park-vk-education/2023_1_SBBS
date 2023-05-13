@@ -7,5 +7,5 @@ enum class SoundType : char {
 };
 
 enum class ObjectType : char {
-    TankBody, Bullet, TankTurret, Wall
+    Tank, Bullet, Wall
 };

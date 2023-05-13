@@ -28,6 +28,12 @@
     <Filter Include="Файлы ресурсов\Systems">
       <UniqueIdentifier>{d80fc167-c04a-4725-966e-47fe4e9e8cbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\GameStates">
+      <UniqueIdentifier>{8a740200-4411-4abc-a00b-a995c1e23f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Spawners">
+      <UniqueIdentifier>{b9c14b02-58a4-41eb-9f1b-6a61526a0431}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ACT-ION.cpp">
@@ -35,6 +41,15 @@
     </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
       <Filter>Файлы ресурсов\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientPlayingGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="WallSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerSystem.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

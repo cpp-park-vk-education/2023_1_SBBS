@@ -14,6 +14,8 @@ public:
         return components_.at(id);
     }
 
+    //void putComponent(Component* to_add) {components_.insert() };
+
     int getEntityID();
 
 private:
