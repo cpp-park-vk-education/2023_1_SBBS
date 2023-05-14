@@ -34,6 +34,16 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 		graph_to_add->setImage(img);
 		break;
 
+	case 'c': // cave floor
+		img.loadFromFile("Image/Cave_100_100.png");
+		graph_to_add->setImage(img);
+		break;
+
+	case 'i': // iron floor
+		img.loadFromFile("Image/Iron_100_100.png");
+		graph_to_add->setImage(img);
+		break;
+
 	default:
 		break;
 	}
