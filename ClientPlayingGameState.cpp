@@ -18,7 +18,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	std::vector<Entity> scene;
 	
 	MapSpawner ws;
-	std::ifstream map_file("Maps/lvl1.txt");
+	std::ifstream map_file("Maps/lvl2.txt");
 
 	map_file >> map_width;
 	map_file >> map_height;
@@ -65,7 +65,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	Entity* my_tank = getMyTank(scene);
 	bool ESC_pressed = false;
 
-	while (!isDead(my_tank) && !ESC_pressed) {
+	while (!isDead(my_tank) && !ESC_pressed && window.isOpen()) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
