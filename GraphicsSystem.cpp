@@ -3,6 +3,7 @@
 #include "PositionComponent.h"
 #include <SFML/Window.hpp>
 
+#include <iostream>
 
 void GraphicsSystem::renderScene(std::vector<Entity>& scene, sf::RenderWindow& window) {
     // Создаем массив для верхнего слоя отрисовки
@@ -21,6 +22,7 @@ void GraphicsSystem::renderScene(std::vector<Entity>& scene, sf::RenderWindow& w
             PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
             curr_sprite = *current_graph->getSprite();
             curr_sprite.setPosition(current_pos->getPosition()->x, current_pos->getPosition()->y);
+            std::cout << current_pos->getPosition()->x << " " << current_pos->getPosition()->y << std::endl;
         }
         else {
             upper_layer.push_back(i);
