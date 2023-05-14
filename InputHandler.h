@@ -1,6 +1,7 @@
 #pragma once
 #include "Input.h"
 #include <SFML/Window.hpp>
+#include <iostream>
 
 Input handleInput(sf::Window& window) {
     Input curr_input;
@@ -34,8 +35,8 @@ Input handleInput(sf::Window& window) {
         }
     }
 
-
-    curr_input.moving_right_ = true;
+    std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
+    //curr_input.moving_right_ = true;
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     curr_input.mouse_x_ = mousePosition.x;

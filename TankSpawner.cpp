@@ -16,7 +16,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 
-	Position* pos_struc_to_add = new Position(position.x, position.y);
+	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
 
 	switch (subType)
@@ -35,7 +35,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 		break;
 	}
 
-	pos_to_add->setSpeed(20);
+	pos_to_add->setSpeed(2);
 	graph_to_add->layer = true;
 	tank.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	tank.putComponent(ComponentID::PositionComponent, pos_to_add);

@@ -30,7 +30,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
         if (scene[i].getEntityID() == -1) {
             if (scene[i].getType() == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
-                Position new_position = *new_component.getPosition();
+                Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
 
                 Input_vector input_vector;
@@ -54,9 +54,9 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 if (input_vector.x * input_vector.y)
                     prop = 0.7;
                 else prop = 1;
-
-                new_position.x = moving(new_position.x, new_component.getSpeed(), prop);                
-                new_position.y = moving(new_position.y, new_component.getSpeed(), prop);
+                
+                new_position.x = moving(new_position.x, new_component.getSpeed(), prop*input_vector.x);                
+                new_position.y = moving(new_position.y, new_component.getSpeed(), prop*input_vector.y);
                 new_rotation += alpha;
 
                 original_component->setPosition(new_position);

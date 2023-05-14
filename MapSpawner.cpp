@@ -14,7 +14,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 
-	Position* pos_struc_to_add = new Position(position.x, position.y);
+	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
 
 	switch (subType)

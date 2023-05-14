@@ -21,7 +21,7 @@ void GraphicsSystem::renderScene(std::vector<Entity>& scene, sf::RenderWindow& w
         if (!current_graph->layer) {
             PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
             curr_sprite = *current_graph->getSprite();
-            curr_sprite.setPosition(current_pos->getPosition()->x, current_pos->getPosition()->y);
+            curr_sprite.setPosition(current_pos->getPosition().x, current_pos->getPosition().y);
         }
         else {
             upper_layer.push_back(i);
@@ -41,7 +41,7 @@ void GraphicsSystem::renderScene(std::vector<Entity>& scene, sf::RenderWindow& w
         if (current_pos->getRotation() >= 0) {
             curr_sprite.setRotation(current_pos->getRotation());
         }
-        curr_sprite.setPosition(current_pos->getPosition()->x, current_pos->getPosition()->y);
+        curr_sprite.setPosition(current_pos->getPosition().x, current_pos->getPosition().y);
         window.draw(curr_sprite);
     }
 

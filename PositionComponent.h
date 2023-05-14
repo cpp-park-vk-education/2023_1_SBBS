@@ -10,7 +10,7 @@ public:
     PositionComponent() = default;
 
     
-    Position* getPosition() const { 
+    Position getPosition() const { 
         return parent_ ? parent_->getPosition() : position_; 
     }
 
@@ -22,9 +22,7 @@ public:
 
     int getRotation() { return rotation_; }
 
-    void setPosition(Position& position) { position_ = &position; };
-
-    void setPosition(Position* position) { position_ = position; };
+    void setPosition(Position position) { position_ = position; };
 
     void setRotation(const int& coner) {
         rotation_ = coner;
@@ -36,7 +34,7 @@ private:
 
     PositionComponent* parent_ = nullptr;
 
-    Position* position_;
+    Position position_;
 
     int speed_;
 
