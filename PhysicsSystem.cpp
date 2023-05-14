@@ -8,8 +8,8 @@ const int base_x = 0;
 const int base_y = -1;
 
 struct Input_vector {
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 };
 
 int moving(int coordinate, int speed, float prop) {
@@ -78,7 +78,7 @@ void updatePositions(const Input& inputs, std::vector<Entity> scene) {
                 }
                 if (flag) {
                     original_component->setPosition(new_position);
-                    original_component->setRotation(new_rotation);
+                    original_component->setRotation(new_rotation); // нахуй два раза делать?
                     *my_collision = new_collision;
                 }
                 return;

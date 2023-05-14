@@ -88,7 +88,7 @@ public:
         return true;
     }
 
-    ~CollisionComponent();
+    ~CollisionComponent() = default;
 
 
     void setPosition(Position& position) { position_ = &position; }
