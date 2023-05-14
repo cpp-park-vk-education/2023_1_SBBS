@@ -2,8 +2,10 @@
 #include "Input.h"
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <chrono>
 
 Input handleInput(sf::Window& window) {
+    static auto last_time = std::chrono::steady_clock::time_point();
     static Input curr_input;
     Input input;
 
@@ -43,7 +45,9 @@ Input handleInput(sf::Window& window) {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     input.mouse_x_ = mousePosition.x;
     input.mouse_y_ = mousePosition.y;
+
     input.shoot_ = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+    std::cout << input.shoot_ << std::endl;
 
     return input;
 }

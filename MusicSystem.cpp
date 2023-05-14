@@ -1,3 +1,4 @@
+#pragma once
 #include "SoundComponent.h"
 #include "MusicComponent.h"
 #include "Entity.h"

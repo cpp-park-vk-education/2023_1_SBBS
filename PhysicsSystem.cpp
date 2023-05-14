@@ -1,9 +1,11 @@
+#pragma once
 #include "PhysicsSystem.h"
 #include "PositionComponent.h"
 #include "Types.h"
 #include <math.h>
 #include "CollisionComponent.h"
 #include <iostream>
+#include "SpawnerSystem.h"
 #include <Windows.h>
 
 int base_x = 1;
@@ -27,6 +29,11 @@ int calculate_coner(const Input_vector& input_vector) {
 bool check(PositionComponent temp_component);
 
 void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& scene) {
+
+    BulletSpawner bs;
+    //scene.push_back(bs.Spawn(/* тут позишн */, '1')[0]); это вставишь туда, где спавнится пуля 
+    //
+
     for (int i = 0; i < scene.size(); i++) {
 
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
@@ -133,7 +140,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 new_rotation = alpha;
                 original_component->setRotation(new_rotation);
 
-                std::cout << alpha << std::endl;
+                //std::cout << alpha << std::endl;
             }
             else if (scene[i].getType() == ObjectType::Bullet) {
                 PositionComponent new_component = *original_component;
