@@ -26,7 +26,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 		graph_to_add->setImage(img);
 		break;
 
-	case '2': // tank type 1
+	case '2': // tank type 2
 		img.loadFromFile("Image/tank_2_body_100_100.png");
 		graph_to_add->setImage(img);
 		break;
