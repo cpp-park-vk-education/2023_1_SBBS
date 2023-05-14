@@ -1,5 +1,5 @@
 #include "GameState.h"
-#include "AudioSystem.h"
+#include "MusicSystem.h"
 #include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputHandler.h"
@@ -67,11 +67,14 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 				break;
 			}
 		}
+	BannerSpawner bs;
+	scene.push_back(bs.Spawn(Position(0, 0), 's')[0]);
 		
-
-	AudioSystem as;
+	MusicSystem ms;
 	GraphicsSystem gs;
 	PhysicsSystem ps;
+
+	ms.playMusic(scene);
 
 	Entity* my_tank = getMyTank(scene);
 	bool ESC_pressed = false;
@@ -79,8 +82,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	while (!isDead(my_tank) && !ESC_pressed && window.isOpen()) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
-		as.playEffects(scene);
-		//Sleep(50);
+		
 	}
 	return this;
 }
