@@ -1,5 +1,6 @@
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
+#include "CollisionComponent.h"
 #include "PositionComponent.h"
 #include "Types.h"
 #include <SFML/Graphics.hpp>
@@ -13,6 +14,8 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
+	CollisionComponent* coll_to_add = nullptr;
+
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -22,6 +25,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	case 'w' : // stone wall 
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setImage(img);
+		coll_to_add = new CollisionComponent(position, 0, 50, 50);
 		break;
 
 	case 's' : // sand floor
@@ -48,6 +52,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 		break;
 	}
 
+	if (coll_to_add) to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
 	to_add_vec.push_back(to_add);

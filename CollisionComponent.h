@@ -40,8 +40,8 @@ public:
     CollisionComponent(Position position, int rotation, int height, int width){
         position_ = position;
         rotation_ = rotation;
-        height_ = height_ / 2;
-        width_ = width_ / 2;
+        height_ = height / 2;
+        width_ = width / 2;
         for (int i = 0; i < 4; i++) {
             hitbox_.push_back(position_);
         }           

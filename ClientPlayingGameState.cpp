@@ -20,7 +20,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	
 	MapSpawner ws;
 	TankSpawner ts;
-	std::ifstream map_file("Maps/lvl4.txt");
+	std::ifstream map_file("Maps/lvlTest2.txt");
 
 	map_file >> map_width;
 	map_file >> map_height;
@@ -68,13 +68,13 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			}
 		}
 	BannerSpawner bs;
-	scene.push_back(bs.Spawn(Position(0, 0), 's')[0]);
+	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
 		
 	MusicSystem ms;
 	GraphicsSystem gs;
 	PhysicsSystem ps;
 
-	ms.playMusic(scene);
+	//ms.playMusic(scene); menu music
 
 	Entity* my_tank = getMyTank(scene);
 	bool ESC_pressed = false;

@@ -28,6 +28,7 @@ bool check(PositionComponent temp_component);
 
 void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& scene) {
     for (int i = 0; i < scene.size(); i++) {
+
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
         if (scene[i].getEntityID() == -1) {
             if (scene[i].getType() == ObjectType::Tank) {
@@ -110,7 +111,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
                 }
-                return;
+                
             }
             else if (scene[i].getType() == ObjectType::Turret) {
                 PositionComponent new_component = *original_component;
