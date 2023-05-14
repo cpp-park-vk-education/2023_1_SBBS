@@ -36,8 +36,8 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			}
 
 			Position curr_pos;
-			curr_pos.x = j * 50;
-			curr_pos.y = i * 50;
+			curr_pos.x = j * 50 + 25;
+			curr_pos.y = i * 50 + 25;
 			std::vector<Entity> temp_ent{ Entity(ObjectType::Map) };
 
 			switch (current_block) {

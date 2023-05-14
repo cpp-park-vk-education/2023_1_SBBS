@@ -15,6 +15,7 @@ public:
         obj_sprite_.setTexture(obj_texture_);
 
         obj_sprite_.setScale(0.5f, 0.5f);
+        obj_sprite_.setOrigin(50, 50);
         //Возможно, сюда надо передать коэффициент сжатия. Либо же сделать его одинаковым для всех
     };
 
