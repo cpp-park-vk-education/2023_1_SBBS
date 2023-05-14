@@ -1,12 +1,12 @@
 19
 10
 wwwwwwwwwwwwwwwwwww
-w      w    w     w
-w                 w
-w                 w
-w    w      w     w
-w                 w
-w   w   w   w     w
-w           w     w
-w    w            w
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
 wwwwwwwwwwwwwwwwwww

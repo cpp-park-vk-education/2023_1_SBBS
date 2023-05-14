@@ -22,6 +22,8 @@ public:
 
     void setPosition(Position& position) { position_ = &position; };
 
+    void setPosition(Position* position) { position_ = position; };
+
     void setRotation(const int& coner) {
         rotation = coner;
     }

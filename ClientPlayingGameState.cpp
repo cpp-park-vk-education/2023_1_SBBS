@@ -34,23 +34,27 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			}
 
 			Position curr_pos;
-			curr_pos.x = j * 1;
-			curr_pos.y = i * 1;
+			curr_pos.x = j * 100;
+			curr_pos.y = i * 100;
+			Entity temp_ent(ObjectType::Map);
 
 			switch (current_block) {
 			case 'w':
-				scene.push_back(ws.Spawn(curr_pos, 'w')[0]);
+				temp_ent = ws.Spawn(curr_pos, 'w')[0];
+				temp_ent.setEntityID(i * map_width + j);
+				scene.push_back(temp_ent);
 				break;
-			case' ':
-				scene.push_back(ws.Spawn(curr_pos, ' ')[0]);
+			case's':
+				temp_ent = ws.Spawn(curr_pos, 's')[0];
+				temp_ent.setEntityID(i * map_width + j);
+				scene.push_back(temp_ent);
 				break;
-			case 'b':
+			case ' ':
+				std::cout << "Have s here\n";
 				break;
 			default:
 				break;
 			}
-
-			scene.back().setEntityID(i * map_width + j);
 		}
 		
 
@@ -61,12 +65,14 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	Entity* my_tank = getMyTank(scene);
 	bool ESC_pressed = false;
 
+	int x = 0;
 	while (!isDead(my_tank) && !ESC_pressed) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
-		for (int i = 0; i < 100000; ++i);
-		std::cout << "bruh\n";
+		//for (int i = 0; i < 100000;);
+		std::cout << x++ << "\n";
+		
 	}
 	return this;
 }

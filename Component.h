@@ -7,9 +7,12 @@ enum class ComponentID : char {
 
 struct Position {
 
-    int x = -1;
-    int y = -1;
+    int x;
+    int y;
 
+    Position() { x = -1; y = -1; }
+
+    Position(int _x, int _y) { x = _x; y = _y; }
 };
 
 class Component {

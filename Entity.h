@@ -15,6 +15,11 @@ public:
 
     Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};
 
+   /* Entity operator= (Entity& other) {
+        components_ = other.components_;
+        return *this;
+    }*/
+
     Component* getComponentByID(const ComponentID& id) {
         try {
             return components_.at(id);

@@ -13,7 +13,9 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
-	pos_to_add->setPosition(position);
+
+	Position* pos_struc_to_add = new Position(position.x, position.y);
+	pos_to_add->setPosition(pos_struc_to_add);
 
 	switch (subType)
 	{
@@ -22,7 +24,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 		graph_to_add->setImage(img);
 		break;
 
-	case ' ' : // sand floor
+	case 's' : // sand floor
 		img.loadFromFile("Image/Sand_100_100.png");
 		graph_to_add->setImage(img);
 		break;
