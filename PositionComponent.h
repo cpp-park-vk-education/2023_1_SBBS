@@ -18,11 +18,13 @@ public:
         return speed_; 
     }
 
-    double getRotation() { return rotation; }
+    int getRotation() { return rotation; }
 
     void setPosition(Position& position) { position_ = &position; };
 
-    void setRotation();
+    void setRotation(const int& coner) {
+        rotation = coner;
+    }
 
 
 
@@ -34,5 +36,5 @@ private:
 
     int speed_;
 
-    double rotation = -1;
+    int rotation;
 };

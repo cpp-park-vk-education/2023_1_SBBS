@@ -2,6 +2,7 @@
 #include "PositionComponent.h"
 #include "Types.h"
 #include <math.h>
+#include "CollisionComponent.h"
 
 const int base_x = 0;
 const int base_y = -1;
@@ -21,13 +22,17 @@ int calculate_coner(const Input_vector& input_vector) {
     return acos(cos);
 }
 
+bool check(PositionComponent temp_component);
+
 void updatePositions(const Input& inputs, std::vector<Entity> scene) {
     for (int i = 0; i < scene.size(); i++) {
-        PositionComponent* temp_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
+        PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
         if (scene[i].getEntityID() == -1) {
             if (scene[i].getType() == ObjectType::Tank) {
-                Position temp_position = *temp_component->getPosition();
-                
+                PositionComponent new_component = *original_component;
+                Position new_position = *new_component.getPosition();
+                int new_rotation = new_component.getRotation();
+
                 Input_vector input_vector;
 
                 if (inputs.moving_right_) {
@@ -50,24 +55,36 @@ void updatePositions(const Input& inputs, std::vector<Entity> scene) {
                     prop = 0.7;
                 else prop = 1;
 
-                temp_position.x = moving(temp_position.x, temp_component->getSpeed(), prop);                
-                temp_position.y = moving(temp_position.y, temp_component->getSpeed(), prop);
+                new_position.x = moving(new_position.x, new_component.getSpeed(), prop);                
+                new_position.y = moving(new_position.y, new_component.getSpeed(), prop);
+                new_rotation += alpha;
 
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
 
+                CollisionComponent new_collision = *my_collision;
+
+                new_collision.setPosition(new_position);
+                new_collision.setRotation(new_rotation);
+
+                bool flag = true;
+                for (int j = 0; j < scene.size(); j++) {
+                    if (j == i) continue;
+                    /////////////// Добавить условие на то, что i-й объект - это не своя же башня, а то никуда не поедем.
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    if (!new_collision.checkCollision(another_collision)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    original_component->setPosition(new_position);
+                    original_component->setRotation(new_rotation);
+                    *my_collision = new_collision;
+                }
+                return;
             }          
         }
-        
-        
-
-
-
     }
-    /* bool moving_right_ = false;
-    bool moving_left_ = false;
-    bool moving_up_ = false;
-    bool moving_down_ = false;*/
-
-
 }
 
 

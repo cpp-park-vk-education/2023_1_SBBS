@@ -4,7 +4,7 @@
 
 class HealthComponent : public Component {
 public:
-    HealthComponent(int health, bool mortal);
+    HealthComponent(bool mortal, int health = 0);
 
     bool isMortal();
 
@@ -14,6 +14,6 @@ public:
 
 private:
 
-    bool mortal_ = false; 
-    int health_ = -1;
+    bool mortal_; 
+    int health_;
 };
