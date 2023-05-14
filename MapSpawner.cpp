@@ -22,8 +22,8 @@ std::vector<Entity> MapSpawner::Spawn(Position& position, char subType) {
 		graph_to_add->setImage(img);
 		break;
 
-	case ' ' : // send floor
-		img.loadFromFile("Image/Send_100_100.png");
+	case ' ' : // sand floor
+		img.loadFromFile("Image/Sand_100_100.png");
 		graph_to_add->setImage(img);
 		break;
 

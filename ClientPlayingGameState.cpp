@@ -29,15 +29,15 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			map_file >> current_block;
 
 			Position curr_pos;
-			curr_pos.x = j * 10;
-			curr_pos.y = i * 10;
+			curr_pos.x = j * 1;
+			curr_pos.y = i * 1;
 
 			switch (current_block) {
 			case 'w':
 				scene.push_back(ws.Spawn(curr_pos, 'w')[0]);
 				break;
 			case' ':
-				scene.push_back(ws.Spawn(curr_pos, '0')[0]);
+				scene.push_back(ws.Spawn(curr_pos, ' ')[0]);
 				break;
 			case 'b':
 				break;

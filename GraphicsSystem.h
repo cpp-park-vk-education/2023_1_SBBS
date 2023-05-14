@@ -6,5 +6,5 @@
 
 class GraphicsSystem : public System {
 public:
-    void renderScene(std::vector<Entity>& scene, sf::Window& window);
+    void renderScene(std::vector<Entity>& scene, sf::RenderWindow& window);
 };
