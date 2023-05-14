@@ -18,7 +18,7 @@ inline bool intersect_1(int a, int b, int c, int d) {
     return std::max(a, c) <= std::min(b, d);
 }
 
-bool intersect(Position a, Position b, Position c, Position d) {
+inline bool intersect(Position a, Position b, Position c, Position d) {
     int A1 = a.y - b.y, B1 = b.x - a.x, C1 = -A1 * a.x - B1 * a.y;
     int A2 = c.y - d.y, B2 = d.x - c.x, C2 = -A2 * c.x - B2 * c.y;
     int zn = det(A1, B1, A2, B2);
@@ -37,36 +37,23 @@ bool intersect(Position a, Position b, Position c, Position d) {
 class CollisionComponent : public Component {
 public:
 
-    CollisionComponent(Position* position_, int rotation, int height_, int width_, ObjectType type_){
-        this->position_ = position_;
-        this->rotation = rotation;
-        this->type_ = type_;
-        if (type_ != ObjectType::Turret) {
-            height_ = height_ / 2;
-            width_ = width_ / 2;
-            for (int i = 0; i < 4; i++) {
-                hitbox_.push_back(*position_);
-            }           
-            hitbox_[0].x = position_->x + (cos(rotation) * (height_)+cos(rotation + 90) * (width_));
-            hitbox_[1].x = position_->x + (cos(rotation) * (height_)+cos(90 - rotation) * (width_));
-            hitbox_[2].x = position_->x - (cos(rotation) * (height_)+cos(rotation + 90) * (width_));
-            hitbox_[3].x = position_->x - (cos(rotation) * (height_)+cos(90 - rotation) * (width_));
-            hitbox_[0].y = position_->y + (sin(rotation) * (height_)+sin(rotation + 90) * (width_));
-            hitbox_[1].y = position_->y + (sin(rotation) * (height_)+sin(90 - rotation) * (width_));
-            hitbox_[2].y = position_->y - (sin(rotation) * (height_)+sin(rotation + 90) * (width_));
-            hitbox_[3].y = position_->y - (sin(rotation) * (height_)+sin(90 - rotation) * (width_));
-        }
-        else {
-            width_ = width_ / 2;
-            hitbox_[0].x = position_->x + (cos(rotation) * (height_)+cos(rotation + 90) * (width_));
-            hitbox_[1].x = position_->x + (cos(rotation) * (height_)+cos(90 - rotation) * (width_));
-            hitbox_[2].y = position_->y + (sin(rotation) * (height_)+sin(rotation + 90) * (width_));
-            hitbox_[3].y = position_->y + (sin(rotation) * (height_)+sin(90 - rotation) * (width_));
-            hitbox_[0].x = position_->x - cos(rotation + 90) * (width_);
-            hitbox_[1].x = position_->x - cos(90 - rotation) * (width_);
-            hitbox_[2].y = position_->y - sin(rotation + 90) * (width_);
-            hitbox_[3].y = position_->y - sin(90 - rotation) * (width_);
-        }      
+    CollisionComponent(Position position, int rotation, int height, int width){
+        position_ = position;
+        rotation_ = rotation;
+        height_ = height_ / 2;
+        width_ = width_ / 2;
+        for (int i = 0; i < 4; i++) {
+            hitbox_.push_back(position_);
+        }           
+        hitbox_[0].x = position_.x + (cos(rotation) * (height_)+cos(rotation + 90) * (width_));
+        hitbox_[1].x = position_.x + (cos(rotation) * (height_)+cos(90 - rotation) * (width_));
+        hitbox_[2].x = position_.x - (cos(rotation) * (height_)+cos(rotation + 90) * (width_));
+        hitbox_[3].x = position_.x - (cos(rotation) * (height_)+cos(90 - rotation) * (width_));
+        hitbox_[0].y = position_.y + (sin(rotation) * (height_)+sin(rotation + 90) * (width_));
+        hitbox_[1].y = position_.y + (sin(rotation) * (height_)+sin(90 - rotation) * (width_));
+        hitbox_[2].y = position_.y - (sin(rotation) * (height_)+sin(rotation + 90) * (width_));
+        hitbox_[3].y = position_.y - (sin(rotation) * (height_)+sin(90 - rotation) * (width_));
+    
     }
 
     CollisionComponent(){
@@ -91,10 +78,10 @@ public:
     ~CollisionComponent() = default;
 
 
-    void setPosition(Position& position) { position_ = &position; }
+    void setPosition(Position& position) { position_ = position; }
 
     void setRotation(const int& coner) {
-        rotation = coner;
+        rotation_ = coner;
     }
 
     std::vector<Position> get_hitbox() {
@@ -107,13 +94,11 @@ public:
 
 private:
 
-    ObjectType type_;
-
-    Position* position_;
+    Position position_;
 
     std::vector<Position> hitbox_;
 
-    int rotation;
+    int rotation_;
 
     int height_ = -1;
     int width_ = -1;
