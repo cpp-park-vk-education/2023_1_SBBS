@@ -34,8 +34,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
 
-                new_position.x += 50;
-                new_position.y += 50;
+
 
                 Input_vector input_vector;
                 input_vector.x = 0;
@@ -64,7 +63,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     prop = 0.7;
                 else prop = 1;
                 
-                //std::cout << prop * input_vector.x << ' ' << prop * input_vector.x << std::endl;
+                /*std::cout << new_position.x << ' ' << new_position.y << std::endl;*/
 
                 new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);                
                 new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
@@ -73,8 +72,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
 
                 CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
                 if (!my_collision) {
-                    new_position.x -= 50;
-                    new_position.y -= 50;
+
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     continue;
@@ -96,8 +94,6 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     }
                 }
                 if (flag) {
-                    new_position.x -= 25;
-                    new_position.y -= 25;
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
@@ -109,9 +105,6 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
 
-                new_position.x += 25;
-                new_position.y += 25;
-
                 Input_vector input_vector;
 
                 input_vector.x = inputs.mouse_x_ - new_position.x;
@@ -120,7 +113,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
 
                 int alpha = calculate_coner(input_vector);
 
-                if (inputs.mouse_y_ < new_position.x) {
+                if (inputs.mouse_y_ < new_position.y) {
                     alpha = 360 - alpha;
                 }
 
@@ -128,6 +121,14 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 original_component->setRotation(new_rotation);
 
                 std::cout << alpha << std::endl;
+            }
+            else if (scene[i].getType() == ObjectType::Bullet) {
+                PositionComponent new_component = *original_component;
+                Position new_position = new_component.getPosition();
+                int new_rotation = new_component.getRotation();
+
+                new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
+                new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
             }
         }
     }
