@@ -59,34 +59,51 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 new_position.y = moving(new_position.y, new_component.getSpeed(), prop*input_vector.y);
                 new_rotation += alpha;
 
-                original_component->setPosition(new_position);
 
-                //CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
 
-                //CollisionComponent new_collision = *my_collision;
+                CollisionComponent new_collision = *my_collision;
 
-                //new_collision.setPosition(new_position);
-                //new_collision.setRotation(new_rotation);
+                new_collision.setPosition(new_position);
+                new_collision.setRotation(new_rotation);
 
-                //bool flag = true;
-                //for (int j = 0; j < scene.size(); j++) {
-                //    if (j == i) continue;
-                //    /////////////// Добавить условие на то, что i-й объект - это не своя же башня, а то никуда не поедем.
-                //    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
-                //    if (!new_collision.checkCollision(another_collision)) {
-                //        flag = false;
-                //        break;
-                //    }
-                //}
-                //if (flag) {
-                //    original_component->setPosition(new_position);
-                //    original_component->setRotation(new_rotation); // нахуй два раза делать?
-                //    *my_collision = new_collision;
-                //}
+                bool flag = true;
+                for (int j = 0; j < scene.size(); j++) {
+                    if (j == i) continue;
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    if (!another_collision) continue;
+                    if (!new_collision.checkCollision(another_collision)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    original_component->setPosition(new_position);
+                    original_component->setRotation(new_rotation);
+                    *my_collision = new_collision;
+                }
                 return;
-            }          
+            }
+            else if (scene[i].getType() == ObjectType::Turret) {
+                PositionComponent new_component = *original_component;
+                Position new_position = new_component.getPosition();
+                int new_rotation = new_component.getRotation();
+
+                Input_vector input_vector;
+
+                input_vector.x = inputs.mouse_x_;
+                input_vector.y = inputs.mouse_y_;
+
+                int alpha = calculate_coner(input_vector);
+                new_rotation += alpha;
+                original_component->setRotation(new_rotation);
+            }
         }
     }
 }
+                    
+        
+    
+
 
 
