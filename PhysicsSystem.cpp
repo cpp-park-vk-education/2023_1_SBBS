@@ -14,7 +14,7 @@ struct Input_vector {
 };
 
 int moving(int coordinate, int speed, float prop) {
-    return int(coordinate + prop*speed);
+    return coordinate + int(prop*speed);
 }
 
 int calculate_coner(const Input_vector& input_vector) {
@@ -59,7 +59,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 int alpha = calculate_coner(input_vector);
                 float prop;
 
-                if (input_vector.x * input_vector.y)
+                if (abs(input_vector.x * input_vector.y))
                     prop = 0.7;
                 else prop = 1;
                 
