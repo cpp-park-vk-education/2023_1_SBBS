@@ -4,6 +4,7 @@
 #include <math.h>
 #include "CollisionComponent.h"
 #include <iostream>
+#include <Windows.h>
 
 int base_x = 1;
 int base_y = 0;
@@ -14,12 +15,12 @@ struct Input_vector {
 };
 
 int moving(int coordinate, int speed, float prop) {
-    return int(coordinate + prop*speed);
+    return coordinate + int(prop*speed);
 }
 
 int calculate_coner(const Input_vector& input_vector) {
     double cos = (base_x * input_vector.x + base_y * input_vector.y) /
-    (sqrt(base_x * base_x + base_y * base_y) + sqrt(input_vector.x * input_vector.x + input_vector.y * input_vector.y));
+    (sqrt(base_x * base_x + base_y * base_y) * sqrt(input_vector.x * input_vector.x + input_vector.y * input_vector.y));
     return acos(cos)*180/3.14;
 }
 
@@ -33,7 +34,6 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
-
 
 
                 Input_vector input_vector;
@@ -55,18 +55,30 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     input_vector.y += 1;
                 }
 
-                
-                int alpha = calculate_coner(input_vector);
+                int alpha;
+
+                if (!(input_vector.x == 0 && input_vector.y == 0)) {
+                    alpha = calculate_coner(input_vector);
+                }
+                else alpha = new_rotation;
                 float prop;
 
-                if (input_vector.x * input_vector.y)
-                    prop = 0.7;
+
+
+                if (abs(input_vector.x * input_vector.y))
+                    prop = 0.707;
                 else prop = 1;
                 
-                /*std::cout << new_position.x << ' ' << new_position.y << std::endl;*/
 
                 new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);                
                 new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
+
+                input_vector.x = new_position.x + input_vector.x;
+                input_vector.y = new_position.y + input_vector.y;
+                if (input_vector.y < new_position.y) {
+                    alpha = 360 - alpha;
+                }
+
                 new_rotation = alpha;
 
 
@@ -129,6 +141,27 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
 
                 new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
                 new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
+
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                if (!my_collision) {
+
+                    original_component->setPosition(new_position);
+                    original_component->setRotation(new_rotation);
+                    continue;
+                }
+
+                CollisionComponent new_collision = *my_collision;
+
+                bool flag = true;
+                for (int j = 0; j < scene.size(); j++) {
+                    if (j == i) continue;
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    if (!another_collision) continue;
+                    if (!new_collision.checkCollision(another_collision)) {
+                        flag = false;
+                        break;
+                    }
+                }
             }
         }
     }

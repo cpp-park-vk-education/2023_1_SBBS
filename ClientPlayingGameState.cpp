@@ -20,7 +20,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	
 	MapSpawner ws;
 	TankSpawner ts;
-	std::ifstream map_file("Maps/lvlTest.txt");
+	std::ifstream map_file("Maps/lvl4.txt");
 
 	map_file >> map_width;
 	map_file >> map_height;
@@ -52,7 +52,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 				scene.push_back(temp_ent[0]);
 				break;
 			case'd':
-				temp_ent = ws.Spawn(curr_pos, 's');
+				temp_ent = ws.Spawn(curr_pos, 'd');
 				temp_ent[0].setEntityID(i * map_width + j);
 				scene.push_back(temp_ent[0]);
 				break;
