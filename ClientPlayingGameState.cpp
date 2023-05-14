@@ -18,7 +18,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	std::vector<Entity> scene;
 	
 	MapSpawner ws;
-	std::ifstream map_file("Maps/lvl2.txt");
+	std::ifstream map_file("Maps/lvl3.txt");
 
 	map_file >> map_width;
 	map_file >> map_height;
@@ -46,6 +46,11 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 				break;
 			case's':
 				temp_ent = ws.Spawn(curr_pos, 's')[0];
+				temp_ent.setEntityID(i * map_width + j);
+				scene.push_back(temp_ent);
+				break;
+			case'd':
+				temp_ent = ws.Spawn(curr_pos, 'd')[0];
 				temp_ent.setEntityID(i * map_width + j);
 				scene.push_back(temp_ent);
 				break;
