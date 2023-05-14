@@ -93,8 +93,8 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
 
                 CollisionComponent new_collision = *my_collision;
 
-                new_collision.setPosition(new_position);
-                new_collision.setRotation(new_rotation);
+                new_collision.update(new_position, new_rotation);
+
 
                 bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
