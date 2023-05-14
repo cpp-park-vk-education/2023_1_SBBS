@@ -56,7 +56,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 
 	while (!isDead(my_tank) && !ESC_pressed) {
 		ps.updatePositions(handleInput(window), scene);
-		gs.renderScene(scene);
+		gs.renderScene(scene,window);
 		as.playEffects(scene);
 	}
 	return this;
@@ -74,6 +74,9 @@ Entity* getMyTank(std::vector<Entity>& scene) {
 
 
 bool isDead(Entity* tank) {
+	if (!tank)
+		return false;
+
     HealthComponent* health_component = dynamic_cast<HealthComponent*>(tank->getComponentByID(ComponentID::HealthComponent));
     return health_component->getHealth() > 0;
 }

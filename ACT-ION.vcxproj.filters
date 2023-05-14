@@ -45,14 +45,17 @@
     <ClCompile Include="ClientPlayingGameState.cpp">
       <Filter>Файлы ресурсов\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="WallSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnerSystem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="BannerSpawner.cpp">
       <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Файлы ресурсов\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="MapSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Файлы ресурсов\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

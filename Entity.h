@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "Types.h"
 #include "HealthComponent.h"
+#include <stdexcept>
 
 class Component;
 
@@ -13,9 +14,13 @@ public:
     Entity(ObjectType type) : type_(type) {};
 
     Component* getComponentByID(const ComponentID& id) {
-        return components_.at(id);
+        try {
+            return components_.at(id);
+        }
+        catch (std::out_of_range) {
+            return nullptr;
+        }
     }
-
     ObjectType getType() { return type_; }
 
     void putComponent(ComponentID id, Component* to_add) { components_.insert({ id,to_add }); };

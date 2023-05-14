@@ -32,6 +32,7 @@ std::vector<Entity> MapSpawner::Spawn(Position& position, char subType) {
 	}
 
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
 	to_add_vec.push_back(to_add);
 	return to_add_vec;
 }

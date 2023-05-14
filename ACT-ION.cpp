@@ -10,7 +10,7 @@ int main() {
 
 	GameState* curr_state = new ClientPlayingGameState();
 
-	sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "ACT-ION", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode({ 1600,720  }), "ACT-ION");
 
 	while (1) {
 		curr_state = curr_state->update(window);
