@@ -13,6 +13,8 @@ public:
 
     Entity(ObjectType type) : type_(type) {};
 
+    Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};
+
     Component* getComponentByID(const ComponentID& id) {
         try {
             return components_.at(id);
@@ -26,6 +28,8 @@ public:
     void putComponent(ComponentID id, Component* to_add) { components_.insert({ id,to_add }); };
 
     int getEntityID() { return entity_id_; };
+
+    void setEntityID(int id) { entity_id_ = id; }
 
 private:
 

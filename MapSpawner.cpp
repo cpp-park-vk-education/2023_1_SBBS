@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-std::vector<Entity> MapSpawner::Spawn(Position& position, char subType) {
+std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	std::vector<Entity> to_add_vec;
 
 	Entity to_add(ObjectType::Map);

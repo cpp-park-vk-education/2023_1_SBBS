@@ -5,7 +5,7 @@
 #include "InputHandler.h"
 #include "SpawnerSystem.h"
 #include <fstream>
-
+#include <iostream>
 
 Entity* getMyTank(std::vector<Entity>& scene);
 bool isDead(Entity* tank);
@@ -28,6 +28,11 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			char current_block = 0;
 			map_file >> current_block;
 
+
+			if ((i * map_width + j) == 61) {
+				int x = 0;
+			}
+
 			Position curr_pos;
 			curr_pos.x = j * 1;
 			curr_pos.y = i * 1;
@@ -44,8 +49,10 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			default:
 				break;
 			}
-		}
 
+			scene.back().setEntityID(i * map_width + j);
+		}
+		
 
 	AudioSystem as;
 	GraphicsSystem gs;
@@ -58,6 +65,8 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
+		for (int i = 0; i < 100000; ++i);
+		std::cout << "bruh\n";
 	}
 	return this;
 }
