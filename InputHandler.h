@@ -4,7 +4,8 @@
 #include <iostream>
 
 Input handleInput(sf::Window& window) {
-    Input curr_input;
+    static Input curr_input;
+    Input input;
 
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -34,14 +35,15 @@ Input handleInput(sf::Window& window) {
             break;
         }
     }
-
-    //std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
+    input = curr_input;
+    
+    std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
     //curr_input.moving_right_ = true;
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    curr_input.mouse_x_ = mousePosition.x;
-    curr_input.mouse_y_ = mousePosition.y;
-    curr_input.shoot_ = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+    input.mouse_x_ = mousePosition.x;
+    input.mouse_y_ = mousePosition.y;
+    input.shoot_ = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 
-    return curr_input;
+    return input;
 }
