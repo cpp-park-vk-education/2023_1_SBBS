@@ -41,6 +41,7 @@ void GraphicsSystem::renderScene(std::vector<Entity>& scene, sf::RenderWindow& w
         if (current_pos->getRotation() >= 0) {
             curr_sprite.setRotation(current_pos->getRotation());
         }
+
         curr_sprite.setPosition(current_pos->getPosition().x, current_pos->getPosition().y);
         window.draw(curr_sprite);
     }
