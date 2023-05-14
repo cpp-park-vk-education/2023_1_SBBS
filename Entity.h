@@ -21,13 +21,9 @@ public:
     }*/
 
     Component* getComponentByID(const ComponentID& id) {
-        try {
-            return components_.at(id);
-        }
-        catch (std::out_of_range) {
-            return nullptr;
-        }
+            return components_[id];
     }
+
     ObjectType getType() { return type_; }
 
     void putComponent(ComponentID id, Component* to_add) { components_.insert({ id,to_add }); };

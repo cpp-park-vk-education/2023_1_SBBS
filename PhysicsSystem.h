@@ -9,8 +9,4 @@ class PhysicsSystem : public System {
 public:
 
     void updatePositions(const Input& inputs, std::vector<Entity>& scene);
-    //void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity> scene)
-
-        /*HealthComponent* temp_component = dynamic_cast<HealthComponent*>(scene[1].getComponentByID(ComponentID::HealthComponent));
-        temp_component->setHealth(10);*/
 };

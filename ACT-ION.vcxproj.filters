@@ -54,7 +54,7 @@
     <ClCompile Include="MapSpawner.cpp">
       <Filter>Файлы ресурсов\Spawners</Filter>
     </ClCompile>
-    <ClCompile Include="AudioSystem.cpp">
+    <ClCompile Include="MusicSystem.cpp">
       <Filter>Файлы ресурсов\Systems</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuGameState.cpp">
@@ -64,6 +64,9 @@
       <Filter>Файлы ресурсов\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="MenuSystem.cpp">
+      <Filter>Файлы ресурсов\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
       <Filter>Файлы ресурсов\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,7 +83,7 @@
     <ClInclude Include="Entity.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="AudioSystem.h">
+    <ClInclude Include="MusicSystem.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="InputHandler.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

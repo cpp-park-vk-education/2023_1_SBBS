@@ -4,9 +4,9 @@
 #include "Entity.h"
 #include "Input.h"
 
-class AudioSystem : public System {
+class MusicSystem : public System {
 public:
 
-    void playEffects(std::vector<Entity>& scene);
+    void playMusic(std::vector<Entity>& scene);
 
 };

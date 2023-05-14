@@ -37,7 +37,7 @@ Input handleInput(sf::Window& window) {
     }
     input = curr_input;
     
-    std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
+    //std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
     //curr_input.moving_right_ = true;
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
