@@ -34,8 +34,8 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			}
 
 			Position curr_pos;
-			curr_pos.x = j * 100;
-			curr_pos.y = i * 100;
+			curr_pos.x = j * 50;
+			curr_pos.y = i * 50;
 			Entity temp_ent(ObjectType::Map);
 
 			switch (current_block) {
@@ -65,14 +65,10 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	Entity* my_tank = getMyTank(scene);
 	bool ESC_pressed = false;
 
-	int x = 0;
 	while (!isDead(my_tank) && !ESC_pressed) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
-		//for (int i = 0; i < 100000;);
-		std::cout << x++ << "\n";
-		
 	}
 	return this;
 }
