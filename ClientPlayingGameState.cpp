@@ -80,7 +80,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
-		Sleep(50);
+		//Sleep(50);
 	}
 	return this;
 }

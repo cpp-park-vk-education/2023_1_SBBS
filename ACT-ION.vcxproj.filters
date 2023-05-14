@@ -63,6 +63,9 @@
     <ClCompile Include="TankSpawner.cpp">
       <Filter>Файлы ресурсов\Spawners</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSystem.cpp">
+      <Filter>Файлы ресурсов\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

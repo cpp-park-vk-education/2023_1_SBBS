@@ -8,12 +8,15 @@ class ClickComponent : public Component {
 public:
     ClickComponent(int left, int top, int width, int height) : buttonHitBox_(sf::Rect<int>(left,top,width,height)) {}
 
-    GameState* changeState() { return state_; };
+    bool isChosen(sf::Window& window) {
+        return buttonHitBox_.contains(sf::Mouse::getPosition(window));
+    }
+
+    char getType() { return type_; }
 
 private:
-    GameState* state_;
+
+    char type_;
 
     sf::Rect<int> buttonHitBox_;
-
-    Entity* owner_ = nullptr;
 };
