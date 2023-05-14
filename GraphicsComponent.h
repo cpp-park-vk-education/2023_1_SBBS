@@ -11,6 +11,7 @@ public:
 
     void setImage(sf::Image image) {
         obj_image_ = image;
+        obj_image_.createMaskFromColor(sf::Color::White);
         obj_texture_.loadFromImage(obj_image_);
         obj_sprite_.setTexture(obj_texture_);
 
