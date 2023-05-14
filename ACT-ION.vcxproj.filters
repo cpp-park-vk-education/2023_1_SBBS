@@ -60,6 +60,9 @@
     <ClCompile Include="MainMenuGameState.cpp">
       <Filter>Файлы ресурсов\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="TankSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

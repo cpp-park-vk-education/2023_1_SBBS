@@ -18,7 +18,8 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	std::vector<Entity> scene;
 	
 	MapSpawner ws;
-	std::ifstream map_file("Maps/lvl3.txt");
+	TankSpawner ts;
+	std::ifstream map_file("Maps/lvlTest.txt");
 
 	map_file >> map_width;
 	map_file >> map_height;
@@ -36,26 +37,27 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			Position curr_pos;
 			curr_pos.x = j * 50;
 			curr_pos.y = i * 50;
-			Entity temp_ent(ObjectType::Map);
+			std::vector<Entity> temp_ent{ Entity(ObjectType::Map) };
 
 			switch (current_block) {
 			case 'w':
-				temp_ent = ws.Spawn(curr_pos, 'w')[0];
-				temp_ent.setEntityID(i * map_width + j);
-				scene.push_back(temp_ent);
+				temp_ent = ws.Spawn(curr_pos, 'w');
+				temp_ent[0].setEntityID(i * map_width + j);
+				scene.push_back(temp_ent[0]);
 				break;
 			case's':
-				temp_ent = ws.Spawn(curr_pos, 's')[0];
-				temp_ent.setEntityID(i * map_width + j);
-				scene.push_back(temp_ent);
+				temp_ent = ws.Spawn(curr_pos, 's');
+				temp_ent[0].setEntityID(i * map_width + j);
+				scene.push_back(temp_ent[0]);
 				break;
 			case'd':
-				temp_ent = ws.Spawn(curr_pos, 'd')[0];
-				temp_ent.setEntityID(i * map_width + j);
-				scene.push_back(temp_ent);
+				temp_ent = ws.Spawn(curr_pos, 's');
+				temp_ent[0].setEntityID(i * map_width + j);
+				scene.push_back(temp_ent[0]);
 				break;
-			case ' ':
-				std::cout << "Have s here\n";
+			case 't':
+				temp_ent = ts.Spawn(curr_pos, '1');
+				scene.insert(scene.end(), temp_ent.begin(), temp_ent.end());
 				break;
 			default:
 				break;
@@ -90,6 +92,8 @@ Entity* getMyTank(std::vector<Entity>& scene) {
 
 
 bool isDead(Entity* tank) {
+	return false;
+
 	if (!tank)
 		return false;
 

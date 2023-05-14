@@ -18,17 +18,19 @@ public:
         return speed_; 
     }
 
-    int getRotation() { return rotation; }
+    void setSpeed(int speed) { speed_ = speed; }
+
+    int getRotation() { return rotation_; }
 
     void setPosition(Position& position) { position_ = &position; };
 
     void setPosition(Position* position) { position_ = position; };
 
     void setRotation(const int& coner) {
-        rotation = coner;
+        rotation_ = coner;
     }
 
-
+    void setParent(PositionComponent* parent) { parent_ = parent; }
 
 private:
 
@@ -38,5 +40,5 @@ private:
 
     int speed_;
 
-    int rotation;
+    int rotation_;
 };

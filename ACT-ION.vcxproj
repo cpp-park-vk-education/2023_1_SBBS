@@ -161,6 +161,7 @@
     <ClCompile Include="MainMenuGameState.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="MapSpawner.cpp" />
+    <ClCompile Include="TankSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

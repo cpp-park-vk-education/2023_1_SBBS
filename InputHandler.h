@@ -35,6 +35,8 @@ Input handleInput(sf::Window& window) {
     }
 
 
+    curr_input.moving_right_ = true;
+
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     curr_input.mouse_x_ = mousePosition.x;
     curr_input.mouse_y_ = mousePosition.y;
