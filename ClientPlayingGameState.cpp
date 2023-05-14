@@ -6,6 +6,7 @@
 #include "SpawnerSystem.h"
 #include <fstream>
 #include <iostream>
+#include <Windows.h>
 
 Entity* getMyTank(std::vector<Entity>& scene);
 bool isDead(Entity* tank);
@@ -79,6 +80,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 		ps.updatePositions(handleInput(window), scene);
 		gs.renderScene(scene,window);
 		as.playEffects(scene);
+		Sleep(50);
 	}
 	return this;
 }
