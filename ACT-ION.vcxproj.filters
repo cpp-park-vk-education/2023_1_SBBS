@@ -69,6 +69,9 @@
     <ClCompile Include="SoundSystem.cpp">
       <Filter>Файлы ресурсов\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BulletSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

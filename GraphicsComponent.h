@@ -20,6 +20,10 @@ public:
         //Возможно, сюда надо передать коэффициент сжатия. Либо же сделать его одинаковым для всех
     };
 
+    void setOrigin(int x, int y) {
+        obj_sprite_.setOrigin(x, y);
+    }
+
     void setTexture(sf::Texture texture);
 
     void setSprite(sf::Sprite sprite);

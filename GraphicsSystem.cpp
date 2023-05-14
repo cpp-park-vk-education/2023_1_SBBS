@@ -1,3 +1,4 @@
+#pragma once
 #include "GraphicsSystem.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"

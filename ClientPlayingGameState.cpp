@@ -1,6 +1,8 @@
+#pragma once
 #include "GameState.h"
 #include "MusicSystem.h"
 #include "GraphicsSystem.h"
+#include "HealthComponent.h"
 #include "PhysicsSystem.h"
 #include "InputHandler.h"
 #include "SpawnerSystem.h"

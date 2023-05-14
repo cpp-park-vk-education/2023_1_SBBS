@@ -1,3 +1,4 @@
+#pragma once
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"

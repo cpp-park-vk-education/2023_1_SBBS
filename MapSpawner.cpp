@@ -1,7 +1,9 @@
+#pragma once
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
 #include "CollisionComponent.h"
 #include "PositionComponent.h"
+#include "HealthComponent.h"
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
@@ -15,7 +17,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add = nullptr;
-
+	HealthComponent* health_to_add = nullptr;// new HealthComponent(true, 100);
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -26,6 +28,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
+		health_to_add = new HealthComponent(false, 100);
 		break;
 
 	case 's' : // sand floor
@@ -52,6 +55,7 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 		break;
 	}
 
+	if (health_to_add) to_add.putComponent(ComponentID::HealthComponent, health_to_add);
 	if (coll_to_add) to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);

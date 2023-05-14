@@ -1,7 +1,9 @@
+#pragma once
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"
 #include "CollisionComponent.h"
+#include "HealthComponent.h"
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
@@ -17,6 +19,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add =  new CollisionComponent(position, 0, 50, 50);
+	HealthComponent* health_to_add = new HealthComponent(true, 100);
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -40,6 +43,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	
 	pos_to_add->setSpeed(2);
 	graph_to_add->layer = true;
+	tank.putComponent(ComponentID::HealthComponent, health_to_add);
 	tank.putComponent(ComponentID::CollisionComponent, coll_to_add);
 	tank.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	tank.putComponent(ComponentID::PositionComponent, pos_to_add);

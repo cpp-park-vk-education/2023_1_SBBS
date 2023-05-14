@@ -3,8 +3,6 @@
 #include "Component.h"
 #include <unordered_map>
 #include "Types.h"
-#include "HealthComponent.h"
-#include <stdexcept>
 
 class Component;
 
