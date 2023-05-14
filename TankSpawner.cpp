@@ -36,6 +36,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	}
 
 	pos_to_add->setSpeed(20);
+	graph_to_add->layer = true;
 	tank.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	tank.putComponent(ComponentID::PositionComponent, pos_to_add);
 	to_add_vec.push_back(tank);
@@ -67,7 +68,7 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	}
 
 	turr_pos_to_add->setParent(pos_to_add);
-
+	graph_to_add->layer = true;
 	turret.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	turret.putComponent(ComponentID::PositionComponent, turr_pos_to_add);
 	to_add_vec.push_back(turret);

@@ -58,6 +58,9 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 			case 't':
 				temp_ent = ts.Spawn(curr_pos, '1');
 				scene.insert(scene.end(), temp_ent.begin(), temp_ent.end());
+				temp_ent = ws.Spawn(curr_pos, 's');
+				temp_ent[0].setEntityID(i * map_width + j);
+				scene.push_back(temp_ent[0]);
 				break;
 			default:
 				break;
