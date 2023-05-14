@@ -3,9 +3,10 @@
 #include "Types.h"
 #include <math.h>
 #include "CollisionComponent.h"
+#include <iostream>
 
-const int base_x = 0;
-const int base_y = -1;
+const int base_x = 1;
+const int base_y = 0;
 
 struct Input_vector {
     int x = 0;
@@ -19,7 +20,7 @@ int moving(int coordinate, int speed, float prop) {
 int calculate_coner(const Input_vector& input_vector) {
     double cos = (base_x * input_vector.x + base_y * input_vector.y) /
     (sqrt(base_x * base_x + base_y * base_y) + sqrt(input_vector.x * input_vector.x + input_vector.y * input_vector.y));
-    return acos(cos);
+    return acos(cos)-1;
 }
 
 bool check(PositionComponent temp_component);
@@ -34,6 +35,9 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 int new_rotation = new_component.getRotation();
 
                 Input_vector input_vector;
+                input_vector.x = 0;
+                input_vector.y = 0;
+
 
                 if (inputs.moving_right_) {
                     input_vector.x += 1;
@@ -48,6 +52,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     input_vector.y += 1;
                 }
 
+                
                 int alpha = calculate_coner(input_vector);
                 float prop;
 
@@ -55,12 +60,19 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     prop = 0.7;
                 else prop = 1;
                 
-                new_position.x = moving(new_position.x, new_component.getSpeed(), prop*input_vector.x);                
-                new_position.y = moving(new_position.y, new_component.getSpeed(), prop*input_vector.y);
-                new_rotation += alpha;
+                std::cout << prop * input_vector.x << ' ' << prop * input_vector.x << std::endl;
+
+                new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);                
+                new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
+                new_rotation = alpha;
 
 
                 CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                if (!my_collision) {
+                    original_component->setPosition(new_position);
+                    original_component->setRotation(new_rotation);
+                    continue;
+                }
 
                 CollisionComponent new_collision = *my_collision;
 
