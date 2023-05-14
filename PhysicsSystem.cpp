@@ -5,8 +5,8 @@
 #include "CollisionComponent.h"
 #include <iostream>
 
-const int base_x = 1;
-const int base_y = 0;
+const int base_x = 0;
+const int base_y = -1;
 
 struct Input_vector {
     int x = 0;
@@ -20,7 +20,7 @@ int moving(int coordinate, int speed, float prop) {
 int calculate_coner(const Input_vector& input_vector) {
     double cos = (base_x * input_vector.x + base_y * input_vector.y) /
     (sqrt(base_x * base_x + base_y * base_y) + sqrt(input_vector.x * input_vector.x + input_vector.y * input_vector.y));
-    return acos(cos)-1;
+    return acos(cos)*180/3.14;
 }
 
 bool check(PositionComponent temp_component);
@@ -60,7 +60,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     prop = 0.7;
                 else prop = 1;
                 
-                std::cout << prop * input_vector.x << ' ' << prop * input_vector.x << std::endl;
+                //std::cout << prop * input_vector.x << ' ' << prop * input_vector.x << std::endl;
 
                 new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);                
                 new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
@@ -107,8 +107,10 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 input_vector.y = inputs.mouse_y_;
 
                 int alpha = calculate_coner(input_vector);
-                new_rotation += alpha;
+                new_rotation = alpha;
                 original_component->setRotation(new_rotation);
+
+                std::cout << alpha << std::endl;
             }
         }
     }
