@@ -3,6 +3,7 @@
 #include "MusicSystem.h"
 #include "GraphicsSystem.h"
 #include "HealthComponent.h"
+#include "PositionComponent.h"
 #include "PhysicsSystem.h"
 #include "InputHandler.h"
 #include "SpawnerSystem.h"
@@ -21,6 +22,7 @@ ClientPlayingGameState::ClientPlayingGameState() {
 	MapSpawner ws;
 	TankSpawner ts;
 	BannerSpawner bs;
+	TurretSpawner tr;
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
 
 	std::ifstream map_file("Maps/lvlTest2.txt");
@@ -42,30 +44,37 @@ ClientPlayingGameState::ClientPlayingGameState() {
 			Position curr_pos;
 			curr_pos.x = j * 50 + 25;
 			curr_pos.y = i * 50 + 25;
-			std::vector<Entity> temp_ent{ Entity(ObjectType::Map) };
+			Entity temp_ent;
 
 			switch (current_block) {
 			case 'w':
 				temp_ent = ws.Spawn(curr_pos, 'w');
-				temp_ent[0].setEntityID(i * map_width + j);
-				scene_.push_back(temp_ent[0]);
+				temp_ent.setEntityID(i * map_width + j);
+				scene_.push_back(temp_ent);
 				break;
 			case's':
 				temp_ent = ws.Spawn(curr_pos, 's');
-				temp_ent[0].setEntityID(i * map_width + j);
-				scene_.push_back(temp_ent[0]);
+				temp_ent.setEntityID(i * map_width + j);
+				scene_.push_back(temp_ent);
 				break;
 			case'd':
 				temp_ent = ws.Spawn(curr_pos, 'd');
-				temp_ent[0].setEntityID(i * map_width + j);
-				scene_.push_back(temp_ent[0]);
+				temp_ent.setEntityID(i * map_width + j);
+				scene_.push_back(temp_ent);
 				break;
 			case 't':
 				temp_ent = ts.Spawn(curr_pos, '1');
-				scene_.insert(scene_.end(), temp_ent.begin(), temp_ent.end());
+				scene_.push_back(temp_ent);
+				{
+					PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+					temp_ent = tr.Spawn(curr_pos, '1');
+					PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+					turr_pos->setParent(tank_pos);
+				}
+				scene_.push_back(temp_ent);
 				temp_ent = ws.Spawn(curr_pos, 's');
-				temp_ent[0].setEntityID(i * map_width + j);
-				scene_.push_back(temp_ent[0]);
+				temp_ent.setEntityID(i * map_width + j);
+				scene_.push_back(temp_ent);
 				break;
 			default:
 				break;

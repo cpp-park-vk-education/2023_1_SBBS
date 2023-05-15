@@ -169,6 +169,7 @@
     <ClCompile Include="MapSpawner.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="TankSpawner.cpp" />
+    <ClCompile Include="TurretSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

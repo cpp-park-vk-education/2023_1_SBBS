@@ -9,6 +9,8 @@ class Component;
 class Entity {
 public:
 
+    explicit Entity() {};
+
     Entity(ObjectType type) : type_(type) {};
 
     Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};

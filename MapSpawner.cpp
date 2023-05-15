@@ -8,9 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
-	std::vector<Entity> to_add_vec;
-
+Entity MapSpawner::Spawn(Position position, char subType) {
 	Entity to_add(ObjectType::Map);
 	static sf::Image img;
 	
@@ -59,6 +57,5 @@ std::vector<Entity> MapSpawner::Spawn(Position position, char subType) {
 	if (coll_to_add) to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
-	to_add_vec.push_back(to_add);
-	return to_add_vec;
+	return to_add;
 }

@@ -84,6 +84,9 @@
     <ClCompile Include="ClientMenuGameState.cpp">
       <Filter>Файлы ресурсов\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="TurretSpawner.cpp">
+      <Filter>Файлы ресурсов\Spawners</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

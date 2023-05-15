@@ -146,7 +146,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     new_position.x += 50 * cos(new_rotation * 3.14 / 180);
                     new_position.y += 50 * sin(new_rotation * 3.14 / 180);
                     new_position.rotation = alpha;
-                    scene.push_back(bs.Spawn(new_position, '1')[0]);
+                    scene.push_back(bs.Spawn(new_position, '1'));
                 }               
             }
             else if (scene[i].getType() == ObjectType::Bullet) {
