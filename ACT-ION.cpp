@@ -31,7 +31,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
 	ConnectionType* connection) {
 
-	GameState* curr_state = new HostPlayingGameState();
+	GameState* curr_state = new MainMenuGameState();
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 
@@ -43,7 +43,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		if (curr_id == GameStateId::HostPlaying) {
 			*connection = ConnectionType::Host;
 		}
-		else if ((curr_id == GameStateId::ClientPlaying)) {
+		else if (curr_id == GameStateId::ClientPlaying) {
 			*connection = ConnectionType::Client;
 		}
 	}

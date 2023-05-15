@@ -12,6 +12,8 @@
 HostPlayingGameState::HostPlayingGameState() {
 	id_ = GameStateId::HostPlaying;
 
+	const int block_size = 50; ////////потом как-то извне задавать
+
 	int map_width = 0;
 	int map_height = 0;
 
@@ -32,14 +34,9 @@ HostPlayingGameState::HostPlayingGameState() {
 			char current_block = 0;
 			map_file >> current_block;
 
-
-			if ((i * map_width + j) == 61) {
-				int x = 0;
-			}
-
 			Position curr_pos;
-			curr_pos.x = j * 50 + 25;
-			curr_pos.y = i * 50 + 25;
+			curr_pos.x = j * block_size + int(block_size / 2);
+			curr_pos.y = i * block_size + int(block_size / 2);
 			Entity temp_ent;
 
 			switch (current_block) {
@@ -58,24 +55,32 @@ HostPlayingGameState::HostPlayingGameState() {
 				temp_ent.setEntityID(i * map_width + j);
 				scene_.push_back(temp_ent);
 				break;
-			case 't':
-				temp_ent = ts.Spawn(curr_pos, '1');
-				scene_.push_back(temp_ent);
-				{
-					PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
-					temp_ent = tr.Spawn(curr_pos, '1');
-					PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
-					turr_pos->setParent(tank_pos);
-				}
-				scene_.push_back(temp_ent);
-				temp_ent = ws.Spawn(curr_pos, 's');
-				temp_ent.setEntityID(i * map_width + j);
-				scene_.push_back(temp_ent);
-				break;
 			default:
 				break;
 			}
 		}
+
+	/// tank spawn 
+	{
+		int tank_x = 0;
+		int tank_y = 0;
+
+		map_file >> tank_x >> tank_y;
+		Position curr_pos;
+		curr_pos.x = tank_y * block_size + int(block_size / 2);
+		curr_pos.y = tank_y * block_size + int(block_size / 2);
+
+		Entity temp_ent;
+		temp_ent = ts.Spawn(curr_pos, '1');
+		scene_.push_back(temp_ent);
+		{
+			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			temp_ent = tr.Spawn(curr_pos, '1');
+			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			turr_pos->setParent(tank_pos);
+		}
+		scene_.push_back(temp_ent);
+	}
 
 	//addSystem(SystemId::MusicSystemId, new MusicSystem);
 	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);

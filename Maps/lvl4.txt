@@ -9,7 +9,7 @@ wdddddddwdddddwdddddddddddddddwddddddw
 wdddddddwdddddwdddddddddddddddwddddddw
 wdddddddddddddwdddddwwwwwwdddddddddddw
 wdddddddddddddwddddddddddddddddddddddw
-wdddddtdddddddwddddddddddddddddddddddw
+wdddddddddddddwddddddddddddddddddddddw
 wdddddddddddddwddddddddddddddddddddddw
 wdddddddddddddwddddddddddddddddddddddw
 wdddddddddddddwddddddwdddddddddddddddw
@@ -20,3 +20,8 @@ wddddddddddddddddddddwdddddddddddddddw
 wddddddddddddddddddddwdddddddddddddddw
 wddddddddddddddddddddwdddddddddddddddw
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+5 5
+9 3 
+5 10
+35 3
+ 

@@ -62,11 +62,11 @@ MainMenuGameState::MainMenuGameState() {
 
 GameState* MainMenuGameState::update(sf::RenderWindow& window) {
 
-	static int chosen_button_id = 1;
+	static int chosen_button_id = 0;
 	Input input;
 	input.handleInput(window);
-	chosen_button_id += input.moving_down_;
-	chosen_button_id -= input.moving_up_;
+	//chosen_button_id += input.moving_down_;
+	//chosen_button_id -= input.moving_up_;
 
 	getSystemById(SystemId::GraphicsSystemId)->update(window, scene_);
 
@@ -75,13 +75,14 @@ GameState* MainMenuGameState::update(sf::RenderWindow& window) {
 	int mouce_choose = ms.update(window,scene_);
 	if (mouce_choose) {
 		chosen_button_id = mouce_choose;
+		//std::cout << "Chosen button id:" << chosen_button_id << std::endl;
 	}
 
 	if (input.shoot_) {
 		switch (chosen_button_id)
 		{
 		case 1:
-			return new ClientPlayingGameState();
+			return new HostPlayingGameState();
 			break;
 		case 2:
 			return new ClientPlayingGameState();

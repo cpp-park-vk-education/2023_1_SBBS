@@ -19,4 +19,8 @@ wsssssssssssssswsssssssssssswwwwssssss
 wsssssssssssssssssssssssssssssssssssss
 wsssssssssssssssssssssssssssssssssssss
 wsssssssssssssssssssssssssssssssssssss
-wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsssst
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsssss
+5 5
+10 10 
+37 19
+4 40

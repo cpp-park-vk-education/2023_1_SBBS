@@ -180,6 +180,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Client.h" />
     <ClInclude Include="MusicSystem.h" />
     <ClInclude Include="ClickComponent.h" />
     <ClInclude Include="CollisionComponent.h" />

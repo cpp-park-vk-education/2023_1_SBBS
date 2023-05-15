@@ -20,3 +20,7 @@ wssssssssssssssssssssssssssssssssssssw
 wssssssssssssssssssssssssssssssssssssw
 wssssssssssssssssssssssssssssssssssssw
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+3 3
+35 3 
+5 10
+35 10
