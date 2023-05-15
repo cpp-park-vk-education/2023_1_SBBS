@@ -10,9 +10,11 @@ struct Position {
     int x;
     int y;
 
-    Position() { x = -1; y = -1; }
+    int rotation;
 
-    Position(int _x, int _y) { x = _x; y = _y; }
+    Position() { x = -1; y = -1; rotation = 0;  }
+
+    Position(int _x, int _y, int _rotation = 0) { x = _x; y = _y; rotation = _rotation; }
 };
 
 class Component {

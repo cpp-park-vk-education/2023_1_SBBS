@@ -82,5 +82,4 @@ std::vector<Entity> TankSpawner::Spawn(Position position, char subType) {
 	to_add_vec.push_back(turret);
 
 	return to_add_vec;
-
 }

@@ -19,7 +19,7 @@ std::vector<Entity> BulletSpawner::Spawn(Position position, char subType) {
 	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
 	HealthComponent* health_to_add = new HealthComponent(true, 100);
 
-	Position pos_struc_to_add(position.x, position.y);
+	Position pos_struc_to_add(position.x, position.y,position.rotation);
 	pos_to_add->setPosition(pos_struc_to_add);
 
 	switch (subType)

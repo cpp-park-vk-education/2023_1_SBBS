@@ -142,11 +142,12 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                 if (inputs.shoot_ == true) {
                     new_position.x += 50 * cos(new_rotation * 3.14 / 180);
                     new_position.y += 50 * sin(new_rotation * 3.14 / 180);
+                    new_position.rotation = alpha;
                     scene.push_back(bs.Spawn(new_position, '1')[0]);
                 }               
             }
             else if (scene[i].getType() == ObjectType::Bullet) {
-                Sleep(200);
+
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
