@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
+#include <math.h>
+#include <iostream>
 
 const double EPS = 1E-9;
 
@@ -32,6 +34,10 @@ inline bool intersect(Position a, Position b, Position c, Position d) {
         return det(A1, C1, A2, C2) == 0 && det(B1, C1, B2, C2) == 0
         && intersect_1(a.x, b.x, c.x, d.x)
         && intersect_1(a.y, b.y, c.y, d.y);
+}
+
+inline int distance_coll(Position a, Position b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
 class CollisionComponent : public Component {
@@ -88,6 +94,11 @@ public:
                 }
             }
         }
+        if (distance_coll(position_, tested_object->position_) < std::min(tested_object->width_, tested_object->height_) ||
+            distance_coll(position_, tested_object->position_) < std::min(width_, height_)) {
+            std::cout << "Ya toot bil";
+            return false;
+        }
         return true;
     }
 
@@ -106,7 +117,7 @@ public:
 
     CollisionComponent(CollisionComponent* comp) = delete;    
 
-    //CollisionComponent operator= (CollisionComponent) = delete; ћне он нужен
+    //CollisionComponent operator= (CollisionComponent) = delete;
 
 private:
 
