@@ -26,7 +26,7 @@ Entity MapSpawner::Spawn(Position position, char subType) {
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
-		health_to_add = new HealthComponent(false, 100);
+		health_to_add = new HealthComponent(true, 100);
 		break;
 
 	case 's' : // sand floor

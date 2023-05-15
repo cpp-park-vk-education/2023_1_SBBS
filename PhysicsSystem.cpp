@@ -7,6 +7,7 @@
 #include <iostream>
 #include "SpawnerSystem.h"
 #include <Windows.h>
+#include "HealthComponent.h"
 
 int base_x = 1;
 int base_y = 0;
@@ -154,8 +155,19 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         *my_collision = new_collision;
                     }
                     else  {
-                        scene.erase(scene.begin() + i);
-                        break;
+                        HealthComponent* Health = dynamic_cast<HealthComponent*>(scene[j].getComponentByID(ComponentID::HealthComponent));
+                        if (!Health->get_dead() && Health->get_mortal()) {
+                            Health->damage(50);
+                        }
+                        if (Health->get_dead()) {
+                            scene.erase(scene.begin() + i);
+                            scene.erase(scene.begin() + j);
+                            break;
+                        }
+                        else {
+                            scene.erase(scene.begin() + i);
+                            break;
+                        }                       
                     }
                 }
             }

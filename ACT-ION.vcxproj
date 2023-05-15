@@ -168,6 +168,8 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="MapSpawner.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="TankSpawner.cpp" />
     <ClCompile Include="TurretSpawner.cpp" />
   </ItemGroup>
