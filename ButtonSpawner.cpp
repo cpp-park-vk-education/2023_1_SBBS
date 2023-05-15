@@ -16,13 +16,21 @@ Entity ButtonSpawner::Spawn(Position position, char subType) {
 	PositionComponent* pos_to_add = new PositionComponent();
 	ClickComponent* click_to_add = new ClickComponent(position.x - int(height / 2), position.y - int(width / 2), width, height);
 
-
-	sf::Image img;
-	img.loadFromFile("Image/Stone_100_100.png"); //add button image
-	graph_to_add->setImage(img);
-
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
+
+	sf::Image img;
+
+	switch (subType) {
+		case('h'): // host game button
+			img.loadFromFile(/*'"Image/GUI_host_game.png"*/"Image/tank_1_body_100_100.png");  //Этого файла еще нет
+			graph_to_add->setImage(img);
+			break;
+		case('c'): //connect to game button
+			img.loadFromFile(/*"Image/GUI_connect_game.png"*/"Image/tank_1_body_100_100.png");  //Этого файла еще нет
+			graph_to_add->setImage(img);
+	}
+
 
 	to_add.putComponent(ComponentID::ClickComponent, click_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);

@@ -5,7 +5,7 @@
 
 int main() {
 
-	GameState* curr_state = new ClientPlayingGameState();
+	GameState* curr_state = new ClientMenuGameState();
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000  }), "ACT-ION");
 
