@@ -82,7 +82,7 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 	bool ESC_pressed = false;
 
 	while (!isDead(my_tank) && !ESC_pressed && window.isOpen()) {
-		ps.updatePositions(handleInput(window), scene);
+		ps.updatePositions(window, scene);
 		gs.renderScene(scene,window);
 		
 	}

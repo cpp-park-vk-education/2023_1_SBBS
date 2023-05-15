@@ -28,7 +28,9 @@ int calculate_coner(const Input_vector& input_vector) {
 
 bool check(PositionComponent temp_component);
 
-void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& scene) {
+void PhysicsSystem::updatePositions(sf::RenderWindow& window, std::vector<Entity>& scene) {
+    Input inputs;
+    inputs.handleInput(window);
 
     BulletSpawner bs;
     //scene.push_back(bs.Spawn(/* тут позишн */, '1')[0]); это вставишь туда, где спавнится пуля 

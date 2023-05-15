@@ -7,5 +7,5 @@
 class MenuSystem : public System {
 public:
 
-    void surfMenu(std::vector<Entity>& scene, sf::RenderWindow& window);
+    int surfMenu(std::vector<Entity>& scene, sf::RenderWindow& window);
 };
