@@ -38,16 +38,24 @@ Input handleInput(sf::Window& window) {
         }
     }
     input = curr_input;
-    
-    //std::cout << curr_input.moving_right_ << curr_input.moving_down_ << curr_input.moving_left_ << curr_input.moving_up_ << "\n";
-    //curr_input.moving_right_ = true;
+
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+        auto curr_time = std::chrono::high_resolution_clock::now();
+        double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+
+        if (elapsed_time >= 1) {
+            input.shoot_ = true;
+            last_time = curr_time;
+        }
+    }
+    else {
+        input.shoot_ = false;
+    }
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     input.mouse_x_ = mousePosition.x;
     input.mouse_y_ = mousePosition.y;
-
-    input.shoot_ = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
-    std::cout << input.shoot_ << std::endl;
 
     return input;
 }
