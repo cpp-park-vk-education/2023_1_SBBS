@@ -87,6 +87,15 @@
     <ClCompile Include="TurretSpawner.cpp">
       <Filter>Файлы ресурсов\Spawners</Filter>
     </ClCompile>
+    <ClCompile Include="HostPlayingGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -7,6 +7,8 @@
 #include "GraphicsSystem.h"
 
 MainMenuGameState::MainMenuGameState() {
+
+	id_ = GameStateId::MainMenu;
 	/// спавн менюшки реализовать тут 
 	BannerSpawner banner_spawner;
 	ButtonSpawner button_spawner;

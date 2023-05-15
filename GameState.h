@@ -5,14 +5,18 @@
 #include "Types.h"
 #include "System.h"
 #include "Entity.h"
-
+#include "Server.h"
 
 class GameState {
 public:
 
     virtual GameState* update(sf::RenderWindow& window) = 0;
 
+    GameStateId getStateId() { return id_; };
+
 protected:
+
+    GameStateId id_;
 
     void addSystem(SystemId id, System* system);
 
@@ -29,7 +33,6 @@ public:
     GameState* update(sf::RenderWindow& window) override;
 
     MainMenuGameState();
-
 };
 
 class HostMenuGameState :public GameState {
@@ -56,6 +59,9 @@ public:
 
 private:
 
+    Entity* getMyTank();
+
+    bool isDead(Entity* tank);
 };
 
 class ClientPlayingGameState : public GameState {
@@ -67,7 +73,10 @@ public:
     ClientPlayingGameState();
 
 private:
+
     Entity* getMyTank();
+
+    bool isDead(Entity* tank);
 };
 
 

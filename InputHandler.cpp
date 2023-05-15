@@ -1,3 +1,4 @@
+#pragma once
 #include "InputHandler.h"
 #include <iostream>
 #include <chrono>

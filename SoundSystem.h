@@ -1,3 +1,4 @@
+#pragma once
 #include "System.h"
 #include "Entity.h"
 #include "SFML/Graphics.hpp"

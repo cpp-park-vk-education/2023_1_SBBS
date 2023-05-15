@@ -8,12 +8,9 @@
 #include "InputHandler.h"
 #include "SpawnerSystem.h"
 #include <fstream>
-#include <iostream>
-#include <Windows.h>
 
-
-ClientPlayingGameState::ClientPlayingGameState() {
-	id_ = GameStateId::ClientPlaying;
+HostPlayingGameState::HostPlayingGameState() {
+	id_ = GameStateId::HostPlaying;
 
 	int map_width = 0;
 	int map_height = 0;
@@ -79,7 +76,7 @@ ClientPlayingGameState::ClientPlayingGameState() {
 				break;
 			}
 		}
-	
+
 	//addSystem(SystemId::MusicSystemId, new MusicSystem);
 	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
 	addSystem(SystemId::PhysicsSystemId, new PhysicsSystem);
@@ -88,42 +85,39 @@ ClientPlayingGameState::ClientPlayingGameState() {
 	//ms.playMusic(scene); menu music
 }
 
-GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
+GameState* HostPlayingGameState::update(sf::RenderWindow& window) {
 
 
-
-	////
 	getSystemById(SystemId::PhysicsSystemId)->update(window, scene_);
 	getSystemById(SystemId::GraphicsSystemId)->update(window, scene_);
-	////
 
 	Entity* my_tank = getMyTank();
 
 	if (isDead(my_tank) && !window.isOpen()) {
-		
+
 		return new MainMenuGameState();
-	}
+	}	
 
 	return this;
 }
 
-Entity* ClientPlayingGameState::getMyTank() {
-    Entity* my_tank = nullptr;
+Entity* HostPlayingGameState::getMyTank() {
+	Entity* my_tank = nullptr;
 
-    for (int i = 0; i < scene_.size(); ++i) {
-        if (scene_[i].getEntityID() == -1 && scene_[i].getType() == ObjectType::Tank)
-            my_tank = &scene_[i];
-    }
-    return my_tank;
+	for (int i = 0; i < scene_.size(); ++i) {
+		if (scene_[i].getEntityID() == -1 && scene_[i].getType() == ObjectType::Tank)
+			my_tank = &scene_[i];
+	}
+	return my_tank;
 }
 
 
-bool ClientPlayingGameState::isDead(Entity* tank) {
+bool HostPlayingGameState::isDead(Entity* tank) {
 	return false;
 
 	if (!tank)
 		return false;
 
-    HealthComponent* health_component = dynamic_cast<HealthComponent*>(tank->getComponentByID(ComponentID::HealthComponent));
-    return health_component->getHealth() > 0;
+	HealthComponent* health_component = dynamic_cast<HealthComponent*>(tank->getComponentByID(ComponentID::HealthComponent));
+	return health_component->getHealth() > 0;
 }

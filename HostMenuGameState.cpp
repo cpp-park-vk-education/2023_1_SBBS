@@ -2,7 +2,7 @@
 #include "GameState.h"
 
 HostMenuGameState::HostMenuGameState() {
-
+	id_ = GameStateId::HostMenu;
 }
 
 GameState* HostMenuGameState::update(sf::RenderWindow& window) {
