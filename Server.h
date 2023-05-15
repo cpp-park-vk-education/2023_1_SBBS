@@ -82,7 +82,7 @@ public:
     string translate_to_string() {
         int a;
         message = "";
-        while (ServerQueueOutput->pop(a)) {
+        while (ServerQueueOutput->pop(a)) { //////////// for test ServerQueueInput
             cout << a << endl;
             message += std::to_string(a) + " ";
         }
