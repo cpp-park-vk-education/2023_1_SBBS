@@ -7,5 +7,5 @@
 class MenuSystem : public System {
 public:
 
-    int surfMenu(std::vector<Entity>& scene, sf::RenderWindow& window);
+    int update(sf::RenderWindow& window, std::vector<Entity>& scene) override;
 };

@@ -8,5 +8,5 @@
 class PhysicsSystem : public System {
 public:
 
-    void updatePositions(sf::RenderWindow& window, std::vector<Entity>& scene);
+    int update(sf::RenderWindow& window, std::vector<Entity>& scene) override;
 };

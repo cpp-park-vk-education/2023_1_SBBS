@@ -5,7 +5,7 @@
 
 
 
-class SpawnerSystem : public System {
+class SpawnerSystem {
 public:
     virtual std::vector<Entity> Spawn(Position position, char subType) = 0;
     static SpawnerSystem* getSpawner(ObjectType type);

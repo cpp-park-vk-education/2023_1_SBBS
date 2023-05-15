@@ -156,6 +156,9 @@
     <ClCompile Include="ACT-ION.cpp" />
     <ClCompile Include="BulletSpawner.cpp" />
     <ClCompile Include="ButtonSpawner.cpp" />
+    <ClCompile Include="ClientMenuGameState.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HostMenuGameState.cpp" />
     <ClCompile Include="MusicSystem.cpp" />
     <ClCompile Include="BannerSpawner.cpp" />
     <ClCompile Include="ClientPlayingGameState.cpp" />

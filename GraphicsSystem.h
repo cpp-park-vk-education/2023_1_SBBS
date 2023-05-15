@@ -6,5 +6,5 @@
 
 class GraphicsSystem : public System {
 public:
-    void renderScene(std::vector<Entity>& scene, sf::RenderWindow& window);
+    int update(sf::RenderWindow& window, std::vector<Entity>& scene) override;
 };

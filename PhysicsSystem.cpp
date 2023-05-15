@@ -28,7 +28,8 @@ int calculate_coner(const Input_vector& input_vector) {
 
 bool check(PositionComponent temp_component);
 
-void PhysicsSystem::updatePositions(sf::RenderWindow& window, std::vector<Entity>& scene) {
+int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+
     Input inputs;
     inputs.handleInput(window);
 
@@ -190,6 +191,7 @@ void PhysicsSystem::updatePositions(sf::RenderWindow& window, std::vector<Entity
             }
         }
     }
+    return 0;
 }
                     
         

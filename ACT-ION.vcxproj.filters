@@ -75,6 +75,15 @@
     <ClCompile Include="ButtonSpawner.cpp">
       <Filter>Файлы ресурсов\Spawners</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="HostMenuGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientMenuGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

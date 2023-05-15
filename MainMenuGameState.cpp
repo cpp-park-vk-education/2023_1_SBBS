@@ -5,9 +5,11 @@
 #include "Component.h"
 #include "InputHandler.h"
 
+MainMenuGameState::MainMenuGameState() {
+	/// спавн менюшки реализовать тут 
+}
+
 GameState* MainMenuGameState::update(sf::RenderWindow& window) {
-	//on enter generate menu
-	std::vector<Entity> scene;
 
 	int chosen_button_id = 1;
 	Input input;
@@ -17,16 +19,23 @@ GameState* MainMenuGameState::update(sf::RenderWindow& window) {
 
 	MenuSystem ms;
 
-	int mouce_choose = ms.surfMenu(scene, window);
+	int mouce_choose = ms.update(window,scene_);
 	if (mouce_choose) {
 		chosen_button_id = mouce_choose;
 	}
 
-
-	switch (chosen_button_id)
-	{
-	default:
-		break;
+	if (input.shoot_) {
+		switch (chosen_button_id)
+		{
+		case 1:
+			return new HostMenuGameState;
+			break;
+		case 2:
+			return new ClientMenuGameState;
+		default:
+			return this;
+			break;
+		}
 	}
 
 	return this;

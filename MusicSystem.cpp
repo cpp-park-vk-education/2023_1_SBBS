@@ -3,8 +3,9 @@
 #include "MusicComponent.h"
 #include "Entity.h"
 #include "MusicSystem.h"
+#include "SFML/Graphics.hpp"
 
-void MusicSystem::playMusic(std::vector<Entity>& scene) {
+int MusicSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene){
 
 	for (int i = 0; i < scene.size(); ++i) {
 
@@ -13,4 +14,5 @@ void MusicSystem::playMusic(std::vector<Entity>& scene) {
 			current_music->playMusic();
 		}
 	}
+	return 0;
 }
