@@ -23,7 +23,7 @@ Entity BannerSpawner::Spawn(Position position, char subType) {
 
 	switch (subType) {
 	case 'm': // main menu banner
-		img.loadFromFile("Image/AUF.png");
+		img.loadFromFile("Image/main_banner.png");
 		graph_to_add->setImage(img);
 	}
 
