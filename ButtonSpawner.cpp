@@ -7,8 +7,8 @@
 #include <vector>
 
 Entity ButtonSpawner::Spawn(Position position, char subType) {
-	int height = 100;
-	int width = 400;
+	int height = 150;
+	int width = 700;
 
 	Entity to_add(ObjectType::Button);
 
@@ -23,12 +23,18 @@ Entity ButtonSpawner::Spawn(Position position, char subType) {
 
 	switch (subType) {
 		case('h'): // host game button
-			img.loadFromFile(/*'"Image/GUI_host_game.png"*/"Image/tank_1_body_100_100.png");  //Этого файла еще нет
+			img.loadFromFile("Image/GUI_host_game.png");
 			graph_to_add->setImage(img);
+			click_to_add->setButtonId(1);
 			break;
+
 		case('c'): //connect to game button
-			img.loadFromFile(/*"Image/GUI_connect_game.png"*/"Image/tank_1_body_100_100.png");  //Этого файла еще нет
+			img.loadFromFile("Image/GUI_connect_game.png");
 			graph_to_add->setImage(img);
+			click_to_add->setButtonId(2);
+			break;
+
+		default: break;
 	}
 
 

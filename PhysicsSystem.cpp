@@ -7,6 +7,7 @@
 #include <iostream>
 #include "SpawnerSystem.h"
 #include <Windows.h>
+#include "HealthComponent.h"
 
 int base_x = 1;
 int base_y = 0;
@@ -29,14 +30,9 @@ int calculate_coner(const Input_vector& input_vector) {
 bool check(PositionComponent temp_component);
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
-
     Input inputs;
     inputs.handleInput(window);
-
     BulletSpawner bs;
-    //scene.push_back(bs.Spawn(/* тут позишн */, '1')[0]); это вставишь туда, где спавнится пуля 
-    //
-
     for (int i = 0; i < scene.size(); i++) {       
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
         if (scene[i].getEntityID() == -1) {
@@ -44,13 +40,9 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
-
-
                 Input_vector input_vector;
                 input_vector.x = 0;
                 input_vector.y = 0;
-
-
 
                 if (inputs.moving_right_) {
                     input_vector.x += 1;
@@ -73,13 +65,10 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 else alpha = new_rotation;
                 float prop;
 
-
-
                 if (abs(input_vector.x * input_vector.y))
                     prop = 0.707;
                 else prop = 1;
                 
-
                 new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);                
                 new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
 
@@ -88,22 +77,11 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 if (input_vector.y < new_position.y) {
                     alpha = 360 - alpha;
                 }
-
                 new_rotation = alpha;
 
-
                 CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
-                //if (!my_collision) {
-
-                //    original_component->setPosition(new_position);
-                //    original_component->setRotation(new_rotation);
-                //    continue;
-                //}
-
                 CollisionComponent new_collision = *my_collision;
-
                 new_collision.update(new_position, new_rotation);
-
 
                 bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
@@ -177,8 +155,19 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         *my_collision = new_collision;
                     }
                     else  {
-                        scene.erase(scene.begin() + i);
-                        break;
+                        HealthComponent* Health = dynamic_cast<HealthComponent*>(scene[j].getComponentByID(ComponentID::HealthComponent));
+                        if (!Health->get_dead() && Health->get_mortal()) {
+                            Health->damage(50);
+                        }
+                        if (Health->get_dead()) {
+                            scene.erase(scene.begin() + i);
+                            scene.erase(scene.begin() + j);
+                            break;
+                        }
+                        else {
+                            scene.erase(scene.begin() + i);
+                            break;
+                        }                       
                     }
                 }
             }
@@ -186,8 +175,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
     }
     return 0;
 }
-                    
-//if (scene[j].getType() != ObjectType::Bullet && scene[j].getType() != ObjectType::Tank)
+                   
     
 
 

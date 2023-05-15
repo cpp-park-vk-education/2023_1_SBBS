@@ -37,6 +37,4 @@ private:
     Position position_;
 
     int speed_;
-
-    //int rotation_;
 };

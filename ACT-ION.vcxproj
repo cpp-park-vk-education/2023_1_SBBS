@@ -171,6 +171,8 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Server.h" />
     <ClCompile Include="SoundSystem.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="TankSpawner.cpp" />
     <ClCompile Include="TurretSpawner.cpp" />
   </ItemGroup>
