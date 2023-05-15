@@ -34,8 +34,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
     //scene.push_back(bs.Spawn(/* тут позишн */, '1')[0]); это вставишь туда, где спавнится пуля 
     //
 
-    for (int i = 0; i < scene.size(); i++) {
-
+    for (int i = 0; i < scene.size(); i++) {       
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
         if (scene[i].getEntityID() == -1) {
             if (scene[i].getType() == ObjectType::Tank) {
@@ -117,8 +116,7 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
-                }
-                
+                }                 
             }
             else if (scene[i].getType() == ObjectType::Turret) {
                 PositionComponent new_component = *original_component;
@@ -139,26 +137,35 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
 
                 new_rotation = alpha;
                 original_component->setRotation(new_rotation);
-
-                //std::cout << alpha << std::endl;
+                
+              
+                if (inputs.shoot_ == true) {
+                    new_position.x += 50 * cos(new_rotation * 3.14 / 180);
+                    new_position.y += 50 * sin(new_rotation * 3.14 / 180);
+                    scene.push_back(bs.Spawn(new_position, '1')[0]);
+                }               
             }
             else if (scene[i].getType() == ObjectType::Bullet) {
+                Sleep(200);
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
 
-                new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
-                new_position.y = moving(new_position.x, new_component.getSpeed(), cos(new_rotation));
+                new_position.x = moving(new_position.x, 5, cos(new_rotation * 3.14 / 180));
+                new_position.y = moving(new_position.y, 5, sin(new_rotation * 3.14 / 180));
+
+                original_component->setPosition(new_position);
 
                 CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
                 if (!my_collision) {
-
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     continue;
                 }
 
                 CollisionComponent new_collision = *my_collision;
+
+                new_collision.update(new_position, new_rotation);
 
                 bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
@@ -167,7 +174,14 @@ void PhysicsSystem::updatePositions(const Input& inputs, std::vector<Entity>& sc
                     if (!another_collision) continue;
                     if (!new_collision.checkCollision(another_collision)) {
                         flag = false;
-                        break;
+                    }
+                    if (flag) {
+                        original_component->setPosition(new_position);
+                        original_component->setRotation(new_rotation);
+                        *my_collision = new_collision;
+                    }
+                    else if (scene[j].getType() != ObjectType::Bullet && scene[j].getType() != ObjectType::Tank) {
+                        scene.erase(scene.begin() + j);
                     }
                 }
             }

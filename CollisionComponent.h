@@ -46,14 +46,15 @@ public:
             hitbox_.push_back(position_);
         }
         double angle = rotation * 3.14 / 180 ;
-        hitbox_[0].x = position_.x + (cos(angle) * (height_)+cos(rotation + 90) * (width_));
-        hitbox_[1].x = position_.x + (cos(angle) * (height_)-cos(90 - angle) * (width_));
-        hitbox_[2].x = position_.x - (cos(angle) * (height_)+cos(angle + 90) * (width_));
-        hitbox_[3].x = position_.x - (cos(angle) * (height_)-cos(90 - angle) * (width_));
-        hitbox_[0].y = position_.y + (sin(angle) * (height_)+sin(angle + 90) * (width_));
-        hitbox_[1].y = position_.y + (sin(angle) * (height_)-sin(90 - angle) * (width_));
-        hitbox_[2].y = position_.y - (sin(angle) * (height_)+sin(angle + 90) * (width_));
-        hitbox_[3].y = position_.y - (sin(angle) * (height_)-sin(90 - angle) * (width_));
+        hitbox_[0].x = position_.x + cos(angle) * (height_)-cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[1].x = position_.x + cos(angle) * (height_)+cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[2].x = position_.x - cos(angle) * (height_)+cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[3].x = position_.x - cos(angle) * (height_)-cos(90 * 3.14 / 180 - angle) * (width_);
+
+        hitbox_[0].y = position_.y + sin(angle) * (height_)+sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[1].y = position_.y + sin(angle) * (height_)-sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[2].y = position_.y - sin(angle) * (height_)-sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[3].y = position_.y - sin(angle) * (height_)+sin(90 * 3.14 / 180 - angle) * (width_);
     }
 
     CollisionComponent(){
@@ -63,22 +64,20 @@ public:
     void update(Position position, int rotation) {
         position_ = position;
         rotation_ = rotation;
-        for (int i = 0; i < 4; i++) {
-            hitbox_.push_back(position_);
-        }
         double angle = rotation * 3.14 / 180;
-        hitbox_[0].x = position_.x + (cos(angle) * (height_)+cos(rotation + 90) * (width_));
-        hitbox_[1].x = position_.x + (cos(angle) * (height_)-cos(90 - angle) * (width_));
-        hitbox_[2].x = position_.x - (cos(angle) * (height_)+cos(angle + 90) * (width_));
-        hitbox_[3].x = position_.x - (cos(angle) * (height_)-cos(90 - angle) * (width_));
-        hitbox_[0].y = position_.y + (sin(angle) * (height_)+sin(angle + 90) * (width_));
-        hitbox_[1].y = position_.y + (sin(angle) * (height_)-sin(90 - angle) * (width_));
-        hitbox_[2].y = position_.y - (sin(angle) * (height_)+sin(angle + 90) * (width_));
-        hitbox_[3].y = position_.y - (sin(angle) * (height_)-sin(90 - angle) * (width_));
+        hitbox_[0].x = position_.x + cos(angle) * (height_)-cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[1].x = position_.x + cos(angle) * (height_)+cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[2].x = position_.x - cos(angle) * (height_)+cos(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[3].x = position_.x - cos(angle) * (height_)-cos(90 * 3.14 / 180 - angle) * (width_);
+
+        hitbox_[0].y = position_.y + sin(angle) * (height_)+sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[1].y = position_.y + sin(angle) * (height_)-sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[2].y = position_.y - sin(angle) * (height_)-sin(90 * 3.14 / 180 - angle) * (width_);
+        hitbox_[3].y = position_.y - sin(angle) * (height_)+sin(90 * 3.14 / 180 - angle) * (width_);
     }
 
     bool checkCollision(CollisionComponent* tested_object) {
-        std::vector<Position> temp_hitbox_this = hitbox_;
+        std::vector<Position> temp_hitbox_this = this->get_hitbox();
         temp_hitbox_this.push_back(temp_hitbox_this[0]);
         std::vector<Position> temp_hitbox_in = tested_object->get_hitbox();
         temp_hitbox_in.push_back(temp_hitbox_in[0]);

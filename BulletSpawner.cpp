@@ -16,7 +16,7 @@ std::vector<Entity> BulletSpawner::Spawn(Position position, char subType) {
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
-	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 50, 50);
+	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
 	HealthComponent* health_to_add = new HealthComponent(true, 100);
 
 	Position pos_struc_to_add(position.x, position.y);
@@ -32,7 +32,7 @@ std::vector<Entity> BulletSpawner::Spawn(Position position, char subType) {
 		break;
 	}
 
-	graph_to_add->setOrigin(10, 20); // если че, меняй центр отрисовки пули тут 
+	graph_to_add->setOrigin(20, 10); // если че, меняй центр отрисовки пули тут 
 	pos_to_add->setSpeed(10); //// change speed 
 	graph_to_add->layer = true;
 	to_add.putComponent(ComponentID::HealthComponent, health_to_add);
@@ -41,4 +41,5 @@ std::vector<Entity> BulletSpawner::Spawn(Position position, char subType) {
 	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
 	to_add_vec.push_back(to_add);
 	return to_add_vec;
+
 }
