@@ -6,8 +6,11 @@
 #include "CollisionComponent.h"
 #include <iostream>
 #include "SpawnerSystem.h"
-#include <Windows.h>
+//#include <Windows.h>
 #include "HealthComponent.h"
+
+
+#include "netConnect.h"
 
 int base_x = 1;
 int base_y = 0;
@@ -97,6 +100,14 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
+
+
+                    std::vector<int> to_send;
+                    to_send.push_back(new_position.x);
+                    to_send.push_back(new_position.y);
+                    SingletonSender::getInstance().send(to_send);
+                    //Sleep(2000);
+                    /////// я так понимаю тут мы ставим позицию танка 
                 }                 
             }
             else if (scene[i].getType() == ObjectType::Turret) {
@@ -170,6 +181,18 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         }                       
                     }
                 }
+            }
+        }
+        else if (scene[i].getEntityID() == -2) {
+            PositionComponent new_component = *original_component;
+            Position new_position = new_component.getPosition();
+
+            std::vector<int> from_net_position = SingletonSender::getInstance().get();
+            if (!from_net_position.empty()) {
+                new_position.x = from_net_position[0];
+                new_position.y = from_net_position[1];
+
+                original_component->setPosition(new_position);
             }
         }
     }

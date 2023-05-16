@@ -72,6 +72,7 @@ HostPlayingGameState::HostPlayingGameState() {
 
 		Entity temp_ent;
 		temp_ent = ts.Spawn(curr_pos, '1');
+		temp_ent.setEntityID(-2);
 		scene_.push_back(temp_ent);
 		{
 			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
@@ -79,6 +80,27 @@ HostPlayingGameState::HostPlayingGameState() {
 			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
 			turr_pos->setParent(tank_pos);
 		}
+		temp_ent.setEntityID(-2);
+		scene_.push_back(temp_ent);
+
+		/////////////////////////////// второй танк
+
+		tank_x = 0;
+		tank_y = 0;
+
+		map_file >> tank_x >> tank_y;
+		curr_pos.x = tank_y * block_size + int(block_size / 2);
+		curr_pos.y = tank_y * block_size + int(block_size / 2);
+
+		temp_ent = ts.Spawn(curr_pos, '1');
+		scene_.push_back(temp_ent);
+		{
+			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			temp_ent = tr.Spawn(curr_pos, '1');
+			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			turr_pos->setParent(tank_pos);
+		}
+
 		scene_.push_back(temp_ent);
 	}
 

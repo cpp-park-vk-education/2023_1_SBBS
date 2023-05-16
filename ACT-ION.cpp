@@ -4,6 +4,7 @@
 #include <vector>
 #include "Server.h"
 #include "Types.h"
+#include "netConnect.h"
 
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
@@ -15,6 +16,10 @@ int main() {
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput = new boost::lockfree::queue<int, MAX_LENGTH>;
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput = new boost::lockfree::queue<int, MAX_LENGTH>;
 	boost::thread_group producer_threads;
+
+	////////
+	SingletonSender::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
+	////////
 
 	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
 

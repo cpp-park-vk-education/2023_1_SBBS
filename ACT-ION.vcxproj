@@ -166,6 +166,7 @@
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="MainMenuGameState.cpp" />
     <ClCompile Include="MenuSystem.cpp" />
+    <ClCompile Include="netConnect.h" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="MapSpawner.cpp" />
     <ClCompile Include="Server.cpp" />
@@ -175,9 +176,6 @@
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="TankSpawner.cpp" />
     <ClCompile Include="TurretSpawner.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
