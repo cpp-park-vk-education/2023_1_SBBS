@@ -39,12 +39,12 @@ void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 
     while (true) {
         try {
-            std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+            //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
             boost::asio::io_service io_service;
             Client client(io_service, LockFreeQueueInput, LockFreeQueueOutput);
             int a;
             while (LockFreeQueueInput->pop(a)) {
-                cout << a << endl;
+                //cout << a << endl;
             }
         }
         catch (std::exception& e) {

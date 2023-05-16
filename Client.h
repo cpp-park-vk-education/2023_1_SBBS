@@ -33,7 +33,7 @@ public:
 
     void start() {
         boost::system::error_code error;
-        boost::asio::write(sock, boost::asio::buffer(message), error);
+        boost::asio::write(sock, boost::asio::buffer(translate_to_string()), error);
         if (!error) {
             cout << "Client sent " << message << endl;
         }
@@ -50,21 +50,21 @@ public:
             string num;
             while (s >> num) {
                 ClientQueueInput->push(std::stoi(num));
-                //cout << std::stoi(num) << endl;
+                cout << std::stoi(num) << endl;
             }
         }
     }
-    /*
-    void translate_to_string() {
+    
+    string translate_to_string() {
         int a;
-        message = "";
+        string mess = "";
         while (ClientQueueOutput->pop(a)) {
-            cout << a << endl;
-            message += std::to_string(a) + " ";
+            //cout << a << endl;
+            mess += std::to_string(a) + " ";
         }
-        return;
+        return mess;
     }
-    string return_string_array() {
+    /*string return_string_array() {
         std::string a = "1 2 3 4 5 10000";
         return a;
     }*/

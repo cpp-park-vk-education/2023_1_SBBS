@@ -83,7 +83,7 @@ public:
         int a;
         message = "";
         while (ServerQueueOutput->pop(a)) { //////////// for test ServerQueueInput
-            cout << a << endl;
+            //cout << a << endl;
             message += std::to_string(a) + " ";
         }
         return message;

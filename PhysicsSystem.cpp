@@ -188,7 +188,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             Position new_position = new_component.getPosition();
 
             std::vector<int> from_net_position = SingletonSender::getInstance().get();
-            if (!from_net_position.empty()) {
+            if (from_net_position.size() >= 2) {
                 new_position.x = from_net_position[0];
                 new_position.y = from_net_position[1];
 
