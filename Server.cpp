@@ -43,9 +43,9 @@ void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
             boost::asio::io_service io_service;
             Client client(io_service, LockFreeQueueInput, LockFreeQueueOutput);
             int a;
-            while (LockFreeQueueInput->pop(a)) {
-                //cout << a << endl;
-            }
+            //while (LockFreeQueueInput->pop(a)) {
+            //    //cout << a << endl;
+            //}
         }
         catch (std::exception& e) {
             std::cerr << e.what() << endl;
