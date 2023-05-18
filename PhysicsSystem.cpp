@@ -240,19 +240,22 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             //if (it != from_net_position.end()) {
              //  int j = std::distance(from_net_position.begin(), it);
 
-               while (!from_net_position.empty()) {
 
-                   if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
-                       currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
-                       currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
 
-                       new_position.x = from_net_position[2];
-                       new_position.y = from_net_position[3];
-                       new_position.rotation = from_net_position[4];
-                   }
+            while (from_net_position.size() >= 5) {
+                if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
+                    currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
+                    currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
 
-                   from_net_position = NetConnector::getInstance().get();
-               }
+                    new_position.x = from_net_position[2];
+                    new_position.y = from_net_position[3];
+                    new_position.rotation = from_net_position[4];
+
+                    break;
+                }
+
+                from_net_position = NetConnector::getInstance().get();
+            }
             
 
             original_component->setPosition(new_position);
