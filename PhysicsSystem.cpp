@@ -235,6 +235,8 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
         else if (currEntityId < 0) {//// прием данных из сети 
             PositionComponent new_component = *original_component;
             Position new_position = new_component.getPosition();
+            CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+            CollisionComponent new_collision = *my_collision;
 
             std::vector<int> from_net_position = NetConnector::getInstance().get();
 
@@ -250,7 +252,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     from_net_position = NetConnector::getInstance().get();
                     continue;
                 }
-                if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
+                if (currEntityType == ObjectType::Tank   && from_net_position[1] == TANK_POSITION_MARK ||
                     currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
                     currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
 
@@ -265,6 +267,8 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             }
             
 
+            new_collision.update(new_position, new_position.rotation);
+            *my_collision = new_collision;
             original_component->setPosition(new_position);
         }
     }
