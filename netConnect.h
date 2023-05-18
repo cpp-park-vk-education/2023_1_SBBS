@@ -16,8 +16,8 @@ class NetConnector {
 public:
 
 	static NetConnector& getInstance() {
-		static std::unique_ptr<NetConnector> singleton_ = std::make_unique<NetConnector>();
-		return *singleton_;
+		static NetConnector singleton_;
+		return singleton_;
 	};
 
 	void openConnection(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,

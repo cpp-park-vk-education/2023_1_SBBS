@@ -114,6 +114,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
+                    to_send.push_back(BREAKER);
                     NetConnector::getInstance().send(to_send);
                     /////// я так понимаю тут мы ставим позицию танка 
                 }                 
@@ -145,6 +146,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 to_send.push_back(new_position.x);
                 to_send.push_back(new_position.y);
                 to_send.push_back(new_position.rotation);
+                to_send.push_back(BREAKER);
                 NetConnector::getInstance().send(to_send);
                 ///////////
               
@@ -160,6 +162,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
+                    to_send.push_back(BREAKER);
                     //to_send.push_back(type)  ////////////// сделать
                     NetConnector::getInstance().send(to_send);
                 }               
@@ -200,6 +203,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         to_send.push_back(new_position.x);
                         to_send.push_back(new_position.y);
                         to_send.push_back(new_position.rotation);
+                        to_send.push_back(BREAKER);
                         NetConnector::getInstance().send(to_send);
 
                     }
@@ -230,21 +234,26 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             std::vector<int> from_net_position = NetConnector::getInstance().get();
 
 
-            auto it = std::find(from_net_position.begin(), from_net_position.end(), currEntityId);
+            //auto it = std::find(from_net_position.begin(), from_net_position.end(), -1/*currEntityId*/);
 
             // проверка соответствия элемента и типа из сети
-            if (it != from_net_position.end()) {
-               int j = std::distance(from_net_position.begin(), it);
+            //if (it != from_net_position.end()) {
+             //  int j = std::distance(from_net_position.begin(), it);
 
-               if (currEntityType == ObjectType::Tank   && from_net_position[j + 1] == TANK_POSITION_MARK ||
-                   currEntityType == ObjectType::Bullet && from_net_position[j + 1] == BULLET_POSITION_MARK ||
-                   currEntityType == ObjectType::Turret && from_net_position[j + 1] == TURRET_POSITION_MARK) {
+               while (!from_net_position.empty()) {
 
-                   new_position.x = from_net_position[j + 2];
-                   new_position.y = from_net_position[j + 3];
-                   new_position.rotation = from_net_position[j + 4];
+                   if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
+                       currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
+                       currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
+
+                       new_position.x = from_net_position[2];
+                       new_position.y = from_net_position[3];
+                       new_position.rotation = from_net_position[4];
+                   }
+
+                   from_net_position = NetConnector::getInstance().get();
                }
-            }
+            
 
             original_component->setPosition(new_position);
         }

@@ -3,7 +3,7 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
-
+#include "networkCodes.h"
 #include <string>
 
 #define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
@@ -44,6 +44,9 @@ std::vector<int> NetConnector::get() {
     //std::cout << "Got from queue..." << std::endl;
     while (lockFreeQueueInput_->pop(curr_data)) {
         recieved.push_back(curr_data);
+        if (curr_data == BREAKER) {
+            break;
+        }
         //std::cout << curr_data << " ";
     }
     //std::cout << "Done recieving. " << std::endl;
@@ -173,7 +176,7 @@ public:
         boost::system::error_code error;
         boost::asio::write(sock, boost::asio::buffer(translate_to_string()), error);
         if (!error) {
-            cout << "Client sent " << message << endl;
+            //cout << "Client sent " << message << endl;
         }
         else {
             cout << "send failed: " << error.message() << endl;

@@ -7,4 +7,6 @@
 #define TURRET_POSITION_MARK -40
 #define BULLET_POSITION_MARK -50
 
+#define BREAKER -1000000
+
 // uuid
