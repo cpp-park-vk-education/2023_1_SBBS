@@ -245,11 +245,11 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             //if (it != from_net_position.end()) {
              //  int j = std::distance(from_net_position.begin(), it);
 
-
-
             while (from_net_position.size() >= 6) {
-                if (from_net_position[5] != CHECKER)
+                if (from_net_position[5] != CHECKER) {
+                    from_net_position = NetConnector::getInstance().get();
                     continue;
+                }
                 if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
                     currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
                     currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
