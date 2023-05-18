@@ -7,6 +7,7 @@
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
+
 Entity BulletSpawner::Spawn(Position position, char subType) {
 
 	Entity to_add(ObjectType::Bullet);

@@ -37,7 +37,7 @@ bool intersect(Position a, Position b, Position c, Position d) {
         && intersect_1(a.y, b.y, c.y, d.y);
 }
 
-inline int distance_coll(Position a, Position b) {
+int distance_coll(Position a, Position b) {
     return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 

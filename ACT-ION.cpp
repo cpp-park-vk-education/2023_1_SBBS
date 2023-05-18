@@ -5,6 +5,7 @@
 #include "Server.h"
 #include "Types.h"
 #include "netConnect.h"
+#include <chrono>
 
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
@@ -40,8 +41,11 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 
+	auto last_time = std::chrono::steady_clock::time_point();
+
 
 	while (1) {
+		
 		curr_state = curr_state->update(window);
 		GameStateId curr_id = curr_state->getStateId();
 
@@ -51,5 +55,12 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		else if (curr_id == GameStateId::ClientPlaying) {
 			*connection = ConnectionType::Client;
 		}
+		auto curr_time = std::chrono::high_resolution_clock::now();
+		double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+
+		if (elapsed_time < double(1 / 60)) {
+			Sleep(double(1 / 60)- elapsed_time);
+		}
+
 	}
 }

@@ -6,11 +6,9 @@
 #include "CollisionComponent.h"
 #include <iostream>
 #include "SpawnerSystem.h"
-//#include <Windows.h>
 #include "HealthComponent.h"
-
-
 #include "netConnect.h"
+#include "networkCodes.h"
 
 int base_x = 1;
 int base_y = 0;

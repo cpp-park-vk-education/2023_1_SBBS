@@ -2,41 +2,51 @@
 #include "System.h"
 #include"Entity.h"
 #include "Types.h"
+#include <unordered_map>
 
-
-
-class SpawnerSystem {
+class Spawner {
 public:
     virtual Entity Spawn(Position position, char subType) = 0;
-    static SpawnerSystem* getSpawner(ObjectType type);
 };
 
-class TankSpawner : public SpawnerSystem {
+class SpawnerSystem : public System {
+public:
+
+    Spawner* getSpawner(ObjectType type);
+
+    int update(sf::RenderWindow& window, std::vector<Entity>& scene) override;
+
+private:
+    std::unordered_map<ObjectType, Spawner*> spawners_;
+
+};
+
+class TankSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };
 
-class TurretSpawner : public SpawnerSystem {
+class TurretSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };
 
-class BulletSpawner : public SpawnerSystem {
+class BulletSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };
 
-class MapSpawner : public SpawnerSystem {
+class MapSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };
 
-class ButtonSpawner : public SpawnerSystem {
+class ButtonSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };
 
-class BannerSpawner : public SpawnerSystem {
+class BannerSpawner : public Spawner {
 public:
     Entity Spawn(Position position, char subType) override;
 };

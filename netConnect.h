@@ -64,7 +64,12 @@ public :
 
 private:
 
-	SingletonSender() {};
+	SingletonSender() = delete;
 
-	
+	SingletonSender(const SingletonSender& ) = delete;
+
+	SingletonSender& operator= (const SingletonSender&) = delete;
+
+	SingletonSender& operator= (SingletonSender&&) = delete;
+
 };

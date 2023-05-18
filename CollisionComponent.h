@@ -9,14 +9,13 @@ public:
 
     CollisionComponent(Position position, int rotation, int height, int width);
 
-    CollisionComponent(){}
+    CollisionComponent() {};
 
     void update(Position position, int rotation);
 
     bool checkCollision(CollisionComponent* tested_object);
 
     ~CollisionComponent() = default;
-
 
     void setPosition(Position& position);
 
