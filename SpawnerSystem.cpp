@@ -3,7 +3,7 @@
 #include "networkCodes.h"
 
 int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
-	std::vector<int> net_data = SingletonSender::getInstance().get();
+	std::vector<int> net_data = NetConnector::getInstance().get();
 	BulletSpawner bs;
 
 	auto it = std::find(net_data.begin(), net_data.end(), BULLET_SPAWN_EVENT);

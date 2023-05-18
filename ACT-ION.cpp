@@ -18,7 +18,7 @@ int main() {
 	boost::thread_group producer_threads;
 
 	////////
-	SingletonSender::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
+	NetConnector::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
 	////////
 	// перенести в netConnector
 

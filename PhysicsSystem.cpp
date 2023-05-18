@@ -114,7 +114,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
-                    SingletonSender::getInstance().send(to_send);
+                    NetConnector::getInstance().send(to_send);
                     /////// я так понимаю тут мы ставим позицию танка 
                 }                 
             }
@@ -145,7 +145,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 to_send.push_back(new_position.x);
                 to_send.push_back(new_position.y);
                 to_send.push_back(new_position.rotation);
-                SingletonSender::getInstance().send(to_send);
+                NetConnector::getInstance().send(to_send);
                 ///////////
               
                 if (inputs.shoot_ == true) {
@@ -161,7 +161,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
                     //to_send.push_back(type)  ////////////// сделать
-                    SingletonSender::getInstance().send(to_send);
+                    NetConnector::getInstance().send(to_send);
                 }               
             }
             else if (currEntityType == ObjectType::Bullet) {
@@ -200,7 +200,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         to_send.push_back(new_position.x);
                         to_send.push_back(new_position.y);
                         to_send.push_back(new_position.rotation);
-                        SingletonSender::getInstance().send(to_send);
+                        NetConnector::getInstance().send(to_send);
 
                     }
                     else  {
@@ -227,7 +227,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             PositionComponent new_component = *original_component;
             Position new_position = new_component.getPosition();
 
-            std::vector<int> from_net_position = SingletonSender::getInstance().get();
+            std::vector<int> from_net_position = NetConnector::getInstance().get();
 
 
             auto it = std::find(from_net_position.begin(), from_net_position.end(), currEntityId);
