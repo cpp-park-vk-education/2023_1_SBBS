@@ -5,7 +5,6 @@
 #include "Types.h"
 #include "System.h"
 #include "Entity.h"
-#include "Server.h"
 
 class GameState {
 public:

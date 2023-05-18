@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include <vector>
-#include "Server.h"
 #include "Types.h"
 #include "netConnect.h"
 #include <chrono>
