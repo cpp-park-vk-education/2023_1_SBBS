@@ -41,15 +41,15 @@ void  NetConnector::send(std::vector<int>& to_send) {
 std::vector<int> NetConnector::get() {
     std::vector<int> recieved;
     int curr_data = 0;
-    //std::cout << "Got from queue..." << std::endl;
+    std::cout << "Got from queue..." << std::endl;
     while (lockFreeQueueInput_->pop(curr_data)) {
         recieved.push_back(curr_data);
         if (curr_data == BREAKER) {
             break;
         }
-        //std::cout << curr_data << " ";
+        std::cout << curr_data << "\n";
     }
-    //std::cout << "Done recieving. " << std::endl;
+    std::cout << "Done recieving. " << std::endl;
     return recieved;
 }
 

@@ -43,7 +43,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 
-	auto last_time = std::chrono::steady_clock::time_point(); // убрать auto 
+	std::chrono::steady_clock::time_point last_time; // убрать auto 
 
 
 	while (1) {
@@ -68,6 +68,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 
 		if (elapsed_time < double(1 / 60)) {
 			Sleep(double(1 / 60)- elapsed_time);
+			last_time = curr_time;
 		}
 	}
 }

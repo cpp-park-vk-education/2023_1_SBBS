@@ -145,7 +145,8 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 to_send.push_back(TURRET_POSITION_MARK);
                 to_send.push_back(new_position.x);
                 to_send.push_back(new_position.y);
-                to_send.push_back(new_position.rotation);
+                to_send.push_back(alpha);
+                //to_send.push_back(new_position.rotation);
                 to_send.push_back(BREAKER);
                 NetConnector::getInstance().send(to_send);
                 ///////////
