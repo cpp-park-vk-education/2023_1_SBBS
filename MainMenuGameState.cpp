@@ -6,6 +6,8 @@
 #include "InputHandler.h"
 #include "GraphicsSystem.h"
 
+// on enter()<- создание всех обхъекты на сцене 
+
 MainMenuGameState::MainMenuGameState() {
 
 	id_ = GameStateId::MainMenu;
@@ -82,7 +84,7 @@ GameState* MainMenuGameState::update(sf::RenderWindow& window) {
 		switch (chosen_button_id)
 		{
 		case 1:
-			return new HostPlayingGameState();
+			return new HostPlayingGameState();// mageer, chanfge state to (host play)
 			break;
 		case 2:
 			return new ClientPlayingGameState();

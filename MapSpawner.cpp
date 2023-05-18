@@ -20,6 +20,8 @@ Entity MapSpawner::Spawn(Position position, char subType) {
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
 
+
+	//грамотный switch - case  написать 
 	switch (subType)
 	{
 	case 'w' : // stone wall 

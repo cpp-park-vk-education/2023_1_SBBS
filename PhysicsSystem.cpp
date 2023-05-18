@@ -31,13 +31,21 @@ int calculate_coner(const Input_vector& input_vector) {
 bool check(PositionComponent temp_component);
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+
+    int myEntityId = -1; //////////////// синглтон на мой id
+
     Input inputs;
     inputs.handleInput(window);
     BulletSpawner bs;
+
+ 
     for (int i = 0; i < scene.size(); i++) {       
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
-        if (scene[i].getEntityID() == -1) {
-            if (scene[i].getType() == ObjectType::Tank) {
+        int currEntityId = scene[i].getEntityID();
+        ObjectType currEntityType = scene[i].getType();
+
+        if (currEntityId == myEntityId) {
+            if (currEntityType == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
@@ -101,14 +109,16 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
 
 
                     std::vector<int> to_send;
+                    to_send.push_back(myEntityId);
+                    to_send.push_back(TANK_POSITION_MARK);
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
+                    to_send.push_back(new_position.rotation);
                     SingletonSender::getInstance().send(to_send);
-                    //Sleep(2000);
                     /////// я так понимаю тут мы ставим позицию танка 
                 }                 
             }
-            else if (scene[i].getType() == ObjectType::Turret) {
+            else if (currEntityType == ObjectType::Turret) {
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
@@ -128,15 +138,33 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 new_rotation = alpha;
                 original_component->setRotation(new_rotation);
                 
+                // отправка позиции башни по сети
+                std::vector<int> to_send;
+                to_send.push_back(myEntityId);
+                to_send.push_back(TURRET_POSITION_MARK);
+                to_send.push_back(new_position.x);
+                to_send.push_back(new_position.y);
+                to_send.push_back(new_position.rotation);
+                SingletonSender::getInstance().send(to_send);
+                ///////////
               
                 if (inputs.shoot_ == true) {
                     new_position.x += 50 * cos(new_rotation * 3.1415926 / 180);
                     new_position.y += 50 * sin(new_rotation * 3.1415926 / 180);
                     new_position.rotation = alpha;
+                    ///  тип пули должен соответствовать нужному типу 
                     scene.push_back(bs.Spawn(new_position, '1'));
+
+                    std::vector<int> to_send;
+                    to_send.push_back(BULLET_SPAWN_EVENT);
+                    to_send.push_back(new_position.x);
+                    to_send.push_back(new_position.y);
+                    to_send.push_back(new_position.rotation);
+                    //to_send.push_back(type)  ////////////// сделать
+                    SingletonSender::getInstance().send(to_send);
                 }               
             }
-            else if (scene[i].getType() == ObjectType::Bullet) {
+            else if (currEntityType == ObjectType::Bullet) {
 
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
@@ -162,9 +190,23 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         original_component->setPosition(new_position);
                         original_component->setRotation(new_rotation);
                         *my_collision = new_collision;
+
+
+
+                        /////////// передача позиции пули по сети 
+                        std::vector<int> to_send;
+                        to_send.push_back(myEntityId);
+                        to_send.push_back(BULLET_POSITION_MARK);
+                        to_send.push_back(new_position.x);
+                        to_send.push_back(new_position.y);
+                        to_send.push_back(new_position.rotation);
+                        SingletonSender::getInstance().send(to_send);
+
                     }
                     else  {
                         HealthComponent* Health = dynamic_cast<HealthComponent*>(scene[j].getComponentByID(ComponentID::HealthComponent));
+
+                        // прописать хит ивент для сети 
                         if (!Health->get_dead() && Health->get_mortal()) {
                             Health->damage(50);
                         }
@@ -181,17 +223,30 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 }
             }
         }
-        else if (scene[i].getEntityID() == -2) {
+        else if (currEntityId < 0) {//// прием данных из сети 
             PositionComponent new_component = *original_component;
             Position new_position = new_component.getPosition();
 
             std::vector<int> from_net_position = SingletonSender::getInstance().get();
-            if (from_net_position.size() >= 2) {
-                new_position.x = from_net_position[0];
-                new_position.y = from_net_position[1];
 
-                original_component->setPosition(new_position);
+
+            auto it = std::find(from_net_position.begin(), from_net_position.end(), currEntityId);
+
+            // проверка соответствия элемента и типа из сети
+            if (it != from_net_position.end()) {
+               int j = std::distance(from_net_position.begin(), it);
+
+               if (currEntityType == ObjectType::Tank   && from_net_position[j + 1] == TANK_POSITION_MARK ||
+                   currEntityType == ObjectType::Bullet && from_net_position[j + 1] == BULLET_POSITION_MARK ||
+                   currEntityType == ObjectType::Turret && from_net_position[j + 1] == TURRET_POSITION_MARK) {
+
+                   new_position.x = from_net_position[j + 2];
+                   new_position.y = from_net_position[j + 3];
+                   new_position.rotation = from_net_position[j + 4];
+               }
             }
+
+            original_component->setPosition(new_position);
         }
     }
     return 0;

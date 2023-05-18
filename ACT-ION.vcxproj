@@ -192,10 +192,8 @@
     <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="MusicComponent.h" />
     <ClInclude Include="networkCodes.h" />
-    <ClInclude Include="NetworkSystem.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="PositionComponent.h" />
-    <ClInclude Include="ShootComponent.h" />
     <ClInclude Include="SoundComponent.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="SpawnerSystem.h" />

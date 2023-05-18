@@ -223,9 +223,12 @@ void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     else if (*_connection == ConnectionType::Client) {
         std::cout << "Client State Active\n";
         startClient(LockFreeQueueInput, LockFreeQueueOutput);
-
     }
 }
+///// буст сигнал 
+/// на ивентах 
+//// вектор функций, метод call, вызывающий функции 
+// метод subscribe 
 
 void startServer(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {

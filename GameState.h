@@ -50,6 +50,10 @@ public:
     GameState* update(sf::RenderWindow& window) override;
 };
 
+class PlayIngState : public GameState {
+
+};
+
 class HostPlayingGameState : public GameState {
 public:
     HostPlayingGameState();
