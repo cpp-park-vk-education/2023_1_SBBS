@@ -8,5 +8,6 @@
 #define BULLET_POSITION_MARK -50
 
 #define BREAKER -1000000
+#define CHECKER 10000
 
 // uuid

@@ -65,7 +65,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 if (inputs.moving_down_) {
                     input_vector.y += 1;
                 }
-
+                
                 int alpha;
 
                 if (!(input_vector.x == 0 && input_vector.y == 0)) {
@@ -114,6 +114,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
+                    to_send.push_back(CHECKER);
                     to_send.push_back(BREAKER);
                     NetConnector::getInstance().send(to_send);
                     /////// я так понимаю тут мы ставим позицию танка 
@@ -146,6 +147,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 to_send.push_back(new_position.x);
                 to_send.push_back(new_position.y);
                 to_send.push_back(alpha);
+                to_send.push_back(CHECKER);
                 //to_send.push_back(new_position.rotation);
                 to_send.push_back(BREAKER);
                 NetConnector::getInstance().send(to_send);
@@ -163,6 +165,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     to_send.push_back(new_position.x);
                     to_send.push_back(new_position.y);
                     to_send.push_back(new_position.rotation);
+                    to_send.push_back(CHECKER);
                     to_send.push_back(BREAKER);
                     //to_send.push_back(type)  ////////////// сделать
                     NetConnector::getInstance().send(to_send);
@@ -204,6 +207,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         to_send.push_back(new_position.x);
                         to_send.push_back(new_position.y);
                         to_send.push_back(new_position.rotation);
+                        to_send.push_back(CHECKER);
                         to_send.push_back(BREAKER);
                         NetConnector::getInstance().send(to_send);
 
@@ -243,7 +247,9 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
 
 
 
-            while (from_net_position.size() >= 5) {
+            while (from_net_position.size() >= 6) {
+                if (from_net_position[5] != CHECKER)
+                    continue;
                 if (currEntityType == ObjectType::Tank && from_net_position[1] == TANK_POSITION_MARK ||
                     currEntityType == ObjectType::Bullet && from_net_position[1] == BULLET_POSITION_MARK ||
                     currEntityType == ObjectType::Turret && from_net_position[1] == TURRET_POSITION_MARK) {
