@@ -29,6 +29,12 @@ int calculate_coner(const Input_vector& input_vector) {
     return acos(cos)*180/3.14;
 }
 
+int calculate_angle(Input_vector a, Input_vector b) {
+    double cos = (a.x * b.x + a.y * b.y) /
+    (sqrt(a.x * a.x + a.y * a.y) * sqrt(b.x * b.x + b.y * b.y));
+    return acos(cos) * 180 / 3.14;
+}
+
 int distance_p(Position a, Position b) {
     return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
@@ -258,11 +264,49 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
                 Input_vector input_vector;
-               
-                int random_number = rand() % 3 - 1;
-                input_vector.x = random_number;
-                random_number = rand() % 3 - 1;
-                input_vector.y = random_number;
+                
+                //int random_number = rand() % 3 - 1;
+                //input_vector.x = random_number;
+                //random_number = rand() % 3 - 1;
+                //input_vector.y = random_number;
+
+                double max_attractive = 0;
+                
+                Input_vector attractive_vector;
+                double attractive = 0;
+
+                for (int k = -1; k < 2; k++) {
+                    for (int l = -1; l < 2; l++) {
+                        if (k == 0 && l == 0) continue;
+                        input_vector.x = k;
+                        input_vector.y = l;
+                        for (int j = 0; j < scene.size(); j++) {
+                            if (scene[j].getType() == ObjectType::Tank) {
+                                if (scene[j].getEntityID() == -1) {
+                                    PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
+                                    Position meet_position = meet_component->getPosition();
+                                    Input_vector vector;
+                                    vector.x = meet_position.x - new_position.x;
+                                    vector.y = meet_position.y - new_position.y;
+                                    int betha = calculate_angle(input_vector, vector);
+                                    if (input_vector.x * vector.x < 0 && input_vector.y * vector.y < 0) {
+                                        betha += 180;
+                                    }
+                                    attractive += (180 - betha);                                   
+                                }
+                            }                            
+                        }
+                        if (attractive > max_attractive) {
+                            max_attractive = attractive;
+                            attractive_vector = input_vector;
+                        }
+                        //std::cout << max_attractive << std::endl;
+                        //std::cout << attractive_vector.x << " " << attractive_vector.y << std::endl;
+                        attractive = 0;
+                    }
+                }
+
+                input_vector = attractive_vector;
 
                 int alpha;
 
@@ -304,8 +348,6 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
-
-
                     std::vector<int> to_send;
                     to_send.push_back(myEntityId);
                     to_send.push_back(TANK_POSITION_MARK);
@@ -318,7 +360,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     /////// я так понимаю тут мы ставим позицию танка 
                 }
             }
-            else if (currEntityType == ObjectType::Turret) {
+            else if (false/*currEntityType == ObjectType::Turret*/) {
                 PositionComponent bot_component = *original_component;
                 Position bot_position = bot_component.getPosition();
                 int bot_rotation = bot_component.getRotation();
@@ -330,12 +372,10 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
                         if (scene[j].getEntityID() != 2) {
                             Position meet_position = meet_component->getPosition();
-                            /*if (distance_p(bot_position, meet_position) < min_dist) {
+                            if (distance_p(bot_position, meet_position) < min_dist) {
                                 min_dist = distance_p(bot_position, meet_position);
                                 Enemy_tank = *meet_component;
-                            }*/
-                            min_dist = distance_p(bot_position, meet_position);
-                            Enemy_tank = *meet_component;
+                            }
                         }
                     }
                 }
