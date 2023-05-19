@@ -23,7 +23,7 @@ int main() {
 
 	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
 
-	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
+	producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
 	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
 
 	gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_);

@@ -14,8 +14,8 @@ HostPlayingGameState::HostPlayingGameState(const std::string& map_name) {
 
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
 
-	generateMap(std::string(map_name), 2);
-
+	//generateMap(std::string(map_name), 2);
+	generateMap(std::string("Maps/lvlTest2.txt"), 1);
 
 	addSystem(SystemId::MusicSystemId);
 	addSystem(SystemId::GraphicsSystemId);
