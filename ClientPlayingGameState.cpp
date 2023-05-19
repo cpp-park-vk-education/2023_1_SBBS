@@ -18,7 +18,7 @@ ClientPlayingGameState::ClientPlayingGameState() {
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
 
 
-	generateMap(std::string("Maps/lvlTest2.txt"), 2);
+	generateMap(std::string("Maps/lvlTest.txt"), 2);
 	
 
 	//addSystem(SystemId::MusicSystemId, new MusicSystem);

@@ -2,17 +2,17 @@
 10
 4
 wwwwwwwwwwwwwwwwwww
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-wssssssssssssssssss
-5 5
-9 9 
-5 10
-35 3
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wsssssssssssssssssw
+wwwwwwwwwwwwwwwwwww
+3 3
+3 5 
+10 5  
+3 7
  

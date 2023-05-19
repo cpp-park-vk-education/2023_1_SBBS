@@ -7,6 +7,8 @@
 #include <iostream>
 
 int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+    
+    window.clear();
     // Создаем массив для верхнего слоя отрисовки
     std::vector<int> upper_layer;
 
