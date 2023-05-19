@@ -28,6 +28,10 @@ int calculate_coner(const Input_vector& input_vector) {
     return acos(cos)*180/3.14;
 }
 
+int distance_p(Position a, Position b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+}
+
 //bool check(PositionComponent temp_component);
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
@@ -230,6 +234,50 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         }                       
                     }
                 }
+            }
+        }
+        else if (currEntityId == 2) {
+            if (currEntityType == ObjectType::Turret) {
+                PositionComponent bot_component = *original_component;
+                Position bot_position = bot_component.getPosition();
+                int bot_rotation = bot_component.getRotation();
+
+                Input_vector input_vector;
+
+                int min_dist = 100000;
+                PositionComponent Enemy_tank;
+
+                for (int j = 0; j < scene.size(); j++) {
+                    if (scene[j].getType() == ObjectType::Tank) {
+                        PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
+                        if (scene[j].getEntityID() != 2) {
+                            Position meet_position = meet_component->getPosition();
+                            /*if (distance_p(bot_position, meet_position) < min_dist) {
+                                min_dist = distance_p(bot_position, meet_position);
+                                Enemy_tank = *meet_component;
+                            }*/
+                            min_dist = distance_p(bot_position, meet_position);
+                            Enemy_tank = *meet_component;
+                        }
+                    }
+                }
+                if (min_dist != 10000) {
+                    Position Enemy_pos = Enemy_tank.getPosition();
+
+                    input_vector.x = Enemy_pos.x - bot_position.x;
+                    input_vector.y = Enemy_pos.y - bot_position.y;
+
+                    int alpha = calculate_coner(input_vector);
+
+                    if (Enemy_pos.y < bot_position.y) {
+                        alpha = 360 - alpha;
+                    }
+
+                    bot_rotation = alpha;
+                    original_component->setRotation(bot_rotation);
+                    std::cout << bot_rotation << std::endl;
+                }
+                
             }
         }
         else if (currEntityId != 0) {//// прием данных из сети 
