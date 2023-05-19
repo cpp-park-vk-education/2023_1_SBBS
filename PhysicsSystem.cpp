@@ -343,15 +343,15 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     original_component->setPosition(new_position);
                     original_component->setRotation(new_rotation);
                     *my_collision = new_collision;
-                    std::vector<int> to_send;
-                    to_send.push_back(myEntityId);
-                    to_send.push_back(TANK_POSITION_MARK);
-                    to_send.push_back(new_position.x);
-                    to_send.push_back(new_position.y);
-                    to_send.push_back(new_position.rotation);
-                    to_send.push_back(CHECKER);
-                    to_send.push_back(BREAKER);
-                    NetConnector::getInstance().send(to_send);
+                    //std::vector<int> to_send;
+                    //to_send.push_back(myEntityId);
+                    //to_send.push_back(TANK_POSITION_MARK);
+                    //to_send.push_back(new_position.x);
+                    //to_send.push_back(new_position.y);
+                    //to_send.push_back(new_position.rotation);
+                    //to_send.push_back(CHECKER);
+                    //to_send.push_back(BREAKER);
+                    //NetConnector::getInstance().send(to_send);
                     /////// я так понимаю тут мы ставим позицию танка 
                 }
             }
