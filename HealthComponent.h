@@ -10,7 +10,7 @@ public:
 
     int getHealth();
 
-    void setHealth(int health);
+    void setHealth(int health); //// нет сеттера?
 
     void set_dead(bool actual);
 

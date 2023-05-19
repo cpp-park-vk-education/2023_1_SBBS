@@ -5,6 +5,7 @@
 #include "Types.h"
 #include "netConnect.h"
 #include <chrono>
+#include <thread>
 
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
@@ -21,7 +22,7 @@ int main() {
 
 	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
 
-	producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
+	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
 	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
 
 	gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_);
@@ -41,6 +42,8 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 
 	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
+
+	double tick_time = 1.0 / 60;
 
 
 	while (1) {
@@ -65,10 +68,14 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		//std::cout << elapsed_time << std::endl;
 
 
-		if (elapsed_time < double(1.0 / 60.0)) {
-			std::cout << double(1.0 / 60.0) - elapsed_time << std::endl;
-			Sleep(double(1.0 / 60.0) - elapsed_time);
+		if (elapsed_time < tick_time) {
+			double sleep_time = tick_time - elapsed_time;
+			std::chrono::duration<double> sleep_duration(sleep_time);
+			std::this_thread::sleep_for(sleep_duration);
 		}
-		last_time = curr_time;
+		else {
+			std::cout << "missed by " << elapsed_time - tick_time << std::endl;
+		}
+		last_time = std::chrono::high_resolution_clock::now();
 	}
 }

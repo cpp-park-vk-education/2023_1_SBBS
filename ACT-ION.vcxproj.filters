@@ -108,8 +108,11 @@
     <ClCompile Include="netConnect.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="GameStateManager.cpp">
+    <ClCompile Include="GameStateManager.h">
       <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootComponent.h">
+      <Filter>Файлы заголовков\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

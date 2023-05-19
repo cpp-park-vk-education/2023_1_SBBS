@@ -39,7 +39,7 @@ Entity TankSpawner::Spawn(Position position, char subType) {
 	}
 
 	
-	pos_to_add->setSpeed(2);///// скорость по типу 
+	pos_to_add->setSpeed(10);///// скорость по типу 
 	graph_to_add->layer = true;
 	to_add.putComponent(ComponentID::HealthComponent, health_to_add);
 	to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);

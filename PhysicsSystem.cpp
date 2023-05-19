@@ -9,6 +9,7 @@
 #include "HealthComponent.h"
 #include "netConnect.h"
 #include "networkCodes.h"
+#include "ShootComponent.h"
 
 int base_x = 1;
 int base_y = 0;
@@ -158,21 +159,31 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 ///////////
               
                 if (inputs.shoot_ == true) {
-                    new_position.x += 50 * cos(new_rotation * 3.1415926 / 180);
-                    new_position.y += 50 * sin(new_rotation * 3.1415926 / 180);
-                    new_position.rotation = alpha;
-                    ///  тип пули должен соответствовать нужному типу 
-                    scene.push_back(bs.Spawn(new_position, '1'));
+                    static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
+                    std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
+                    double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+                    ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i].getComponentByID(ComponentID::ShootComponent));
 
-                    std::vector<int> to_send;
-                    to_send.push_back(BULLET_SPAWN_EVENT);
-                    to_send.push_back(new_position.x);
-                    to_send.push_back(new_position.y);
-                    to_send.push_back(new_position.rotation);
-                    to_send.push_back(CHECKER);
-                    to_send.push_back(BREAKER);
-                    //to_send.push_back(type)  ////////////// сделать
-                    NetConnector::getInstance().send(to_send);
+                    if (elapsed_time > shoot_component->getCooldown()) {
+
+                        new_position.x += 50 * cos(new_rotation * 3.1415926 / 180);
+                        new_position.y += 50 * sin(new_rotation * 3.1415926 / 180);
+                        new_position.rotation = alpha;
+                        ///  тип пули должен соответствовать нужному типу 
+
+                        scene.push_back(bs.Spawn(new_position, '1'));
+
+                        std::vector<int> to_send;
+                        to_send.push_back(BULLET_SPAWN_EVENT);
+                        to_send.push_back(new_position.x);
+                        to_send.push_back(new_position.y);
+                        to_send.push_back(new_position.rotation);
+                        to_send.push_back(CHECKER);
+                        to_send.push_back(BREAKER);
+                        //to_send.push_back(type)  ////////////// сделать
+                        NetConnector::getInstance().send(to_send);
+                        last_time = std::chrono::high_resolution_clock::now();
+                    }
                 }               
             }
             else if (currEntityType == ObjectType::Bullet) {

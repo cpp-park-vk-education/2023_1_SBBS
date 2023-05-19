@@ -26,13 +26,13 @@ Entity BulletSpawner::Spawn(Position position, char subType) {
 	case '1': // bullet 
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
 		graph_to_add->setImage(bullet);
+		pos_to_add->setSpeed(10); //// change speed 
 		break;
 	default:
 		break;
 	}
 
 	graph_to_add->setOrigin(20, 10); // если че, меняй центр отрисовки пули тут 
-	pos_to_add->setSpeed(10); //// change speed 
 	graph_to_add->layer = true;
 	to_add.putComponent(ComponentID::HealthComponent, health_to_add);
 	to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);

@@ -2,7 +2,7 @@
 
 enum class ComponentID : char {
     GraphicsComponent, HealthComponent, PositionComponent, SoundComponent,
-    CollisionComponent, ClickComponent, MusicComponent,
+    CollisionComponent, ClickComponent, MusicComponent, ShootComponent
 };
 
 struct Position {

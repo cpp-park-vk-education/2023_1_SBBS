@@ -2,14 +2,16 @@
 #include "SpawnerSystem.h"
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"
+#include "ShootComponent.h"
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 
 Entity TurretSpawner::Spawn(Position position, char subType) {
-	static sf::Image img;
+	static sf::Image img;//// почему статик???
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
+	ShootComponent* shoot_to_add = new ShootComponent();
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
 
@@ -26,11 +28,13 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	case '1': // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
 		graph_to_add->setImage(img);
+		shoot_to_add->setCooldown(1.0);/////////в зависимости от типа 
 		break;
 
 	case '2': // tank type 1
 		img.loadFromFile("Image/tank_2_gun_100_100.png");
 		graph_to_add->setImage(img);
+		shoot_to_add->setCooldown(1.0);
 		break;
 
 	default:
@@ -38,6 +42,7 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	}
 
 	graph_to_add->layer = true;
+	to_add.putComponent(ComponentID::ShootComponent, shoot_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add.putComponent(ComponentID::PositionComponent, turr_pos_to_add);
 

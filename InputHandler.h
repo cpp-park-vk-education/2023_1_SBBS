@@ -45,19 +45,21 @@ struct Input {
         }
         *this = curr_input;
 
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+            shoot_ = true;
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-            auto curr_time = std::chrono::high_resolution_clock::now();
-            double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+        //if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+        //    auto curr_time = std::chrono::high_resolution_clock::now();
+        //    double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
 
-            if (elapsed_time >= 1) {
-                shoot_ = true;
-                last_time = curr_time;
-            }
-        }
-        else {
-            shoot_ = false;
-        }
+        //    if (elapsed_time >= 1) {
+        //        shoot_ = true;
+        //        last_time = curr_time;
+        //    }
+        //}
+        //else {
+        //    shoot_ = false;
+        //}
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
         mouse_x_ = mousePosition.x;
