@@ -263,12 +263,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 PositionComponent new_component = *original_component;
                 Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
-                Input_vector input_vector;
-                
-                //int random_number = rand() % 3 - 1;
-                //input_vector.x = random_number;
-                //random_number = rand() % 3 - 1;
-                //input_vector.y = random_number;
+                Input_vector input_vector;              
 
                 double max_attractive = 0;
                 
@@ -360,7 +355,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     /////// я так понимаю тут мы ставим позицию танка 
                 }
             }
-            else if (false/*currEntityType == ObjectType::Turret*/) {
+            else if (currEntityType == ObjectType::Turret) {
                 PositionComponent bot_component = *original_component;
                 Position bot_position = bot_component.getPosition();
                 int bot_rotation = bot_component.getRotation();
