@@ -250,7 +250,69 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
         }
         else if (currEntityId == 2) {
             if (currEntityType == ObjectType::Tank) {
+                PositionComponent new_component = *original_component;
+                Position new_position = new_component.getPosition();
+                int new_rotation = new_component.getRotation();
+                Input_vector input_vector;
+               
+                int random_number = rand() % 3 - 1;
+                input_vector.x = random_number;
+                random_number = rand() % 3 - 1;
+                input_vector.y = random_number;
 
+                int alpha;
+
+                if (!(input_vector.x == 0 && input_vector.y == 0)) {
+                    alpha = calculate_coner(input_vector);
+                }
+                else alpha = new_rotation;
+                float prop;
+
+                if (abs(input_vector.x * input_vector.y))
+                    prop = 0.707;
+                else prop = 1;
+
+                new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);
+                new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
+
+                input_vector.x = new_position.x + input_vector.x;
+                input_vector.y = new_position.y + input_vector.y;
+                if (input_vector.y < new_position.y) {
+                    alpha = 360 - alpha;
+                }
+                new_rotation = alpha;
+
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                CollisionComponent new_collision = *my_collision;
+                new_collision.update(new_position, new_rotation);
+
+                bool flag = true;
+                for (int j = 0; j < scene.size(); j++) {
+                    if (j == i) continue;
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    if (!another_collision) continue;
+                    if (!new_collision.checkCollision(another_collision)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    original_component->setPosition(new_position);
+                    original_component->setRotation(new_rotation);
+                    *my_collision = new_collision;
+
+
+                    std::vector<int> to_send;
+                    to_send.push_back(myEntityId);
+                    to_send.push_back(TANK_POSITION_MARK);
+                    to_send.push_back(new_position.x);
+                    to_send.push_back(new_position.y);
+                    to_send.push_back(new_position.rotation);
+                    to_send.push_back(CHECKER);
+                    to_send.push_back(BREAKER);
+                    NetConnector::getInstance().send(to_send);
+                    /////// я так понимаю тут мы ставим позицию танка 
+                }
             }
             else if (currEntityType == ObjectType::Turret) {
                 PositionComponent bot_component = *original_component;
