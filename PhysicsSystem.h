@@ -12,5 +12,5 @@ public:
 
 private:
 
-    int first_collidable_;
+    int first_collidable_ = 0;
 };
