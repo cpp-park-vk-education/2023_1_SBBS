@@ -9,15 +9,12 @@
 #include "SpawnerSystem.h"
 #include <fstream>
 
-HostPlayingGameState::HostPlayingGameState() {
+HostPlayingGameState::HostPlayingGameState(const std::string& map_name) {
 	id_ = GameStateId::HostPlaying;
-
-	
 
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
 
-
-	generateMap(std::string("Maps/lvlTest2.txt"), 2);
+	generateMap(std::string(map_name), 2);
 
 
 	//addSystem(SystemId::MusicSystemId, new MusicSystem);
@@ -28,7 +25,7 @@ HostPlayingGameState::HostPlayingGameState() {
 	//ms.playMusic(scene); menu music
 }
 
-GameState* HostPlayingGameState::update(sf::RenderWindow& window) {
+GameStateId HostPlayingGameState::update(sf::RenderWindow& window) {
 
 
 	getSystemById(SystemId::PhysicsSystemId)->update(window, scene_);
@@ -36,10 +33,10 @@ GameState* HostPlayingGameState::update(sf::RenderWindow& window) {
 
 	Entity* my_tank = getMyTank();
 
-	if (isDead(my_tank) && !window.isOpen()) {
+	//if (isDead(my_tank)) { если хост умирает, не должно выйти в меню
+	// 
+	//	return GameStateId::MainMenu;
+	//}	
 
-		return new MainMenuGameState();
-	}	
-
-	return this;
+	return id_;
 }

@@ -5,6 +5,6 @@ ClientMenuGameState::ClientMenuGameState() {
 	id_ = GameStateId::ClientMenu;
 }
 
-GameState* ClientMenuGameState::update(sf::RenderWindow& window) {
-	return this;
+GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
+	return id_;
 }

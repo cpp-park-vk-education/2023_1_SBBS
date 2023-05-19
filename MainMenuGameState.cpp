@@ -62,7 +62,7 @@ MainMenuGameState::MainMenuGameState() {
 
 
 
-GameState* MainMenuGameState::update(sf::RenderWindow& window) {
+GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
 
 	static int chosen_button_id = 0;
 	Input input;
@@ -84,16 +84,16 @@ GameState* MainMenuGameState::update(sf::RenderWindow& window) {
 		switch (chosen_button_id)
 		{
 		case 1:
-			return new HostPlayingGameState();// mageer, chanfge state to (host play)
+			return GameStateId::HostPlaying;
 			break;
 		case 2:
-			return new ClientPlayingGameState();
+			return GameStateId::ClientPlaying;
 		default:
-			return this;
+			return id_;
 			break;
 		}
 	}
 
-	return this;
+	return id_;
 }
 

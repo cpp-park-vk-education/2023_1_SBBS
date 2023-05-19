@@ -6,6 +6,7 @@
 #include "netConnect.h"
 #include <chrono>
 #include <thread>
+#include "GameStateManager.h"
 
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
@@ -37,36 +38,32 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
 	ConnectionType* connection) {
 
-	GameState* curr_state = new MainMenuGameState(); // enable_sharing_form_this   -  
-
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
-
 	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
 
-	double tick_time = 1.0 / 60;
-
+	const double tick_time = 1.0 / 60;
+	
+	StateManager manager;
+	manager.changeState(GameStateId::MainMenu);
 
 	while (1) {
 		
-		curr_state = curr_state->update(window);
-		GameStateId curr_id = curr_state->getStateId();
+		manager.run(window);
 		 
 		/////////////////////////  
-		if (curr_id == GameStateId::HostPlaying) {
-			*connection = ConnectionType::Host;
-			// тут вызввать ивент 
-			// тут хранить меняли ли ивент до этого 
-		}
-		else if (curr_id == GameStateId::ClientPlaying) {
-			*connection = ConnectionType::Client;
-		}
+		//if (curr_id == GameStateId::HostPlaying) {
+		//	*connection = ConnectionType::Host;
+		//	// тут вызввать ивент 
+		//	// тут хранить меняли ли ивент до этого 
+		//}
+		//else if (curr_id == GameStateId::ClientPlaying) {
+		//	*connection = ConnectionType::Client;
+		//}
 		/////////////////////////
 		// синглтон на время или глобальная переменная 
 
 		std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
 		double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
-		//std::cout << elapsed_time << std::endl;
-
 
 		if (elapsed_time < tick_time) {
 			double sleep_time = tick_time - elapsed_time;
@@ -74,7 +71,9 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 			std::this_thread::sleep_for(sleep_duration);
 		}
 		else {
+			//////////////////////////////////////////////////////////////////
 			std::cout << "missed by " << elapsed_time - tick_time << std::endl;
+			//////////////////////////////////////////////////////////////////
 		}
 		last_time = std::chrono::high_resolution_clock::now();
 	}

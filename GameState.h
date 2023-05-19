@@ -9,7 +9,7 @@
 class GameState {
 public:
 
-    virtual GameState* update(sf::RenderWindow& window) = 0;
+    virtual GameStateId update(sf::RenderWindow& window) = 0;
 
     GameStateId getStateId() { return id_; };
 
@@ -29,7 +29,7 @@ protected:
 class MainMenuGameState :public GameState {
 public:
 
-    GameState* update(sf::RenderWindow& window) override;
+    GameStateId update(sf::RenderWindow& window) override;
 
     MainMenuGameState();
 };
@@ -39,7 +39,7 @@ public:
 
     HostMenuGameState();
 
-    GameState* update(sf::RenderWindow& window) override;
+    GameStateId update(sf::RenderWindow& window) override;
 };
 
 class ClientMenuGameState :public GameState {
@@ -47,7 +47,7 @@ public:
 
     ClientMenuGameState();
 
-    GameState* update(sf::RenderWindow& window) override;
+    GameStateId update(sf::RenderWindow& window) override;
 };
 
 class PlayingState : public GameState {
@@ -63,9 +63,9 @@ protected:
 
 class HostPlayingGameState : public PlayingState {
 public:
-    HostPlayingGameState();
+    HostPlayingGameState(const std::string&);
 
-    GameState* update(sf::RenderWindow& window) override;
+    GameStateId update(sf::RenderWindow& window) override;
 
 private:
 };
@@ -73,10 +73,9 @@ private:
 class ClientPlayingGameState : public PlayingState {
 public:
 
-    GameState* update(sf::RenderWindow& window) override;
+    GameStateId update(sf::RenderWindow& window) override;
 
-
-    ClientPlayingGameState();
+    ClientPlayingGameState(const std::string& );
 
 private:
 };

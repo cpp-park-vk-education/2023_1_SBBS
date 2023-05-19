@@ -12,7 +12,7 @@
 #include <Windows.h>
 
 
-ClientPlayingGameState::ClientPlayingGameState() {
+ClientPlayingGameState::ClientPlayingGameState(const std::string& map_name) {
 	id_ = GameStateId::ClientPlaying;
 
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
@@ -29,7 +29,7 @@ ClientPlayingGameState::ClientPlayingGameState() {
 	//ms.playMusic(scene); menu music
 }
 
-GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
+GameStateId ClientPlayingGameState::update(sf::RenderWindow& window) {
 
 	////
 	getSystemById(SystemId::PhysicsSystemId)->update(window, scene_);
@@ -38,12 +38,12 @@ GameState* ClientPlayingGameState::update(sf::RenderWindow& window) {
 
 	Entity* my_tank = getMyTank();
 
-	if (isDead(my_tank) && !window.isOpen()) {
+	if (isDead(my_tank)) {// сделать геймстейт после смерти или статистику игры
 		
-		return new MainMenuGameState();
+		return GameStateId::MainMenu;
 	}
 
-	return this;
+	return id_;
 }
 
 

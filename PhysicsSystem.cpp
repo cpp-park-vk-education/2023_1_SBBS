@@ -236,8 +236,12 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                             Health->damage(50);
                         }
                         if (Health->get_dead()) {
-                            scene.erase(scene.begin() + i);
-                            scene.erase(scene.begin() + j);
+
+                            scene.erase(scene.begin() + i);// удаление пули 
+                            if (scene[j].getType() == ObjectType::Tank)
+
+                                scene.erase(scene.begin() + j + 1);// удаление башни
+                            scene.erase(scene.begin() + j);// удаление того объекта, в который попала пуля
                             break;
                         }
                         else {
