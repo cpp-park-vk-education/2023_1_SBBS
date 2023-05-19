@@ -226,6 +226,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         to_send.push_back(BREAKER);
                         NetConnector::getInstance().send(to_send);
 
+
                     }
                     else  {
                         HealthComponent* Health = dynamic_cast<HealthComponent*>(scene[j].getComponentByID(ComponentID::HealthComponent));
@@ -248,16 +249,16 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
             }
         }
         else if (currEntityId == 2) {
-            if (currEntityType == ObjectType::Turret) {
+            if (currEntityType == ObjectType::Tank) {
+
+            }
+            else if (currEntityType == ObjectType::Turret) {
                 PositionComponent bot_component = *original_component;
                 Position bot_position = bot_component.getPosition();
                 int bot_rotation = bot_component.getRotation();
-
                 Input_vector input_vector;
-
                 int min_dist = 100000;
                 PositionComponent Enemy_tank;
-
                 for (int j = 0; j < scene.size(); j++) {
                     if (scene[j].getType() == ObjectType::Tank) {
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
@@ -283,12 +284,43 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     if (Enemy_pos.y < bot_position.y) {
                         alpha = 360 - alpha;
                     }
-
                     bot_rotation = alpha;
                     original_component->setRotation(bot_rotation);
-                    std::cout << bot_rotation << std::endl;
-                }
-                
+                    bool flag = true;
+                    for (int j = 0; j < scene.size(); j++) {
+                        if (scene[j].getType() == ObjectType::Map) {
+                            CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                            if (!wall_collision) continue;
+                            if (!wall_collision->checkBullet(bot_position, Enemy_pos)) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag) {
+                        static std::chrono::steady_clock::time_point bot_last_shoot = std::chrono::high_resolution_clock::now();
+                        std::chrono::steady_clock::time_point bot_curr_time = std::chrono::high_resolution_clock::now();
+                        double elapsed_time = std::chrono::duration<double>(bot_curr_time - bot_last_shoot).count();
+                        ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i].getComponentByID(ComponentID::ShootComponent));
+                        if (elapsed_time > shoot_component->getCooldown()) {
+                            bot_position.x += 50 * cos(bot_rotation * 3.1415926 / 180);
+                            bot_position.y += 50 * sin(bot_rotation * 3.1415926 / 180);
+                            bot_position.rotation = alpha;
+                            ///  тип пули должен соответствовать нужному типу 
+                            scene.push_back(bs.Spawn(bot_position, '1'));
+                            //std::vector<int> to_send;
+                            //to_send.push_back(BULLET_SPAWN_EVENT);
+                            //to_send.push_back(new_position.x);
+                            //to_send.push_back(new_position.y);
+                            //to_send.push_back(new_position.rotation);
+                            //to_send.push_back(CHECKER);
+                            //to_send.push_back(BREAKER);
+                            ////to_send.push_back(type)  ////////////// сделать
+                            //NetConnector::getInstance().send(to_send);
+                            bot_last_shoot = std::chrono::high_resolution_clock::now();
+                        }
+                    }                    
+                }     
             }
         }
         else if (currEntityId != 0) {//// прием данных из сети 

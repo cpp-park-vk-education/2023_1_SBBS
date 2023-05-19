@@ -23,6 +23,8 @@ public:
 
     std::vector<Position> get_hitbox();
 
+    bool checkBullet(Position beg, Position end);
+
     CollisionComponent(CollisionComponent* comp) = delete;    
 
 private:

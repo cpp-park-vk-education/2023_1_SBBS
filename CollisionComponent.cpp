@@ -95,6 +95,17 @@ bool CollisionComponent::checkCollision(CollisionComponent* tested_object) {
     return true;
 }
 
+bool CollisionComponent::checkBullet(Position beg, Position end) {
+    std::vector<Position> temp_hitbox_this = this->get_hitbox();
+    temp_hitbox_this.push_back(temp_hitbox_this[0]);
+    for (int i = 0; i < 4; i++) {
+        if (intersect(temp_hitbox_this[i], temp_hitbox_this[i + 1], beg, end)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void CollisionComponent::setPosition(Position& position) {
     position_ = position; 
 }

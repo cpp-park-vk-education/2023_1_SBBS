@@ -28,6 +28,7 @@ public:
 
     void setSprite(sf::Sprite sprite);
 
+    bool checkBullet(Position beg, Position end);
 
     sf::Sprite getSprite() { return obj_sprite_; }
     /*sf::Texture getTexture() { return obj_texture_; }*/
