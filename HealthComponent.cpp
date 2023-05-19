@@ -1,5 +1,14 @@
 #pragma once
 #include "HealthComponent.h"
+#include "GraphicsComponent.h"
+
+void HealthComponent::setAfterlife(){
+
+    if (collidable_in_afterlife_) {
+
+
+    }
+}
 
 bool HealthComponent::isMortal() {
     return mortal_;

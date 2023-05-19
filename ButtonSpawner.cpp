@@ -24,13 +24,13 @@ Entity ButtonSpawner::Spawn(Position position, char subType) {
 	switch (subType) {
 		case('h'): // host game button
 			img.loadFromFile("Image/GUI_host_game.png");
-			graph_to_add->setImage(img);
+			graph_to_add->setAliveImage(img);
 			click_to_add->setButtonId(1);
 			break;
 
 		case('c'): //connect to game button
 			img.loadFromFile("Image/GUI_connect_game.png");
-			graph_to_add->setImage(img);
+			graph_to_add->setAliveImage(img);
 			click_to_add->setButtonId(2);
 			break;
 

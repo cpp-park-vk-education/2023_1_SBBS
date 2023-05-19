@@ -16,7 +16,7 @@ Entity BulletSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
-	HealthComponent* health_to_add = new HealthComponent(true, 100);
+	HealthComponent* health_to_add = new HealthComponent(true, false,false,10); /////////выставить дамаг для пули
 
 	Position pos_struc_to_add(position.x, position.y,position.rotation);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -25,7 +25,7 @@ Entity BulletSpawner::Spawn(Position position, char subType) {
 	{
 	case '1': // bullet 
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
-		graph_to_add->setImage(bullet);
+		graph_to_add->setAliveImage(bullet);
 		pos_to_add->setSpeed(10); //// change speed 
 		break;
 	default:

@@ -26,29 +26,29 @@ Entity MapSpawner::Spawn(Position position, char subType) {
 	{
 	case 'w' : // stone wall 
 		img.loadFromFile("Image/Stone_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
-		health_to_add = new HealthComponent(true, 100);
+		health_to_add = new HealthComponent(true,true,false, 100);
 		break;
 
 	case 's' : // sand floor
 		img.loadFromFile("Image/Sand_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	case 'd': // dirt floor
 		img.loadFromFile("Image/Dirt_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	case 'c': // cave floor
 		img.loadFromFile("Image/Cave_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	case 'i': // iron floor
 		img.loadFromFile("Image/Iron_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	default:

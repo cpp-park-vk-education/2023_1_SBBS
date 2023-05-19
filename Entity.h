@@ -20,9 +20,9 @@ public:
         return *this;
     }*/
 
-    Component* getComponentByID(const ComponentID& id) {
-            return components_[id];
-    }
+    Component* getComponentByID(const ComponentID& id) { return components_[id]; }
+
+    void deleteComponent(ComponentID id) { components_.erase(id); }
 
     ObjectType getType() { return type_; }
 

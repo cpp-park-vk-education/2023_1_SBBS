@@ -17,7 +17,7 @@ Entity TankSpawner::Spawn(Position position, char subType) {
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add =  new CollisionComponent(position, 0, 50, 50);
-	HealthComponent* health_to_add = new HealthComponent(true, 100);
+	HealthComponent* health_to_add = new HealthComponent(true, true,true, 100);
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -26,12 +26,12 @@ Entity TankSpawner::Spawn(Position position, char subType) {
 	{
 	case '1': // tank type 1
 		img.loadFromFile("Image/tank_1_body_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	case '2': // tank type 2
 		img.loadFromFile("Image/tank_2_body_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		break;
 
 	default:
@@ -39,7 +39,7 @@ Entity TankSpawner::Spawn(Position position, char subType) {
 	}
 
 	
-	pos_to_add->setSpeed(10);///// скорость по типу 
+	pos_to_add->setSpeed(10);///// скорость по типу, перебросить в свич
 	graph_to_add->layer = true;
 	to_add.putComponent(ComponentID::HealthComponent, health_to_add);
 	to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);

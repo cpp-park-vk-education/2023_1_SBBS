@@ -27,13 +27,13 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	{
 	case '1': // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		shoot_to_add->setCooldown(1.0);/////////в зависимости от типа 
 		break;
 
 	case '2': // tank type 1
 		img.loadFromFile("Image/tank_2_gun_100_100.png");
-		graph_to_add->setImage(img);
+		graph_to_add->setAliveImage(img);
 		shoot_to_add->setCooldown(1.0);
 		break;
 
