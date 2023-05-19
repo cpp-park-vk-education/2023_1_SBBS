@@ -50,24 +50,27 @@ public:
     GameState* update(sf::RenderWindow& window) override;
 };
 
-class PlayIngState : public GameState {
+class PlayingState : public GameState {
+public:
 
+protected:
+    Entity* getMyTank();
+
+    void generateMap(const std::string& map_name, int my_tank_id);
+
+    bool isDead(Entity* tank);
 };
 
-class HostPlayingGameState : public GameState {
+class HostPlayingGameState : public PlayingState {
 public:
     HostPlayingGameState();
 
     GameState* update(sf::RenderWindow& window) override;
 
 private:
-
-    Entity* getMyTank();
-
-    bool isDead(Entity* tank);
 };
 
-class ClientPlayingGameState : public GameState {
+class ClientPlayingGameState : public PlayingState {
 public:
 
     GameState* update(sf::RenderWindow& window) override;
@@ -76,10 +79,6 @@ public:
     ClientPlayingGameState();
 
 private:
-
-    Entity* getMyTank();
-
-    bool isDead(Entity* tank);
 };
 
 

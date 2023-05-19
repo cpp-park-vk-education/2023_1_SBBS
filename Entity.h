@@ -38,7 +38,7 @@ private:
 
     std::unordered_map<ComponentID, Component*> components_;
 
-    int entity_id_ = -1;
+    int entity_id_ = 0;
 
 };
 

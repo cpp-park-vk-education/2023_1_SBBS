@@ -38,6 +38,7 @@ Entity BulletSpawner::Spawn(Position position, char subType) {
 	to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
 	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
+	to_add.setEntityID(-1);
 	return to_add;
 
 }

@@ -90,12 +90,6 @@
     <ClCompile Include="HostPlayingGameState.cpp">
       <Filter>Файлы ресурсов\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="Server.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
     <ClCompile Include="netConnect.h">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
@@ -107,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="SpawnerSystem.cpp">
       <Filter>Файлы ресурсов\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="netConnect.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>Файлы заголовков</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +129,6 @@
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
     <ClInclude Include="MenuSystem.h">
-      <Filter>Файлы заголовков\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkSystem.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h">
@@ -155,9 +155,6 @@
     <ClInclude Include="SoundComponent.h">
       <Filter>Файлы заголовков\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ShootComponent.h">
-      <Filter>Файлы заголовков\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>Файлы заголовков\Components</Filter>
     </ClInclude>
@@ -175,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="SoundSystem.h">
       <Filter>Файлы заголовков\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="networkCodes.h">
       <Filter>Файлы заголовков</Filter>

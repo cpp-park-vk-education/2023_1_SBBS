@@ -31,7 +31,7 @@ void NetConnector::openConnection(boost::lockfree::queue<int, MAX_LENGTH>* LockF
 
 void  NetConnector::send(std::vector<int>& to_send) {
     //std::cout << "Writing into queue..." << std::endl;
-    for (int i = 0; i < to_send.size(); ++i) { //// тут не уверен
+    for (int i = 0; i < to_send.size(); ++i) {
         //std::cout << to_send[i] << " ";
         lockFreeQueueOutput_->push(to_send[i]);
     }
@@ -41,15 +41,15 @@ void  NetConnector::send(std::vector<int>& to_send) {
 std::vector<int> NetConnector::get() {
     std::vector<int> recieved;
     int curr_data = 0;
-    std::cout << "Got from queue..." << std::endl;
+    //std::cout << "Got from queue..." << std::endl;
     while (lockFreeQueueInput_->pop(curr_data)) {
         recieved.push_back(curr_data);
         if (curr_data == BREAKER) {
             break;
         }
-        std::cout << curr_data << "\n";
+        //std::cout << curr_data << "\n";
     }
-    std::cout << "Done recieving. " << std::endl;
+    //std::cout << "Done recieving. " << std::endl;
     return recieved;
 }
 

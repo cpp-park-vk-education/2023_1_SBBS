@@ -28,7 +28,7 @@ int calculate_coner(const Input_vector& input_vector) {
     return acos(cos)*180/3.14;
 }
 
-bool check(PositionComponent temp_component);
+//bool check(PositionComponent temp_component);
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
 
@@ -232,19 +232,10 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 }
             }
         }
-        else if (currEntityId < 0) {//// прием данных из сети 
+        else if (currEntityId != 0) {//// прием данных из сети 
             PositionComponent new_component = *original_component;
             Position new_position = new_component.getPosition();
-            
-
             std::vector<int> from_net_position = NetConnector::getInstance().get();
-
-
-            //auto it = std::find(from_net_position.begin(), from_net_position.end(), -1/*currEntityId*/);
-
-            // проверка соответствия элемента и типа из сети
-            //if (it != from_net_position.end()) {
-             //  int j = std::distance(from_net_position.begin(), it);
 
             while (from_net_position.size() >= 6) {
                 if (from_net_position[5] != CHECKER) {
@@ -264,7 +255,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
 
                 from_net_position = NetConnector::getInstance().get();
             }
-            
+            /// наладить коллизию танков 
             CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
             if (my_collision) {
                 CollisionComponent new_collision = *my_collision;

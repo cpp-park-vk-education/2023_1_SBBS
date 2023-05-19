@@ -42,17 +42,17 @@ HostPlayingGameState::HostPlayingGameState() {
 			switch (current_block) {
 			case 'w':
 				temp_ent = ws.Spawn(curr_pos, 'w');
-				temp_ent.setEntityID(i * map_width + j);
+				//temp_ent.setEntityID(i * map_width + j);
 				scene_.push_back(temp_ent);
 				break;
 			case's':
 				temp_ent = ws.Spawn(curr_pos, 's');
-				temp_ent.setEntityID(i * map_width + j);
+				//temp_ent.setEntityID(i * map_width + j);
 				scene_.push_back(temp_ent);
 				break;
 			case'd':
 				temp_ent = ws.Spawn(curr_pos, 'd');
-				temp_ent.setEntityID(i * map_width + j);
+				//temp_ent.setEntityID(i * map_width + j);
 				scene_.push_back(temp_ent);
 				break;
 			default:
@@ -67,7 +67,7 @@ HostPlayingGameState::HostPlayingGameState() {
 
 		map_file >> tank_x >> tank_y;
 		Position curr_pos;
-		curr_pos.x = tank_y * block_size + int(block_size / 2);
+		curr_pos.x = tank_x * block_size + int(block_size / 2);
 		curr_pos.y = tank_y * block_size + int(block_size / 2);
 
 		Entity temp_ent;
@@ -89,10 +89,11 @@ HostPlayingGameState::HostPlayingGameState() {
 		tank_y = 0;
 
 		map_file >> tank_x >> tank_y;
-		curr_pos.x = tank_y * block_size + int(block_size / 2);
+		curr_pos.x = tank_x * block_size + int(block_size / 2);
 		curr_pos.y = tank_y * block_size + int(block_size / 2);
 
 		temp_ent = ts.Spawn(curr_pos, '1');
+		temp_ent.setEntityID(-1);
 		scene_.push_back(temp_ent);
 		{
 			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
@@ -100,7 +101,27 @@ HostPlayingGameState::HostPlayingGameState() {
 			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
 			turr_pos->setParent(tank_pos);
 		}
+		temp_ent.setEntityID(-1);
+		scene_.push_back(temp_ent);
 
+		/////////////////////////////////////// бот
+		tank_x = 0;
+		tank_y = 0;
+
+		map_file >> tank_x >> tank_y;
+		curr_pos.x = tank_x * block_size + int(block_size / 2);
+		curr_pos.y = tank_y * block_size + int(block_size / 2);
+
+		temp_ent = ts.Spawn(curr_pos, '1');
+		temp_ent.setEntityID(-1);
+		scene_.push_back(temp_ent);
+		{
+			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			temp_ent = tr.Spawn(curr_pos, '1');
+			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			turr_pos->setParent(tank_pos);
+		}
+		temp_ent.setEntityID(-5);
 		scene_.push_back(temp_ent);
 	}
 
@@ -108,7 +129,7 @@ HostPlayingGameState::HostPlayingGameState() {
 	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
 	addSystem(SystemId::PhysicsSystemId, new PhysicsSystem);
 
-
+	
 	//ms.playMusic(scene); menu music
 }
 
@@ -126,25 +147,4 @@ GameState* HostPlayingGameState::update(sf::RenderWindow& window) {
 	}	
 
 	return this;
-}
-
-Entity* HostPlayingGameState::getMyTank() {
-	Entity* my_tank = nullptr;
-
-	for (int i = 0; i < scene_.size(); ++i) {
-		if (scene_[i].getEntityID() == -1 && scene_[i].getType() == ObjectType::Tank)
-			my_tank = &scene_[i];
-	}
-	return my_tank;
-}
-
-
-bool HostPlayingGameState::isDead(Entity* tank) {
-	return false;
-
-	if (!tank)
-		return false;
-
-	HealthComponent* health_component = dynamic_cast<HealthComponent*>(tank->getComponentByID(ComponentID::HealthComponent));
-	return health_component->getHealth() > 0;
 }

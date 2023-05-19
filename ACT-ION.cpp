@@ -17,10 +17,7 @@ int main() {
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput = new boost::lockfree::queue<int, MAX_LENGTH>;
 	boost::thread_group producer_threads;
 
-	////////
 	NetConnector::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
-	////////
-	// перенести в netConnector
 
 	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
 
@@ -43,7 +40,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 
-	std::chrono::steady_clock::time_point last_time; // убрать auto 
+	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
 
 
 	while (1) {
@@ -63,12 +60,15 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		/////////////////////////
 		// синглтон на время или глобальная переменная 
 
-		auto curr_time = std::chrono::high_resolution_clock::now();
+		std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
 		double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+		//std::cout << elapsed_time << std::endl;
 
-		if (elapsed_time < double(1 / 60)) {
-			Sleep(double(1 / 60)- elapsed_time);
-			last_time = curr_time;
+
+		if (elapsed_time < double(1.0 / 60.0)) {
+			std::cout << double(1.0 / 60.0) - elapsed_time << std::endl;
+			Sleep(double(1.0 / 60.0) - elapsed_time);
 		}
+		last_time = curr_time;
 	}
 }
