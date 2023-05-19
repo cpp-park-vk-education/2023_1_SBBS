@@ -17,19 +17,17 @@ HostPlayingGameState::HostPlayingGameState(const std::string& map_name) {
 	generateMap(std::string(map_name), 2);
 
 
-	//addSystem(SystemId::MusicSystemId, new MusicSystem);
-	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
-	addSystem(SystemId::PhysicsSystemId, new PhysicsSystem);
+	addSystem(SystemId::MusicSystemId);
+	addSystem(SystemId::GraphicsSystemId);
+	addSystem(SystemId::PhysicsSystemId);
 
-
-	//ms.playMusic(scene); menu music
 }
 
 GameStateId HostPlayingGameState::update(sf::RenderWindow& window) {
 
-
-	getSystemById(SystemId::PhysicsSystemId)->update(window, scene_);
-	getSystemById(SystemId::GraphicsSystemId)->update(window, scene_);
+	for (int i = 0; i < systems_.size(); ++i) {
+		systems_[i]->update(window,scene_);
+	}
 
 	Entity* my_tank = getMyTank();
 

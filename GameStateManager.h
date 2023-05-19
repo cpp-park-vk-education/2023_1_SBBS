@@ -4,6 +4,8 @@
 class StateManager {
 public:
 
+	GameStateId getStateId() { return curr_state_->getStateId(); }
+
 	void changeState(GameStateId id, const std::string& arg  = std::string()) {
 		if (curr_state_) {
 			delete curr_state_;

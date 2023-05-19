@@ -31,14 +31,16 @@ private:
 
 	NetConnector() {};
 
-	//NetConnector(const NetConnector&) = delete;
+	NetConnector(const NetConnector&) = delete;
 
-	//NetConnector& operator= (const NetConnector&) = delete;
+	NetConnector& operator= (const NetConnector&) = delete;
 
-	//NetConnector& operator= (NetConnector&&) = delete;
+	NetConnector& operator= (NetConnector&&) = delete;
 
 	NetConnector(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput);
+
+	int next_state_option;
 
 	boost::lockfree::queue<int, MAX_LENGTH>* lockFreeQueueInput_;
 	boost::lockfree::queue<int, MAX_LENGTH>* lockFreeQueueOutput_;

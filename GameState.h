@@ -17,11 +17,9 @@ protected:
 
     GameStateId id_;
 
-    void addSystem(SystemId id, System* system);
+    void addSystem(SystemId id);
 
-    System* getSystemById(SystemId id);
-
-	std::unordered_map<SystemId, System*> systems_;
+	std::vector<System*> systems_;
 
     std::vector<Entity> scene_;
 };

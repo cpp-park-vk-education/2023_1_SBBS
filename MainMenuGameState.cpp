@@ -27,8 +27,8 @@ MainMenuGameState::MainMenuGameState() {
 	banner_ent.setEntityID(1);
 
 	scene_.push_back(banner_ent);
-	addSystem(SystemId::MenuSystemId, new MenuSystem);
-	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
+	addSystem(SystemId::MenuSystemId);
+	addSystem(SystemId::GraphicsSystemId);
 
 
 	//Спавн кнопки host game главного меню
@@ -42,8 +42,6 @@ MainMenuGameState::MainMenuGameState() {
 	host_game_ent.setEntityID(1);
 
 	scene_.push_back(host_game_ent);
-	addSystem(SystemId::MenuSystemId, new MenuSystem);
-	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
 
 	//Спавн кнопки connect to game главного меню
 	Position connect_game_pos;
@@ -56,8 +54,6 @@ MainMenuGameState::MainMenuGameState() {
 	connect_game_ent.setEntityID(1);
 
 	scene_.push_back(connect_game_ent);
-	addSystem(SystemId::MenuSystemId, new MenuSystem);
-	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
 }
 
 
@@ -70,9 +66,11 @@ GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
 	//chosen_button_id += input.moving_down_;
 	//chosen_button_id -= input.moving_up_;
 
-	getSystemById(SystemId::GraphicsSystemId)->update(window, scene_);
+	for (int i = 0; i < systems_.size(); ++i) {
+		systems_[i]->update(window, scene_);
+	}
 
-	MenuSystem ms;
+	MenuSystem ms;/// тут исправить 
 
 	int mouce_choose = ms.update(window,scene_);
 	if (mouce_choose) {

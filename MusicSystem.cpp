@@ -11,6 +11,7 @@ int MusicSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene){
 
 		MusicComponent* current_music = dynamic_cast<MusicComponent*>(scene[i].getComponentByID(ComponentID::MusicComponent));
 		if (current_music) {
+			
 			current_music->playMusic();
 		}
 	}

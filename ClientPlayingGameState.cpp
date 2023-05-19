@@ -19,22 +19,21 @@ ClientPlayingGameState::ClientPlayingGameState(const std::string& map_name) {
 
 
 	generateMap(std::string("Maps/lvlTest2.txt"), 0);
-	
 
-	//addSystem(SystemId::MusicSystemId, new MusicSystem);
-	addSystem(SystemId::GraphicsSystemId, new GraphicsSystem);
-	addSystem(SystemId::PhysicsSystemId, new PhysicsSystem);
-
+	addSystem(SystemId::MusicSystemId);
+	addSystem(SystemId::GraphicsSystemId);
+	addSystem(SystemId::PhysicsSystemId);
 
 	//ms.playMusic(scene); menu music
-}
+};
 
 GameStateId ClientPlayingGameState::update(sf::RenderWindow& window) {
 
-	////
-	getSystemById(SystemId::PhysicsSystemId)->update(window, scene_);
-	getSystemById(SystemId::GraphicsSystemId)->update(window, scene_);
-	////
+
+	for (int i = 0; i < systems_.size(); ++i) {
+		systems_[i]->update(window, scene_);
+	}
+
 
 	Entity* my_tank = getMyTank();
 

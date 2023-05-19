@@ -7,7 +7,7 @@ enum class GameStateId : char {
 };
 
 enum class SystemId : char {
-    GraphicsSystemId, MenuSystemId,MusicSystemId,NetworkSystemId,PhysicsSystemId,SoundSystemId,SpawnerSystemId,
+    GraphicsSystemId, MenuSystemId,MusicSystemId,PhysicsSystemId,SoundSystemId,SpawnerSystemId,
 };
 
 

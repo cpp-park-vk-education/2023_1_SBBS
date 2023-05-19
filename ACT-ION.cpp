@@ -49,18 +49,20 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	while (1) {
 		
 		manager.run(window);
+		GameStateId curr_id = manager.getStateId();
 		 
-		/////////////////////////  
-		//if (curr_id == GameStateId::HostPlaying) {
-		//	*connection = ConnectionType::Host;
-		//	// тут вызввать ивент 
-		//	// тут хранить меняли ли ивент до этого 
-		//}
-		//else if (curr_id == GameStateId::ClientPlaying) {
-		//	*connection = ConnectionType::Client;
-		//}
-		/////////////////////////
+		///////////////////////  
+		if (curr_id == GameStateId::HostPlaying) {
+			*connection = ConnectionType::Host;
+			// тут вызввать ивент 
+			// тут хранить меняли ли ивент до этого 
+		}
+		else if (curr_id == GameStateId::ClientPlaying) {
+			*connection = ConnectionType::Client;
+		}
+		///////////////////////
 		// синглтон на время или глобальная переменная 
+
 
 		std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
 		double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
@@ -72,7 +74,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		}
 		else {
 			//////////////////////////////////////////////////////////////////
-			std::cout << "missed by " << elapsed_time - tick_time << std::endl;
+			//std::cout << "missed by " << elapsed_time - tick_time << std::endl;
 			//////////////////////////////////////////////////////////////////
 		}
 		last_time = std::chrono::high_resolution_clock::now();
