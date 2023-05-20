@@ -5,5 +5,5 @@
 
 class System {
 public:
-	virtual int update(sf::RenderWindow& window, std::vector<Entity>& scene) = 0;
+	virtual int update(sf::RenderWindow& window, std::vector<Entity*>& scene) = 0;
 };

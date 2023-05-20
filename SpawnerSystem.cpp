@@ -2,9 +2,15 @@
 #include "netConnect.h"
 #include "networkCodes.h"
 
-int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 	std::vector<int> net_data = NetConnector::getInstance().get();
 	BulletSpawner bs;
+
+	//if (scene[i] == nullptr) {
+	//	scene.erase(scene.begin() + i);
+	//	if (scene.size() == i)
+	//		break;
+	//}
 
 	while (net_data.size() >= 5) {
 		if (net_data[4] != CHECKER) {

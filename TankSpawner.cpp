@@ -9,15 +9,15 @@
 #include <fstream>
 
 
-Entity TankSpawner::Spawn(Position position, char subType) {
+Entity* TankSpawner::Spawn(Position position, char subType) {
 
-	Entity to_add(ObjectType::Tank);
+	Entity* to_add = new Entity(ObjectType::Tank);
 	static sf::Image img;
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add =  new CollisionComponent(position, 0, 50, 50);
-	HealthComponent* health_to_add = new HealthComponent(true, true,true, 100);
+	HealthComponent* health_to_add = new HealthComponent(true, true,true,to_add, 100);
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -41,9 +41,9 @@ Entity TankSpawner::Spawn(Position position, char subType) {
 	
 	pos_to_add->setSpeed(10);///// скорость по типу, перебросить в свич
 	graph_to_add->layer = true;
-	to_add.putComponent(ComponentID::HealthComponent, health_to_add);
-	to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
-	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
+	to_add->putComponent(ComponentID::HealthComponent, health_to_add);
+	to_add->putComponent(ComponentID::CollisionComponent, coll_to_add);
+	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
 	return to_add;
 }

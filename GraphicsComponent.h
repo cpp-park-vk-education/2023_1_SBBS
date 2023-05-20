@@ -10,15 +10,28 @@ public:
     bool layer = 0;
 
     void setAliveImage(sf::Image aliveimage) { 
-        obj_image_ = aliveimage;
-        obj_image_.createMaskFromColor(sf::Color::White);
-        alive_texture_.loadFromImage(obj_image_);
+        alive_image_ = aliveimage;
+        alive_image_.createMaskFromColor(sf::Color::White);
+        alive_texture_.loadFromImage(alive_image_);
         obj_sprite_.setTexture(alive_texture_);
 
         obj_sprite_.setScale(0.5f, 0.5f);
         obj_sprite_.setOrigin(50, 50);
         //Возможно, сюда надо передать коэффициент сжатия. Либо же сделать его одинаковым для всех
     };
+
+    void setDeadImage(sf::Image deadimage) {
+        dead_image_ = deadimage;
+        dead_image_.createMaskFromColor(sf::Color::White);
+        dead_texture_.loadFromImage(dead_image_);
+        obj_sprite_.setTexture(alive_texture_);
+    };
+
+    void setDeadSprite() {
+        obj_sprite_.setTexture(dead_texture_);
+        obj_sprite_.setScale(0.5f, 0.5f);
+        obj_sprite_.setOrigin(50, 50);
+    }
 
     void setOrigin(int x, int y) {
         obj_sprite_.setOrigin(x, y);
@@ -34,7 +47,8 @@ public:
     /*sf::Texture getTexture() { return obj_texture_; }*/
 
 private:
-    sf::Image obj_image_;
+    sf::Image dead_image_;
+    sf::Image alive_image_;
     sf::Texture alive_texture_;
     sf::Texture dead_texture_;
     sf::Sprite obj_sprite_;

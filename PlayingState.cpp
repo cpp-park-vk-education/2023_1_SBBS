@@ -15,8 +15,8 @@ Entity* PlayingState::getMyTank() {
     Entity* my_tank = nullptr;
 
     for (int i = 0; i < scene_.size(); ++i) {
-        if (scene_[i].getEntityID() == -1 && scene_[i].getType() == ObjectType::Tank)
-            my_tank = &scene_[i];
+        if (scene_[i] && scene_[i]->getEntityID() == -1 && scene_[i]->getType() == ObjectType::Tank)
+            my_tank = scene_[i];
     }
     return my_tank;
 }
@@ -60,7 +60,7 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 			Position curr_pos;
 			curr_pos.x = j * block_size + int(block_size / 2);
 			curr_pos.y = i * block_size + int(block_size / 2);
-			Entity temp_ent;
+			Entity* temp_ent;
 
 			switch (current_block) {
 			case 'w':
@@ -91,26 +91,26 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 		curr_pos.x = tank_x * block_size + int(block_size / 2);
 		curr_pos.y = tank_y * block_size + int(block_size / 2);
 
-		Entity temp_ent;
+		Entity* temp_ent;
 		temp_ent = ts.Spawn(curr_pos, '1');
 		if (i == my_tank_id)
-			temp_ent.setEntityID(-1);
+			temp_ent->setEntityID(-1);
 		else
-			temp_ent.setEntityID(i + 1);
+			temp_ent->setEntityID(i + 1);
 
 
 		scene_.push_back(temp_ent);
 		{
-			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
 			temp_ent = tr.Spawn(curr_pos, '1');
-			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent.getComponentByID(ComponentID::PositionComponent));
+			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
 			turr_pos->setParent(tank_pos);
 		}
 
 		if (i == my_tank_id)
-			temp_ent.setEntityID(-1);
+			temp_ent->setEntityID(-1);
 		else
-			temp_ent.setEntityID(i + 1);
+			temp_ent->setEntityID(i + 1);
 
 		scene_.push_back(temp_ent);
 	}

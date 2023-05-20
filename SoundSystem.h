@@ -5,5 +5,5 @@
 
 class SoundSystem : public System {
 
-	int update(sf::RenderWindow& window, std::vector<Entity>& scene) override;
+	int update(sf::RenderWindow& window, std::vector<Entity*>& scene) override;
 };

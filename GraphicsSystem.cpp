@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
     
     window.clear();
     // Создаем массив для верхнего слоя отрисовки
@@ -14,15 +14,20 @@ int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene)
 
     //Отрисовываем нижний слой (карту) и откладываем элементы верхнего слоя
     for (int i = 0; i < scene.size(); ++i) {
+        if (scene[i] == nullptr) {
+            scene.erase(scene.begin() + i);
+            if (scene.size() == i)
+                break;
+        }
 
         sf::Sprite curr_sprite;
 
-        GraphicsComponent* current_graph = dynamic_cast<GraphicsComponent*>(scene[i].getComponentByID(ComponentID::GraphicsComponent));
+        GraphicsComponent* current_graph = dynamic_cast<GraphicsComponent*>(scene[i]->getComponentByID(ComponentID::GraphicsComponent));
         // проверить, что граф компонента вообще существует 
         if (!current_graph) continue;
 
         if (!current_graph->layer) {
-            PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
+            PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
             curr_sprite = current_graph->getSprite();
             curr_sprite.setPosition(current_pos->getPosition().x, current_pos->getPosition().y);
         }
@@ -37,8 +42,8 @@ int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene)
 
         sf::Sprite curr_sprite;
 
-        GraphicsComponent* current_graph = dynamic_cast<GraphicsComponent*>(scene[upper_layer[i]].getComponentByID(ComponentID::GraphicsComponent));
-        PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[upper_layer[i]].getComponentByID(ComponentID::PositionComponent));
+        GraphicsComponent* current_graph = dynamic_cast<GraphicsComponent*>(scene[upper_layer[i]]->getComponentByID(ComponentID::GraphicsComponent));
+        PositionComponent* current_pos = dynamic_cast<PositionComponent*>(scene[upper_layer[i]]->getComponentByID(ComponentID::PositionComponent));
         curr_sprite = current_graph->getSprite();
 
         curr_sprite.setPosition(current_pos->getPosition().x, current_pos->getPosition().y);

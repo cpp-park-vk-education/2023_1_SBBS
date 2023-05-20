@@ -21,7 +21,7 @@ protected:
 
 	std::vector<System*> systems_;
 
-    std::vector<Entity> scene_;
+    std::vector<Entity*> scene_;
 };
 
 class MainMenuGameState :public GameState {

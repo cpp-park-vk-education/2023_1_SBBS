@@ -6,11 +6,11 @@
 #include <fstream>
 #include <vector>
 
-Entity ButtonSpawner::Spawn(Position position, char subType) {
+Entity* ButtonSpawner::Spawn(Position position, char subType) {
 	int height = 150;
 	int width = 700;
 
-	Entity to_add(ObjectType::Button);
+	Entity* to_add = new Entity(ObjectType::Button);
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
@@ -38,8 +38,8 @@ Entity ButtonSpawner::Spawn(Position position, char subType) {
 	}
 
 
-	to_add.putComponent(ComponentID::ClickComponent, click_to_add);
-	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
+	to_add->putComponent(ComponentID::ClickComponent, click_to_add);
+	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
 	return to_add;
 }

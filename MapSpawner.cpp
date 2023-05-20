@@ -8,8 +8,8 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-Entity MapSpawner::Spawn(Position position, char subType) {
-	Entity to_add(ObjectType::Map);
+Entity* MapSpawner::Spawn(Position position, char subType) {
+	Entity* to_add = new Entity(ObjectType::Map);
 	static sf::Image img;
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
@@ -27,8 +27,10 @@ Entity MapSpawner::Spawn(Position position, char subType) {
 	case 'w' : // stone wall 
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setAliveImage(img);
+		img.loadFromFile("Image/dead_wall_100_100.png");
+		graph_to_add->setDeadImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
-		health_to_add = new HealthComponent(true,true,false, 100);
+		health_to_add = new HealthComponent(true,true,false,to_add, 100);
 		break;
 
 	case 's' : // sand floor
@@ -55,9 +57,9 @@ Entity MapSpawner::Spawn(Position position, char subType) {
 		break;
 	}
 
-	if (health_to_add) to_add.putComponent(ComponentID::HealthComponent, health_to_add);
-	if (coll_to_add) to_add.putComponent(ComponentID::CollisionComponent, coll_to_add);
-	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
+	if (health_to_add) to_add->putComponent(ComponentID::HealthComponent, health_to_add);
+	if (coll_to_add) to_add->putComponent(ComponentID::CollisionComponent, coll_to_add);
+	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
 	return to_add;
 }

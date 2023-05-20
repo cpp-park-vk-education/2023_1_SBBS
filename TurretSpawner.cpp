@@ -6,7 +6,7 @@
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 
-Entity TurretSpawner::Spawn(Position position, char subType) {
+Entity* TurretSpawner::Spawn(Position position, char subType) {
 	static sf::Image img;//// почему статик???
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
@@ -16,7 +16,7 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	pos_to_add->setPosition(pos_struc_to_add);
 
 
-	Entity to_add(ObjectType::Turret);
+	Entity* to_add = new Entity(ObjectType::Turret);
 
 	graph_to_add = new GraphicsComponent();
 	PositionComponent* turr_pos_to_add = new PositionComponent();
@@ -28,7 +28,7 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	case '1': // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
 		graph_to_add->setAliveImage(img);
-		shoot_to_add->setCooldown(1.0);/////////в зависимости от типа 
+		shoot_to_add->setCooldown(1.0);///////// выставить в зависимости от типа 
 		break;
 
 	case '2': // tank type 1
@@ -42,9 +42,9 @@ Entity TurretSpawner::Spawn(Position position, char subType) {
 	}
 
 	graph_to_add->layer = true;
-	to_add.putComponent(ComponentID::ShootComponent, shoot_to_add);
-	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add.putComponent(ComponentID::PositionComponent, turr_pos_to_add);
+	to_add->putComponent(ComponentID::ShootComponent, shoot_to_add);
+	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, turr_pos_to_add);
 
 	return to_add;
 }

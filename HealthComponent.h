@@ -4,29 +4,30 @@
 
 class HealthComponent : public Component {
 public:
-    HealthComponent(bool mortal, bool afterlife, bool collidable_in_afterlife, int health = 0) : 
-        mortal_(mortal), health_(health), afterlife_(afterlife), collidable_in_afterlife_(collidable_in_afterlife) {};
+    HealthComponent(bool mortal, bool afterlife, bool collidable_in_afterlife, Entity* owner, int health = 0, int damage = 0) : 
+        mortal_(mortal), health_(health), afterlife_(afterlife), 
+        collidable_in_afterlife_(collidable_in_afterlife), owner_(owner), damage_(damage) {};
 
     bool isMortal();
 
     int getHealth();
 
-    void setHealth(int health); //// нет сеттера?  нужно использовать setHealth(this.getHealth() - bullet.getDamage())
+    void setHealth(int health) {
+        health_ = health;
+        if (health_ <= 0) {
+            dead_ = true;
+            setAfterlife();
+        }
+    }
 
     bool hasAfterlife() { return afterlife_; };
     
     void setAfterlife();
-    
-    void set_dead(bool actual); // убрать
 
-    void damage(int damage); // убрать 
-
-    bool get_dead();
-
-    bool get_mortal();
+    int getDamage() { return damage_; };
 
 private:
-    Entity* owner;
+    Entity* owner_;
 
     bool collidable_in_afterlife_;
 

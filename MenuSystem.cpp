@@ -3,11 +3,16 @@
 #include "ClickComponent.h"
 
 
-int MenuSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+int MenuSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 	int chosen_button_id = 0;
 	for (int i = 0; i < scene.size(); ++i) {
+		if (scene[i] == nullptr) {
+			scene.erase(scene.begin() + i);
+			if (scene.size() == i)
+				break;
+		}
 
-		ClickComponent* current_button = dynamic_cast<ClickComponent*>(scene[i].getComponentByID(ComponentID::ClickComponent));
+		ClickComponent* current_button = dynamic_cast<ClickComponent*>(scene[i]->getComponentByID(ComponentID::ClickComponent));
 		if (current_button) {
 			if (current_button->isChosen(window)) {
 				chosen_button_id = current_button->getButtonId();

@@ -41,7 +41,7 @@ int distance_p(Position a, Position b) {
 
 //bool check(PositionComponent temp_component);
 
-int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) {
+int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 
     int myEntityId = -1; //////////////// синглтон на мой id
 
@@ -49,11 +49,18 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
     inputs.handleInput(window);
     BulletSpawner bs;
 
- 
-    for (int i = 0; i < scene.size(); i++) {       
-        PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i].getComponentByID(ComponentID::PositionComponent));
-        int currEntityId = scene[i].getEntityID();
-        ObjectType currEntityType = scene[i].getType();
+    for (int i = 0; i < scene.size(); i++) {  
+        //////////////////////////////////////////////////////////////////////
+        if (scene[i] == nullptr) {
+            scene.erase(scene.begin() + i);
+            if (scene.size() == i)
+                break;
+        }
+        ///////////////////////////////////////////////////// это вставить каждый раз при ...
+        ////////////////////////////////////////////////////////////////////////////////
+        PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
+        int currEntityId = scene[i]->getEntityID();
+        ObjectType currEntityType = scene[i]->getType();
 
         if (currEntityId == myEntityId) {
             if (currEntityType == ObjectType::Tank) {
@@ -99,14 +106,21 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 }
                 new_rotation = alpha;
 
-                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
                 CollisionComponent new_collision = *my_collision;
                 new_collision.update(new_position, new_rotation);
 
                 bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
                     if (j == i) continue;
-                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    //if (scene[j] == nullptr) {
+                    //    scene.erase(scene.begin() + j);
+                    //    if (j > i)
+                    //        --i;
+                    //    if (scene.size() == j)
+                    //        break;
+                    //}
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                     if (!another_collision) continue;
                     if (!new_collision.checkCollision(another_collision)) {
                         flag = false;
@@ -168,7 +182,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
                     std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
                     double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
-                    ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i].getComponentByID(ComponentID::ShootComponent));
+                    ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i]->getComponentByID(ComponentID::ShootComponent));
 
                     if (elapsed_time > shoot_component->getCooldown()) {
 
@@ -201,25 +215,27 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 new_position.x = moving(new_position.x, 30, cos(new_rotation * 3.1415926 / 180));
                 new_position.y = moving(new_position.y, 30, sin(new_rotation * 3.1415926 / 180));
 
-                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
                 CollisionComponent new_collision = *my_collision;
 
                 new_collision.update(new_position, new_rotation);
 
-                bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
                     if (j == i) continue;
-                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    //if (scene[j] == nullptr) {
+                    //    scene.erase(scene.begin() + j);
+                    //    if (j > i)
+                    //        --i;
+                    //    if (scene.size() == j)
+                    //        break;
+                    //}
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                     if (!another_collision) continue;
-                    if (!new_collision.checkCollision(another_collision)) {
-                        flag = false;
-                    }
-                    if (flag) {
+
+                    if (new_collision.checkCollision(another_collision)) {
                         original_component->setPosition(new_position);
                         original_component->setRotation(new_rotation);
                         *my_collision = new_collision;
-
-
 
                         /////////// передача позиции пули по сети 
                         std::vector<int> to_send;
@@ -234,26 +250,49 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
 
 
                     }
-                    else  {
-                        HealthComponent* Health = dynamic_cast<HealthComponent*>(scene[j].getComponentByID(ComponentID::HealthComponent));
+                    else {
+                        HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[j]->getComponentByID(ComponentID::HealthComponent));
+                        HealthComponent* BulletHealth = dynamic_cast<HealthComponent*>(scene[i]->getComponentByID(ComponentID::HealthComponent));
 
                         // прописать хит ивент для сети 
-                        if (!Health->get_dead() && Health->get_mortal()) {
-                            Health->damage(50);
-                        }
-                        if (Health->get_dead()) {
 
-                            scene.erase(scene.begin() + i);// удаление пули 
-                            if (scene[j].getType() == ObjectType::Tank)
+                        int curr_health = objectHealth->getHealth();
+                        int curr_damage = BulletHealth->getDamage();
+                        int new_health = curr_health - curr_damage;
 
-                                scene.erase(scene.begin() + j + 1);// удаление башни
-                            scene.erase(scene.begin() + j);// удаление того объекта, в который попала пуля
-                            break;
+                        if (j == 762) {
+                            int x = 0;
                         }
-                        else {
-                            scene.erase(scene.begin() + i);
-                            break;
-                        }                       
+
+                        objectHealth->setHealth(new_health);
+
+                        if (scene[j]->getType() == ObjectType::Tank && objectHealth->getHealth() <= 0) {/// удаление башни
+                            if (j != 766) {
+                                int x = 0;
+                            }
+                            scene[j + 1]->setEntityID(0);
+                        }
+
+                        // объект умер
+                        if (objectHealth->getHealth() < 0 && !objectHealth->hasAfterlife()) {
+
+
+
+                            Entity* to_delete = scene[j];
+                            scene[j] = nullptr;
+                            delete to_delete;
+                            scene.erase(scene.begin() + j);
+                            --j;
+                            continue;
+
+                        }// если у объекта есть "жизнь после смерти", то это обработалось в HealthComponent         
+
+                        ////////////// пулю удаляем
+                        Entity* to_delete = scene[i];
+                        scene[i] = nullptr;
+                        delete to_delete;
+                        scene.erase(scene.begin() + i);
+                        break;
                     }
                 }
             }
@@ -276,9 +315,16 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         input_vector.x = k;
                         input_vector.y = l;
                         for (int j = 0; j < scene.size(); j++) {
-                            if (scene[j].getType() == ObjectType::Tank) {
-                                if (scene[j].getEntityID() == -1) {
-                                    PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
+                            //if (scene[j] == nullptr) {
+                            //    scene.erase(scene.begin() + j);
+                            //    if (j > i)
+                            //        --i;
+                            //    if (scene.size() == j)
+                            //        break;
+                            //}
+                            if (scene[j]->getType() == ObjectType::Tank) {
+                                if (scene[j]->getEntityID() == -1) {
+                                    PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                                     Position meet_position = meet_component->getPosition();
                                     Input_vector vector;
                                     vector.x = meet_position.x - new_position.x;
@@ -325,14 +371,21 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 }
                 new_rotation = alpha;
 
-                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
                 CollisionComponent new_collision = *my_collision;
                 new_collision.update(new_position, new_rotation);
 
                 bool flag = true;
                 for (int j = 0; j < scene.size(); j++) {
                     if (j == i) continue;
-                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                    //if (scene[j] == nullptr) {
+                    //    scene.erase(scene.begin() + j);
+                    //    if (j > i)
+                    //        --i;
+                    //    if (scene.size() == j)
+                    //        break;
+                    //}
+                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                     if (!another_collision) continue;
                     if (!new_collision.checkCollision(another_collision)) {
                         flag = false;
@@ -363,9 +416,16 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 int min_dist = 100000;
                 PositionComponent Enemy_tank;
                 for (int j = 0; j < scene.size(); j++) {
-                    if (scene[j].getType() == ObjectType::Tank) {
-                        PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j].getComponentByID(ComponentID::PositionComponent));
-                        if (scene[j].getEntityID() != 2) {
+                    //if (scene[j] == nullptr) {
+                    //    scene.erase(scene.begin() + j);
+                    //    if (j > i)
+                    //        --i;
+                    //    if (scene.size() == j)
+                    //        break;
+                    //}
+                    if (scene[j]->getType() == ObjectType::Tank) {
+                        PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
+                        if (scene[j]->getEntityID() != 2) {
                             Position meet_position = meet_component->getPosition();
                             if (distance_p(bot_position, meet_position) < min_dist) {
                                 min_dist = distance_p(bot_position, meet_position);
@@ -389,8 +449,15 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                     original_component->setRotation(bot_rotation);
                     bool flag = true;
                     for (int j = 0; j < scene.size(); j++) {
-                        if (scene[j].getType() == ObjectType::Map) {
-                            CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j].getComponentByID(ComponentID::CollisionComponent));
+                        //if (scene[j] == nullptr) {
+                        //    scene.erase(scene.begin() + j);
+                        //    if (j > i)
+                        //        --i;
+                        //    if (scene.size() == j)
+                        //        break;
+                        //}
+                        if (scene[j]->getType() == ObjectType::Map) {
+                            CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                             if (!wall_collision) continue;
                             if (!wall_collision->checkBullet(bot_position, Enemy_pos)) {
                                 flag = false;
@@ -402,7 +469,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                         static std::chrono::steady_clock::time_point bot_last_shoot = std::chrono::high_resolution_clock::now();
                         std::chrono::steady_clock::time_point bot_curr_time = std::chrono::high_resolution_clock::now();
                         double elapsed_time = std::chrono::duration<double>(bot_curr_time - bot_last_shoot).count();
-                        ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i].getComponentByID(ComponentID::ShootComponent));
+                        ShootComponent* shoot_component = dynamic_cast<ShootComponent*>(scene[i]->getComponentByID(ComponentID::ShootComponent));
                         if (elapsed_time > shoot_component->getCooldown()) {
                             bot_position.x += 50 * cos(bot_rotation * 3.1415926 / 180);
                             bot_position.y += 50 * sin(bot_rotation * 3.1415926 / 180);
@@ -448,7 +515,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene) 
                 from_net_position = NetConnector::getInstance().get();
             }
             /// наладить коллизию танков 
-            CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i].getComponentByID(ComponentID::CollisionComponent));
+            CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
             if (my_collision) {
                 CollisionComponent new_collision = *my_collision;
                 new_collision.update(new_position, new_position.rotation);

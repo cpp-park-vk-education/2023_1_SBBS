@@ -5,11 +5,16 @@
 #include "MusicSystem.h"
 #include "SFML/Graphics.hpp"
 
-int MusicSystem::update(sf::RenderWindow& window, std::vector<Entity>& scene){
+int MusicSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene){
 
 	for (int i = 0; i < scene.size(); ++i) {
+		if (scene[i] == nullptr) {
+			scene.erase(scene.begin() + i);
+			if (scene.size() == i)
+				break;
+		}
 
-		MusicComponent* current_music = dynamic_cast<MusicComponent*>(scene[i].getComponentByID(ComponentID::MusicComponent));
+		MusicComponent* current_music = dynamic_cast<MusicComponent*>(scene[i]->getComponentByID(ComponentID::MusicComponent));
 		if (current_music) {
 			
 			current_music->playMusic();

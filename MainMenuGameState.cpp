@@ -21,10 +21,10 @@ MainMenuGameState::MainMenuGameState() {
 	banner_pos.x = 0;
 	banner_pos.y = 0;
 
-	Entity banner_ent;
+	Entity* banner_ent = new Entity;
 
 	banner_ent = banner_spawner.Spawn(banner_pos, 'm');
-	banner_ent.setEntityID(1);
+	banner_ent->setEntityID(1);
 
 	scene_.push_back(banner_ent);
 	addSystem(SystemId::MenuSystemId);
@@ -36,10 +36,10 @@ MainMenuGameState::MainMenuGameState() {
 	host_game_pos.x = 200;  //Над координатами надо думать в зависимости от размера кнопки
 	host_game_pos.y = 800;
 
-	Entity host_game_ent;
+	Entity* host_game_ent;
 
 	host_game_ent = button_spawner.Spawn(host_game_pos, 'h');
-	host_game_ent.setEntityID(1);
+	host_game_ent->setEntityID(1);
 
 	scene_.push_back(host_game_ent);
 
@@ -48,10 +48,10 @@ MainMenuGameState::MainMenuGameState() {
 	connect_game_pos.x = 1400;  //Над координатами надо думать в зависимости от размера кнопки
 	connect_game_pos.y = 800;
 
-	Entity connect_game_ent;
+	Entity* connect_game_ent;
 
 	connect_game_ent = button_spawner.Spawn(connect_game_pos, 'c');
-	connect_game_ent.setEntityID(1);
+	connect_game_ent->setEntityID(1);
 
 	scene_.push_back(connect_game_ent);
 }

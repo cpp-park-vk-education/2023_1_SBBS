@@ -8,9 +8,9 @@
 #include <fstream>
 #include <string>
 
-Entity BannerSpawner::Spawn(Position position, char subType) {
+Entity* BannerSpawner::Spawn(Position position, char subType) {
 
-	Entity to_add(ObjectType::Banner);
+	Entity* to_add = new Entity(ObjectType::Banner);
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
@@ -28,9 +28,9 @@ Entity BannerSpawner::Spawn(Position position, char subType) {
 	}
 
 
-	to_add.putComponent(ComponentID::MusicComponent, music_to_add);
-	to_add.putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add.putComponent(ComponentID::PositionComponent, pos_to_add);
+	to_add->putComponent(ComponentID::MusicComponent, music_to_add);
+	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
 
 	return to_add;
 }
