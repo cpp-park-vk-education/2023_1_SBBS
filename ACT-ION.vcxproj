@@ -158,9 +158,12 @@
     <ClCompile Include="ButtonSpawner.cpp" />
     <ClCompile Include="ClientMenuGameState.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GameStateManager.h" />
+    <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="HostMenuGameState.cpp" />
     <ClCompile Include="HostPlayingGameState.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="MusicSystem.cpp" />
     <ClCompile Include="BannerSpawner.cpp" />
     <ClCompile Include="ClientPlayingGameState.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="ShootComponent.h" />
     <ClCompile Include="SinglePlayerMenuGameState.cpp" />
     <ClCompile Include="SinglePlayingGameState.cpp" />
+    <ClCompile Include="SoundComponent.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
@@ -183,6 +187,7 @@
     <ClCompile Include="TurretSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MusicSystem.h" />
     <ClInclude Include="ClickComponent.h" />
     <ClInclude Include="CollisionComponent.h" />
@@ -192,8 +197,6 @@
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="HealthComponent.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="InputHandler.cpp" />
     <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="MusicComponent.h" />
     <ClInclude Include="networkCodes.h" />

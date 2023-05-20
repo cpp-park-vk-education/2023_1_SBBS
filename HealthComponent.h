@@ -12,13 +12,7 @@ public:
 
     int getHealth();
 
-    void setHealth(int health) {
-        health_ = health;
-        if (health_ <= 0) {
-            dead_ = true;
-            setAfterlife();
-        }
-    }
+    void setHealth(int health);
 
     bool hasAfterlife() { return afterlife_; };
     

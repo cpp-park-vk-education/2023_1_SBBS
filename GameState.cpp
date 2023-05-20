@@ -34,3 +34,12 @@ void GameState::addSystem(SystemId id) {
 		break;
 	}
 }
+
+GameState::~GameState() {
+	for (int i = 0; i < systems_.size(); ++i) {
+		delete systems_[i];
+	}
+	for (int i = 0; i < scene_.size(); ++i) {
+		delete scene_[i];
+	}
+}

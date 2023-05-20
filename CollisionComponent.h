@@ -30,9 +30,6 @@ public:
     Position position_;
 
 private:
-
-    
-
     std::vector<Position> hitbox_;
 
     int rotation_;

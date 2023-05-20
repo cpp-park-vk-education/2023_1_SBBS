@@ -12,9 +12,7 @@ public:
 
     int getButtonId() { return button_id_; }
 
-    bool isChosen(sf::Window& window) {
-        return buttonHitBox_.contains(sf::Mouse::getPosition(window));
-    }
+    bool isChosen(sf::Window& window) { return buttonHitBox_.contains(sf::Mouse::getPosition(window)); }
 
     char getType() { return type_; }
 

@@ -15,11 +15,6 @@ public:
 
     Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};
 
-   /* Entity operator= (Entity& other) {
-        components_ = other.components_;
-        return *this;
-    }*/
-
     Component* getComponentByID(const ComponentID& id) { return components_[id]; }
 
     void deleteComponent(ComponentID id) { components_.erase(id); }

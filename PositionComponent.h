@@ -9,14 +9,9 @@ class PositionComponent : public Component {
 public:
     PositionComponent() = default;
 
-    
-    Position getPosition() const { 
-        return parent_ ? parent_->getPosition() : position_; 
-    }
+    Position getPosition() const { return parent_ ? parent_->getPosition() : position_; }
 
-    int getSpeed() const { 
-        return speed_; 
-    }
+    int getSpeed() const { return speed_; }
 
     void setSpeed(int speed) { speed_ = speed; }
 
@@ -24,9 +19,7 @@ public:
 
     void setPosition(Position position) { position_ = position; }; //пока костыль, потом исправим
 
-    void setRotation(const int& coner) {
-        position_.rotation = coner;
-    }
+    void setRotation(const int& coner) { position_.rotation = coner; }
 
     void setParent(PositionComponent* parent) { parent_ = parent; }
 

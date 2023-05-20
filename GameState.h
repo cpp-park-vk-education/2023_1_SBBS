@@ -13,14 +13,7 @@ public:
 
     GameStateId getStateId() { return id_; };
 
-    ~GameState() {
-        for (int i = 0; i < systems_.size(); ++i) {
-            delete systems_[i];
-        }
-        for (int i = 0; i < scene_.size(); ++i) {
-            delete scene_[i];
-        }
-    }
+    ~GameState();
 
 protected:
 
@@ -40,6 +33,9 @@ public:
 
     MainMenuGameState();
 };
+
+
+
 
 class SubMenuState : public GameState {
 public:
@@ -75,6 +71,9 @@ public:
 
 };
 
+
+
+
 class PlayingState : public GameState {
 public:
 
@@ -85,6 +84,9 @@ protected:
 
     bool isDead(Entity* tank);
 };
+
+
+
 
 class HostPlayingGameState : public PlayingState {
 public:

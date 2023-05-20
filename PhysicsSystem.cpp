@@ -11,6 +11,8 @@
 #include "networkCodes.h"
 #include "ShootComponent.h"
 #include "SoundComponent.h"
+#include "InputHandler.h"
+
 
 int base_x = 1;
 int base_y = 0;
