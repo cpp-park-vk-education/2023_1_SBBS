@@ -22,13 +22,13 @@ Entity* PlayingState::getMyTank() {
 }
 
 bool PlayingState::isDead(Entity* tank) {
-    return false;
+    //return false;
 
     if (!tank)
-        return false;
+        return true;
 
     HealthComponent* health_component = dynamic_cast<HealthComponent*>(tank->getComponentByID(ComponentID::HealthComponent));
-    return health_component->getHealth() > 0;
+    return health_component->getHealth() < 0;
 }
 
 void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {

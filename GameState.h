@@ -5,6 +5,7 @@
 #include "Types.h"
 #include "System.h"
 #include "Entity.h"
+#include "ButtonID.h"
 
 class GameState {
 public:
@@ -12,6 +13,10 @@ public:
     virtual GameStateId update(sf::RenderWindow& window) = 0;
 
     GameStateId getStateId() { return id_; };
+
+    void setStateArgument(const std::string& arg) { state_argument_ = arg; }
+
+    std::string getStateArgument() { return state_argument_; }
 
     ~GameState();
 
@@ -24,6 +29,8 @@ protected:
 	std::vector<System*> systems_;
 
     std::vector<Entity*> scene_;
+
+    std::string state_argument_ = std::string(" ");
 };
 
 class MainMenuGameState :public GameState {
@@ -38,13 +45,11 @@ public:
 
 
 class SubMenuState : public GameState {
-public:
-    std::string getMapName() { return map_name_; }
-
-    void setMapName(const std::string& name) { map_name_ = name; }
-
-private:
-    std::string map_name_;
+protected:
+    void setTankHull(const char& hull) { tank_hull = hull; }
+    void setTankTurret(const char& turret) { tank_turret = turret; }
+    char tank_hull = tank_hull_1;
+    char tank_turret = tank_turret_1;
 };
 
 class HostMenuGameState :public SubMenuState {
@@ -76,8 +81,12 @@ public:
 
 class PlayingState : public GameState {
 public:
+    static int getMyEntityId() { return my_entity_id; }
 
 protected:
+
+    static int my_entity_id;
+
     Entity* getMyTank();
 
     void generateMap(const std::string& map_name, int my_tank_id);
@@ -104,7 +113,6 @@ public:
 
     ClientPlayingGameState(const std::string& );
 
-private:
 };
 
 class SinglePlayingGameState : public PlayingState {

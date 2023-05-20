@@ -1,7 +1,10 @@
 #include "GameStateManager.h"
 
-void StateManager::changeState(GameStateId id, const std::string& arg) {
+void StateManager::changeState(GameStateId id) {
+	std::string arg; 
+
 	if (curr_state_) {
+		arg = curr_state_->getStateArgument(); // has map name for playing states
 		delete curr_state_;
 	}
 
@@ -21,6 +24,8 @@ void StateManager::changeState(GameStateId id, const std::string& arg) {
 	case GameStateId::ClientPlaying:
 		curr_state_ = new ClientPlayingGameState(arg);
 		break;
+	case GameStateId::SinglePlaying:
+		curr_state_ = new SinglePlayingGameState(arg);
 	default:
 		break;
 	}
@@ -29,7 +34,7 @@ void StateManager::changeState(GameStateId id, const std::string& arg) {
 void StateManager::run(sf::RenderWindow& window) {
 	GameStateId nextGameState = curr_state_->update(window);
 
-	if (nextGameState != curr_state_->getStateId()) { ///////////////////////// вставить выбор карты
-		changeState(nextGameState, std::string("Maps/lvlTest2.txt"));
+	if (nextGameState != curr_state_->getStateId()) {
+		changeState(nextGameState);
 	}
 };

@@ -3,6 +3,7 @@
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"
 #include "ClickComponent.h"
+#include "ButtonID.h"
 #include <fstream>
 #include <vector>
 
@@ -22,58 +23,58 @@ Entity* ButtonSpawner::Spawn(Position position, char subType) {
 	sf::Image img;
 
 	switch (subType) {
-		case('h'): // host game button
+		case host_game: // host game button
 			img.loadFromFile("Image/GUI_host_game.png");
 			graph_to_add->setAliveImage(img);
-			click_to_add->setButtonId(1);
+			click_to_add->setButtonId(host_game_button_id);
 			break;
 
-		case('c'): //connect to game button
+		case client_game: //connect to game button (client state menu)
 			img.loadFromFile("Image/GUI_connect_game.png");
 			graph_to_add->setAliveImage(img);
-			click_to_add->setButtonId(2);
+			click_to_add->setButtonId(client_game_button_id);
 			break;
 
-		case 'b':  // back button
+		case back:  // back button
 			img.loadFromFile("Image/GUI_back_button.png");
 			graph_to_add->setAliveImage(img);
-			click_to_add->setButtonId(3);
+			click_to_add->setButtonId(back_button_id);
 			break;
 
-		case 's':  // single game button
+		case single_game:  // single game button
 			img.loadFromFile("Image/GUI_single_game_button.png");
 			graph_to_add->setAliveImage(img);
-			click_to_add->setButtonId(4);
+			click_to_add->setButtonId(single_game_button_id);
 			break;
 
-		case 't':  // single game button
+		case try_to_connect:  // try to connect button 
 			img.loadFromFile("Image/GUI_try_to_connect_game.png");
 			graph_to_add->setAliveImage(img);
-			click_to_add->setButtonId(5);
+			click_to_add->setButtonId(try_to_connect_button_id);
 			break;
 
-		case 'p':  // tank 1 hull
+		case tank_hull_1:  // tank 1 hull
 			img.loadFromFile("Image/tank_1_body_100_100.png");
 			graph_to_add->setAliveImage(img, true);
-			click_to_add->setButtonId(6);
+			click_to_add->setButtonId(tank_hull_1_button_id);
 			break;
 
-		case 'o':  // tank 2 hull
+		case tank_hull_2:  // tank 2 hull
 			img.loadFromFile("Image/tank_2_body_100_100.png");
 			graph_to_add->setAliveImage(img, true);
-			click_to_add->setButtonId(7);
+			click_to_add->setButtonId(tank_hull_2_button_id);
 			break;
 
-		case 'i':  // tank 1 turret
+		case tank_turret_1:  // tank 1 turret
 			img.loadFromFile("Image/tank_1_gun_100_100.png");
 			graph_to_add->setAliveImage(img, true);
-			click_to_add->setButtonId(8);
+			click_to_add->setButtonId(tank_turret_1_button_id);
 			break;
 
-		case 'u':  // tank 2 turret
+		case tank_turret_2:  // tank 2 turret
 			img.loadFromFile("Image/tank_2_gun_100_100.png");
 			graph_to_add->setAliveImage(img, true);
-			click_to_add->setButtonId(9);
+			click_to_add->setButtonId(tank_turret_2_button_id);
 			break;
 
 		default: break;

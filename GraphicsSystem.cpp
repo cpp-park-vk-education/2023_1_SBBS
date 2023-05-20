@@ -14,11 +14,6 @@ int GraphicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene
 
     //Отрисовываем нижний слой (карту) и откладываем элементы верхнего слоя
     for (int i = 0; i < scene.size(); ++i) {
-        //if (scene[i] == nullptr) {
-        //    scene.erase(scene.begin() + i);
-        //    if (scene.size() == i)
-        //        break;
-        //}
 
         sf::Sprite curr_sprite;
 

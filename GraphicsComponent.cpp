@@ -1,14 +1,14 @@
 #include "GraphicsComponent.h"
 
 
-void GraphicsComponent::setAliveImage(sf::Image aliveimage, bool flag) {
+void GraphicsComponent::setAliveImage(sf::Image aliveimage, bool upscale_flag) {
     alive_image_ = aliveimage;
     alive_image_.createMaskFromColor(sf::Color::White);
     alive_texture_.loadFromImage(alive_image_);
     obj_sprite_.setTexture(alive_texture_);
 
     obj_sprite_.setScale(0.5f, 0.5f);
-    if (flag == true) {
+    if (upscale_flag) {
         obj_sprite_.setScale(2.f, 2.f);
     }
     obj_sprite_.setOrigin(50, 50);
