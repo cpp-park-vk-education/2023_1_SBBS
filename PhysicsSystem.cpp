@@ -47,7 +47,6 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
     double max_attractive = 0;
     Input_vector attractive_vector;
 
-    
     for (int k = -1; k < 2; k++) {
         for (int l = -1; l < 2; l++) {
             bool flag = true;
@@ -65,7 +64,8 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                         Position meet_position = meet_component->getPosition();
                         PositionComponent* Tank_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-                        CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
+                        CollisionComponent* Tank_collision1 = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
+                        CollisionComponent Tank_collision = *Tank_collision1;
                         Input_vector vector;
                         vector.x = meet_position.x - new_position.x;
                         vector.y = meet_position.y - new_position.y;
@@ -73,14 +73,117 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         if (input_vector.x * vector.x < 0 && input_vector.y * vector.y < 0) {
                             betha += 180;
                         }
-                        attractive += 100*(180 - betha);
+                        attractive += (180 - betha);
                         Position tmp_position = new_position;
                         tmp_position.x += input_vector.x * 500;
                         tmp_position.y += input_vector.y * 500;
-                        if (!wall_collision->checkBullet(new_position, tmp_position)) {
-                            attractive -= 0.1 * (1000 - distance_p(new_position, Tank_position->getPosition())) * (1000 - distance_p(new_position, Tank_position->getPosition()));
-                        }
+                        int change_dist;
+                        Position temp_position;
+                        temp_position.x = new_position.x + 200 * input_vector.x;
+                        temp_position.y = new_position.y + 200 * input_vector.y;
+                        change_dist = distance_p(new_position, meet_position) - distance_p(temp_position, meet_position);
+                        attractive += change_dist * 10;
                         
+                        bool flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag2) {
+                            attractive += 1000000;
+                        }
+
+                        temp_position.x = new_position.x + 100 * input_vector.x;
+                        temp_position.y = new_position.y + 100 * input_vector.y;
+                        flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag2) {
+                            attractive += 10000;
+                        }
+
+                        temp_position.x = new_position.x + 150 * input_vector.x;
+                        temp_position.y = new_position.y + 150 * input_vector.y;
+                        flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag2) {
+                            attractive += 10000;
+                        }
+
+                        temp_position.x = new_position.x + 250 * input_vector.x;
+                        temp_position.y = new_position.y + 250 * input_vector.y;
+                        flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag2) {
+                            attractive += 10000;
+                        }
+
+                        temp_position.x = new_position.x + 300 * input_vector.x;
+                        temp_position.y = new_position.y + 300 * input_vector.y;
+                        flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag2) {
+                            attractive += 10000;
+                        }
+
+                        temp_position.x = new_position.x + 50 * input_vector.x;
+                        temp_position.y = new_position.y + 50 * input_vector.y;
+                        flag2 = true;
+                        for (int u = 0; u < scene.size(); u++) {
+                            if (scene[u]->getType() == ObjectType::Map) {
+                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                if (!wall_collision) continue;
+                                Tank_collision.update(temp_position, betha);
+                                if (!wall_collision->checkCollision(&Tank_collision)) {
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!flag2) {
+                            attractive -= 1000000000000000;
+                        }
                     }
                 }
                 else if (scene[j]->getType() == ObjectType::Map) {
@@ -92,15 +195,17 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                     tmp_position.y += input_vector.y * 500;
                     if (wall_position) {
                         if (!wall_collision->checkBullet(new_position, tmp_position)) {
-                            attractive -=  0.1 * (500 - distance_p(new_position, wall_position->getPosition())) * (500 - distance_p(new_position, wall_position->getPosition()));
+                            int temp = (100 - distance_p(new_position, wall_position->getPosition()));
+                            if (temp > 0) {
+                                attractive -= temp * 0.01;
+                            }
                         }
                     }   
-                }
-                
+                }  
             }
             if (attractive > max_attractive) {
                 max_attractive = attractive;
-                attractive_vector = input_vector;
+                attractive_vector = input_vector; 
             }
             attractive = 0;
         }
@@ -358,7 +463,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                 }
             }
         }
-        else if (currEntityId == 2 || currEntityId == 3) {
+        else if (currEntityId == 2) {
             if (currEntityType == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
                 int new_rotation = new_component.getRotation();
@@ -371,7 +476,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                     bool flag = true;
                     Position new_position = new_component.getPosition();
 
-                    if (counter == 10) {
+                    if (counter == 25) {
                         input_vector_1 = attractivness(scene, new_position, blok_x, blok_y); //////////10 - количество кадров
                         counter = 0;
                     }
@@ -466,13 +571,6 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                     original_component->setRotation(bot_rotation);
                     bool flag = true;
                     for (int j = 0; j < scene.size(); j++) {
-                        //if (scene[j] == nullptr) {
-                        //    scene.erase(scene.begin() + j);
-                        //    if (j > i)
-                        //        --i;
-                        //    if (scene.size() == j)
-                        //        break;
-                        //}
                         if (scene[j]->getType() == ObjectType::Map) {
                             CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                             if (!wall_collision) continue;
@@ -544,8 +642,3 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
     }
     return 0;
 }
-                   
-    
-
-
-
