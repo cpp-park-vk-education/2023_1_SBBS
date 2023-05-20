@@ -22,7 +22,7 @@ wddddddddddddddddddddwdddddddddddddddw
 wddddddddddddddddddddwdddddddddddddddw
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 5 5
-9 3 
+35 3 
 5 10
-35 3
+9 3
  
