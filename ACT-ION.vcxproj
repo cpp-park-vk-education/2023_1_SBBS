@@ -173,6 +173,8 @@
     <ClCompile Include="MapSpawner.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="ShootComponent.h" />
+    <ClCompile Include="SinglePlayerMenuGameState.cpp" />
+    <ClCompile Include="SinglePlayingGameState.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="HealthComponent.cpp" />

@@ -114,6 +114,12 @@
     <ClCompile Include="ShootComponent.h">
       <Filter>Файлы заголовков\Components</Filter>
     </ClCompile>
+    <ClCompile Include="SinglePlayerMenuGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SinglePlayingGameState.cpp">
+      <Filter>Файлы ресурсов\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Types.h">

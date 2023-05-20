@@ -31,8 +31,6 @@ protected:
 	std::vector<System*> systems_;
 
     std::vector<Entity*> scene_;
-
-
 };
 
 class MainMenuGameState :public GameState {
@@ -43,7 +41,17 @@ public:
     MainMenuGameState();
 };
 
-class HostMenuGameState :public GameState {
+class SubMenuState : public GameState {
+public:
+    std::string getMapName() { return map_name_; }
+
+    void setMapName(const std::string& name) { map_name_ = name; }
+
+private:
+    std::string map_name_;
+};
+
+class HostMenuGameState :public SubMenuState {
 public:
 
     HostMenuGameState();
@@ -51,12 +59,20 @@ public:
     GameStateId update(sf::RenderWindow& window) override;
 };
 
-class ClientMenuGameState :public GameState {
+class ClientMenuGameState :public SubMenuState {
 public:
 
     ClientMenuGameState();
 
     GameStateId update(sf::RenderWindow& window) override;
+};
+
+class SinglePlayerMenuGameState : public SubMenuState {
+public:
+    SinglePlayerMenuGameState();
+
+    GameStateId update(sf::RenderWindow& window) override;
+
 };
 
 class PlayingState : public GameState {
@@ -89,4 +105,11 @@ public:
 private:
 };
 
+class SinglePlayingGameState : public PlayingState {
+public:
+    GameStateId update(sf::RenderWindow& window) override;
 
+    SinglePlayingGameState(const std::string&);
+
+
+};
