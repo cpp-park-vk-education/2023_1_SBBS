@@ -46,6 +46,36 @@ Entity* ButtonSpawner::Spawn(Position position, char subType) {
 			click_to_add->setButtonId(4);
 			break;
 
+		case 't':  // single game button
+			img.loadFromFile("Image/GUI_try_to_connect_game.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(5);
+			break;
+
+		case 'p':  // tank 1 hull
+			img.loadFromFile("Image/tank_1_body_100_100.png");
+			graph_to_add->setAliveImage(img, true);
+			click_to_add->setButtonId(6);
+			break;
+
+		case 'o':  // tank 2 hull
+			img.loadFromFile("Image/tank_2_body_100_100.png");
+			graph_to_add->setAliveImage(img, true);
+			click_to_add->setButtonId(7);
+			break;
+
+		case 'i':  // tank 1 turret
+			img.loadFromFile("Image/tank_1_gun_100_100.png");
+			graph_to_add->setAliveImage(img, true);
+			click_to_add->setButtonId(8);
+			break;
+
+		case 'u':  // tank 2 turret
+			img.loadFromFile("Image/tank_2_gun_100_100.png");
+			graph_to_add->setAliveImage(img, true);
+			click_to_add->setButtonId(9);
+			break;
+
 		default: break;
 	}
 

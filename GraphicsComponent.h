@@ -9,7 +9,7 @@ public:
 
     bool layer = 0;
 
-    void setAliveImage(sf::Image aliveimage);
+    void setAliveImage(sf::Image aliveimage, bool flag = false);
 
     void setDeadImage(sf::Image deadimage);
 
