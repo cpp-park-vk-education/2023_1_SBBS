@@ -14,7 +14,7 @@ Entity* ButtonSpawner::Spawn(Position position, char subType) {
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	PositionComponent* pos_to_add = new PositionComponent();
-	ClickComponent* click_to_add = new ClickComponent(position.x - int(height / 2), position.y - int(width / 2), width, height);
+	ClickComponent* click_to_add = new ClickComponent(position.x, position.y, width, height);
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -32,6 +32,18 @@ Entity* ButtonSpawner::Spawn(Position position, char subType) {
 			img.loadFromFile("Image/GUI_connect_game.png");
 			graph_to_add->setAliveImage(img);
 			click_to_add->setButtonId(2);
+			break;
+
+		case 'b':  // back button
+			img.loadFromFile("Image/GUI_back_button.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(3);
+			break;
+
+		case 's':  // single game button
+			img.loadFromFile("Image/GUI_single_game_button.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(4);
 			break;
 
 		default: break;

@@ -55,6 +55,18 @@ MainMenuGameState::MainMenuGameState() {
 	connect_game_ent->setEntityID(1);
 
 	scene_.push_back(connect_game_ent);
+
+	// Спавн кнопки одиночной игры
+	Position single_game_button_pos;
+	single_game_button_pos.x = 800;  //Над координатами надо думать в зависимости от размера кнопки
+	single_game_button_pos.y = 500;
+
+	Entity* single_game_button_ent;
+
+	single_game_button_ent = button_spawner.Spawn(single_game_button_pos, 's');
+	single_game_button_ent->setEntityID(1);
+
+	scene_.push_back(single_game_button_ent);
 }
 
 
