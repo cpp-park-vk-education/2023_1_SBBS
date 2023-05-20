@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Image">
-      <UniqueIdentifier>{087b2a03-408f-47e9-bfe5-649de8d99ebf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Systems">
       <UniqueIdentifier>{d8ae6d64-33b1-4dcf-ac77-5c08ab1a1124}</UniqueIdentifier>
     </Filter>

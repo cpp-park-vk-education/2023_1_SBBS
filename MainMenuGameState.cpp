@@ -21,7 +21,7 @@ MainMenuGameState::MainMenuGameState() {
 	banner_pos.x = 0;
 	banner_pos.y = 0;
 
-	Entity* banner_ent = new Entity;
+	Entity* banner_ent = nullptr;
 
 	banner_ent = banner_spawner.Spawn(banner_pos, 'm');
 	banner_ent->setEntityID(1);

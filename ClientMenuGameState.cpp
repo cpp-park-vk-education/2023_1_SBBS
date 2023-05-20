@@ -14,9 +14,9 @@ ClientMenuGameState::ClientMenuGameState() {
 	banner_pos.x = 0;
 	banner_pos.y = 0;
 
-	Entity* banner_ent = new Entity;
+	Entity* banner_ent = nullptr;
 
-	banner_ent = banner_spawner.Spawn(banner_pos, 'ñ');
+	banner_ent = banner_spawner.Spawn(banner_pos, 'c');
 	banner_ent->setEntityID(1);
 
 	scene_.push_back(banner_ent);
