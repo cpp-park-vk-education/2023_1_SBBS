@@ -40,7 +40,71 @@ int distance_p(Position a, Position b) {
     return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-//bool check(PositionComponent temp_component);
+Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, std::vector<int>& blok_x, std::vector<int>& blok_y) {
+    Input_vector input_vector;
+    double max_attractive = 0;
+    Input_vector attractive_vector;
+
+    
+    for (int k = -1; k < 2; k++) {
+        for (int l = -1; l < 2; l++) {
+            bool flag = true;
+            double attractive = 0;
+            if (k == 0 && l == 0) continue;
+            for (int n = 0; n < blok_x.size(); n++) {
+                if (blok_x[n] == k && blok_y[n] == l) flag = false;
+            }
+            if (!flag) continue;
+            input_vector.x = k;
+            input_vector.y = l;
+            for (int j = 0; j < scene.size(); j++) {
+                if (scene[j]->getType() == ObjectType::Tank) {
+                    if (scene[j]->getEntityID() == -1) {
+                        PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
+                        Position meet_position = meet_component->getPosition();
+                        PositionComponent* Tank_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
+                        CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
+                        Input_vector vector;
+                        vector.x = meet_position.x - new_position.x;
+                        vector.y = meet_position.y - new_position.y;
+                        int betha = calculate_angle(input_vector, vector);
+                        if (input_vector.x * vector.x < 0 && input_vector.y * vector.y < 0) {
+                            betha += 180;
+                        }
+                        attractive += 100*(180 - betha);
+                        Position tmp_position = new_position;
+                        tmp_position.x += input_vector.x * 500;
+                        tmp_position.y += input_vector.y * 500;
+                        if (!wall_collision->checkBullet(new_position, tmp_position)) {
+                            attractive -= 0.1 * (1000 - distance_p(new_position, Tank_position->getPosition())) * (1000 - distance_p(new_position, Tank_position->getPosition()));
+                        }
+                        
+                    }
+                }
+                else if (scene[j]->getType() == ObjectType::Map) {
+                    CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
+                    PositionComponent* wall_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
+                    if (!wall_collision) continue;
+                    Position tmp_position = new_position;
+                    tmp_position.x += input_vector.x * 500;
+                    tmp_position.y += input_vector.y * 500;
+                    if (wall_position) {
+                        if (!wall_collision->checkBullet(new_position, tmp_position)) {
+                            attractive -=  0.1 * (500 - distance_p(new_position, wall_position->getPosition())) * (500 - distance_p(new_position, wall_position->getPosition()));
+                        }
+                    }   
+                }
+                
+            }
+            if (attractive > max_attractive) {
+                max_attractive = attractive;
+                attractive_vector = input_vector;
+            }
+            attractive = 0;
+        }
+    }
+    return attractive_vector;
+}
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 
@@ -50,19 +114,13 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
     inputs.handleInput(window);
     BulletSpawner bs;
 
-    for (int i = 0; i < scene.size(); i++) {  
-        //////////////////////////////////////////////////////////////////////
-        //if (scene[i] == nullptr) {
-        //    scene.erase(scene.begin() + i);
-        //    if (scene.size() == i)
-        //        break;
-        //}
-        ///////////////////////////////////////////////////// это вставить каждый раз при ...
-        ////////////////////////////////////////////////////////////////////////////////
+    static Input_vector input_vector_1;
+    static int counter = 10;
+    for (int i = 0; i < scene.size(); i++) {       
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
         int currEntityId = scene[i]->getEntityID();
         ObjectType currEntityType = scene[i]->getType();
-
+        
         if (currEntityId == myEntityId) {
             if (currEntityType == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
@@ -301,112 +359,77 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
         else if (currEntityId == 2) {
             if (currEntityType == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
-                Position new_position = new_component.getPosition();
                 int new_rotation = new_component.getRotation();
-                Input_vector input_vector;              
-
-                double max_attractive = 0;
                 
-                Input_vector attractive_vector;
-                double attractive = 0;
+                
+                std::vector<int> blok_x;
+                std::vector<int> blok_y;
+                bool flag2 = true;
+                int m = 0;
+                while (flag2){
+                    if (m > 8) break;
+                    bool flag = true;
+                    Position new_position = new_component.getPosition();
 
-                for (int k = -1; k < 2; k++) {
-                    for (int l = -1; l < 2; l++) {
-                        if (k == 0 && l == 0) continue;
-                        input_vector.x = k;
-                        input_vector.y = l;
-                        for (int j = 0; j < scene.size(); j++) {
-                            //if (scene[j] == nullptr) {
-                            //    scene.erase(scene.begin() + j);
-                            //    if (j > i)
-                            //        --i;
-                            //    if (scene.size() == j)
-                            //        break;
-                            //}
-                            if (scene[j]->getType() == ObjectType::Tank) {
-                                if (scene[j]->getEntityID() == -1) {
-                                    PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-                                    Position meet_position = meet_component->getPosition();
-                                    Input_vector vector;
-                                    vector.x = meet_position.x - new_position.x;
-                                    vector.y = meet_position.y - new_position.y;
-                                    int betha = calculate_angle(input_vector, vector);
-                                    if (input_vector.x * vector.x < 0 && input_vector.y * vector.y < 0) {
-                                        betha += 180;
-                                    }
-                                    attractive += (180 - betha);                                   
-                                }
-                            }                            
-                        }
-                        if (attractive > max_attractive) {
-                            max_attractive = attractive;
-                            attractive_vector = input_vector;
-                        }
-                        //std::cout << max_attractive << std::endl;
-                        //std::cout << attractive_vector.x << " " << attractive_vector.y << std::endl;
-                        attractive = 0;
+                    if (counter == 20) {
+                        input_vector_1 = attractivness(scene, new_position, blok_x, blok_y); //////////10 - количество кадров
+                        counter = 0;
                     }
-                }
+                    counter++;
 
-                input_vector = attractive_vector;
+                    Input_vector base = input_vector_1;
+                    int alpha;
+                    if (!(input_vector_1.x == 0 && input_vector_1.y == 0)) {
+                        alpha = calculate_coner(input_vector_1);
+                    }
+                    else alpha = new_rotation;
+                    float prop;
+                    if (abs(input_vector_1.x * input_vector_1.y))
+                        prop = 0.707;
+                    else prop = 1;
+                    new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector_1.x);
+                    new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector_1.y);
+                    
+                    Input_vector input_vector_2;
 
-                int alpha;
-
-                if (!(input_vector.x == 0 && input_vector.y == 0)) {
-                    alpha = calculate_coner(input_vector);
-                }
-                else alpha = new_rotation;
-                float prop;
-
-                if (abs(input_vector.x * input_vector.y))
-                    prop = 0.707;
-                else prop = 1;
-
-                new_position.x = moving(new_position.x, new_component.getSpeed(), prop * input_vector.x);
-                new_position.y = moving(new_position.y, new_component.getSpeed(), prop * input_vector.y);
-
-                input_vector.x = new_position.x + input_vector.x;
-                input_vector.y = new_position.y + input_vector.y;
-                if (input_vector.y < new_position.y) {
-                    alpha = 360 - alpha;
-                }
-                new_rotation = alpha;
-
-                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
-                CollisionComponent new_collision = *my_collision;
-                new_collision.update(new_position, new_rotation);
-
-                bool flag = true;
-                for (int j = 0; j < scene.size(); j++) {
-                    if (j == i) continue;
-                    //if (scene[j] == nullptr) {
-                    //    scene.erase(scene.begin() + j);
-                    //    if (j > i)
-                    //        --i;
-                    //    if (scene.size() == j)
-                    //        break;
-                    //}
-                    CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
-                    if (!another_collision) continue;
-                    if (!new_collision.checkCollision(another_collision)) {
-                        flag = false;
+                    input_vector_2.x = new_position.x + input_vector_1.x;
+                    input_vector_2.y = new_position.y + input_vector_1.y;
+                    if (input_vector_2.y < new_position.y) {
+                        alpha = 360 - alpha;
+                    }
+                    new_rotation = alpha;
+                    CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
+                    CollisionComponent new_collision = *my_collision;
+                    new_collision.update(new_position, new_rotation);
+                    for (int j = 0; j < scene.size(); j++) {
+                        if (j == i) continue;
+                        CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
+                        if (!another_collision) continue;
+                        if (!new_collision.checkCollision(another_collision)) {
+                            flag = false;
+                            blok_x.push_back(base.x);
+                            blok_y.push_back(base.y);
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        original_component->setPosition(new_position);
+                        original_component->setRotation(new_rotation);
+                        *my_collision = new_collision;
+                        flag2 = false;
                         break;
+                        //std::vector<int> to_send;
+                        //to_send.push_back(myEntityId);
+                        //to_send.push_back(TANK_POSITION_MARK);
+                        //to_send.push_back(new_position.x);
+                        //to_send.push_back(new_position.y);
+                        //to_send.push_back(new_position.rotation);
+                        //to_send.push_back(CHECKER);
+                        //to_send.push_back(BREAKER);
+                        //NetConnector::getInstance().send(to_send);
+                        /////// я так понимаю тут мы ставим позицию танка 
                     }
-                }
-                if (flag) {
-                    original_component->setPosition(new_position);
-                    original_component->setRotation(new_rotation);
-                    *my_collision = new_collision;
-                    //std::vector<int> to_send;
-                    //to_send.push_back(myEntityId);
-                    //to_send.push_back(TANK_POSITION_MARK);
-                    //to_send.push_back(new_position.x);
-                    //to_send.push_back(new_position.y);
-                    //to_send.push_back(new_position.rotation);
-                    //to_send.push_back(CHECKER);
-                    //to_send.push_back(BREAKER);
-                    //NetConnector::getInstance().send(to_send);
-                    /////// я так понимаю тут мы ставим позицию танка 
+                    m++;
                 }
             }
             else if (currEntityType == ObjectType::Turret) {
@@ -417,16 +440,9 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                 int min_dist = 100000;
                 PositionComponent Enemy_tank;
                 for (int j = 0; j < scene.size(); j++) {
-                    //if (scene[j] == nullptr) {
-                    //    scene.erase(scene.begin() + j);
-                    //    if (j > i)
-                    //        --i;
-                    //    if (scene.size() == j)
-                    //        break;
-                    //}
                     if (scene[j]->getType() == ObjectType::Tank) {
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-                        if (scene[j]->getEntityID() != 2) {
+                        if (scene[j]->getEntityID() != 2) {//////////////////////////// Заменить на проверку
                             Position meet_position = meet_component->getPosition();
                             if (distance_p(bot_position, meet_position) < min_dist) {
                                 min_dist = distance_p(bot_position, meet_position);

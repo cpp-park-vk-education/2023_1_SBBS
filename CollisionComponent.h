@@ -25,11 +25,13 @@ public:
 
     bool checkBullet(Position beg, Position end);
 
-    CollisionComponent(CollisionComponent* comp) = delete;    
+    CollisionComponent(CollisionComponent* comp) = delete;  
+
+    Position position_;
 
 private:
 
-    Position position_;
+    
 
     std::vector<Position> hitbox_;
 
