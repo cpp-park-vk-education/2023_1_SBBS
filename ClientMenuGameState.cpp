@@ -1,6 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include "SpawnerSystem.h"
+#include <iostream>
+#include<sstream>
 
 ClientMenuGameState::ClientMenuGameState() {
 	id_ = GameStateId::ClientMenu;
@@ -42,5 +44,32 @@ GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
 		systems_[i]->update(window, scene_);
 	}
 
+	sf::Event event;
+	std::ostringstream player_input;
+	sf::Font font;
+
+
+	font.loadFromFile("CyrilicOld.ttf");
+	sf::Text text("", font, 20);
+	//text.setColor(sf::Color::Red);
+	text.setStyle(sf::Text::Bold);
+
+	text.setPosition(800, 800);
+
+	std::string ip = std::string("");
+
+	while (window.pollEvent(event)) {
+
+		if (event.type == sf::Event::TextEntered)
+		{
+			if (event.text.unicode < 128) {
+				//std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
+				ip += (static_cast<char>(event.text.unicode));
+				/*std::cout << "Current ip: " << ip << std::endl;*/
+				/*player_input << static_cast<char>(event.text.unicode);
+				text.setString(player_input.str());*/
+			}
+		}
+	}
 	return id_;
 }
