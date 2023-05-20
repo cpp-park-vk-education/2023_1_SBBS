@@ -115,7 +115,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
     BulletSpawner bs;
 
     static Input_vector input_vector_1;
-    static int counter = 10;
+    static int counter = 0;
     for (int i = 0; i < scene.size(); i++) {       
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
         int currEntityId = scene[i]->getEntityID();
@@ -356,12 +356,10 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                 }
             }
         }
-        else if (currEntityId == 2) {
+        else if (currEntityId == 2 || currEntityId == 3) {
             if (currEntityType == ObjectType::Tank) {
                 PositionComponent new_component = *original_component;
                 int new_rotation = new_component.getRotation();
-                
-                
                 std::vector<int> blok_x;
                 std::vector<int> blok_y;
                 bool flag2 = true;
@@ -371,7 +369,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                     bool flag = true;
                     Position new_position = new_component.getPosition();
 
-                    if (counter == 20) {
+                    if (counter == 10) {
                         input_vector_1 = attractivness(scene, new_position, blok_x, blok_y); //////////10 - количество кадров
                         counter = 0;
                     }
@@ -442,7 +440,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                 for (int j = 0; j < scene.size(); j++) {
                     if (scene[j]->getType() == ObjectType::Tank) {
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-                        if (scene[j]->getEntityID() != 2) {//////////////////////////// Заменить на проверку
+                        if (scene[j]->getEntityID() == -1) {//////////////////////////// Заменить на проверку
                             Position meet_position = meet_component->getPosition();
                             if (distance_p(bot_position, meet_position) < min_dist) {
                                 min_dist = distance_p(bot_position, meet_position);
