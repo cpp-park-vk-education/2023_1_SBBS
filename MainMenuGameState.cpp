@@ -95,10 +95,10 @@ GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
 		switch (chosen_button_id)
 		{
 		case 1:
-			return GameStateId::HostPlaying;
+			return GameStateId::HostMenu;
 			break;
 		case 2:
-			return GameStateId::ClientPlaying;
+			return GameStateId::ClientMenu;
 		default:
 			return id_;
 			break;

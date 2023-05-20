@@ -31,9 +31,9 @@ Entity* BannerSpawner::Spawn(Position position, char subType) {
 
 	case 'c': // client menu banner
 		graph_to_add = new GraphicsComponent();
-		img.loadFromFile("Image/client_banner.png");
+		img.loadFromFile("Image/main_banner.png");
 		graph_to_add->setAliveImage(img);
-		music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
+		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
 		break;
 
 	case 'g': // game music

@@ -22,7 +22,7 @@ ClientMenuGameState::ClientMenuGameState() {
 	scene_.push_back(banner_ent);
 	addSystem(SystemId::MenuSystemId);
 	addSystem(SystemId::GraphicsSystemId);
-	addSystem(SystemId::MusicSystemId);
+	//addSystem(SystemId::MusicSystemId);
 
 	//Спавн кнопки назад клиенского меню
 	Position back_button_pos;	// Эта кнопка будет возвращать игрока в главное меню
@@ -38,5 +38,9 @@ ClientMenuGameState::ClientMenuGameState() {
 }
 
 GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
+	for (int i = 0; i < systems_.size(); ++i) {
+		systems_[i]->update(window, scene_);
+	}
+
 	return id_;
 }
