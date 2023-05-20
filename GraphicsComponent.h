@@ -9,13 +9,16 @@ public:
 
     bool layer = 0;
 
-    void setAliveImage(sf::Image aliveimage) { 
+    void setAliveImage(sf::Image aliveimage, bool flag = false) { 
         alive_image_ = aliveimage;
         alive_image_.createMaskFromColor(sf::Color::White);
         alive_texture_.loadFromImage(alive_image_);
         obj_sprite_.setTexture(alive_texture_);
 
         obj_sprite_.setScale(0.5f, 0.5f);
+        if (flag == true) {
+            obj_sprite_.setScale(2.f, 2.f);
+        }
         obj_sprite_.setOrigin(50, 50);
         //Возможно, сюда надо передать коэффициент сжатия. Либо же сделать его одинаковым для всех
     };
