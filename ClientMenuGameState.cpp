@@ -125,5 +125,10 @@ GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
 			}
 		}
 	}
+
+	if (ip == std::string("a")) {
+		return GameStateId::ClientPlaying;
+	}
+
 	return id_;
 }
