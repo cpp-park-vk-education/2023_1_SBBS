@@ -8,9 +8,11 @@
 class MusicComponent : public Component {
 public:
 
+    MusicComponent() {};
+
     MusicComponent(const std::string& file_name) { if (!music_.openFromFile(file_name)) std::cout<<"Didnt open music file"; }
 
-    void playMusic() { music_.play(); };
+    sf::Music* getMusic() { return &music_; };
 
     void setMusic(const std::string& file_name) { music_.openFromFile(file_name); };
 

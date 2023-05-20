@@ -13,6 +13,15 @@ public:
 
     GameStateId getStateId() { return id_; };
 
+    ~GameState() {
+        for (int i = 0; i < systems_.size(); ++i) {
+            delete systems_[i];
+        }
+        for (int i = 0; i < scene_.size(); ++i) {
+            delete scene_[i];
+        }
+    }
+
 protected:
 
     GameStateId id_;
@@ -22,6 +31,8 @@ protected:
 	std::vector<System*> systems_;
 
     std::vector<Entity*> scene_;
+
+
 };
 
 class MainMenuGameState :public GameState {

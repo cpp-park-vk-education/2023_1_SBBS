@@ -3,6 +3,8 @@
 #include "GraphicsComponent.h"
 
 void HealthComponent::setAfterlife(){
+    owner_->deleteComponent(ComponentID::SoundComponent);
+
 
     if (!collidable_in_afterlife_) {
         owner_->deleteComponent(ComponentID::CollisionComponent);

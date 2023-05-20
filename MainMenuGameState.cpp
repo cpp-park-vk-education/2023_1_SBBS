@@ -29,6 +29,7 @@ MainMenuGameState::MainMenuGameState() {
 	scene_.push_back(banner_ent);
 	addSystem(SystemId::MenuSystemId);
 	addSystem(SystemId::GraphicsSystemId);
+	addSystem(SystemId::MusicSystemId);
 
 
 	//Спавн кнопки host game главного меню

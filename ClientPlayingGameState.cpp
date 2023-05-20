@@ -21,6 +21,7 @@ ClientPlayingGameState::ClientPlayingGameState(const std::string& map_name) {
 	generateMap(std::string("Maps/lvlTest2.txt"), 0);
 
 	addSystem(SystemId::MusicSystemId);
+	addSystem(SystemId::SoundSystemId);
 	addSystem(SystemId::GraphicsSystemId);
 	addSystem(SystemId::PhysicsSystemId);
 

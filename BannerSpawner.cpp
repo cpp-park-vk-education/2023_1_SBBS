@@ -12,9 +12,9 @@ Entity* BannerSpawner::Spawn(Position position, char subType) {
 
 	Entity* to_add = new Entity(ObjectType::Banner);
 
-	GraphicsComponent* graph_to_add = new GraphicsComponent();
+	GraphicsComponent* graph_to_add = nullptr; 
 	PositionComponent* pos_to_add = new PositionComponent();
-	MusicComponent* music_to_add = new MusicComponent(std::string("Sound/music_track_1.ogg"));
+	MusicComponent* music_to_add = new MusicComponent;//("Sound/music_track_1.ogg"));
 
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -23,14 +23,24 @@ Entity* BannerSpawner::Spawn(Position position, char subType) {
 
 	switch (subType) {
 	case 'm': // main menu banner
+		graph_to_add = new GraphicsComponent();
 		img.loadFromFile("Image/main_banner.png");
 		graph_to_add->setAliveImage(img);
+		music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
+		break;
+	case 'g': // game music
+		music_to_add->setMusic(std::string("Sound/music_track_2.wav"));
+		break;
+	default:
+		break;
 	}
 
 
-	to_add->putComponent(ComponentID::MusicComponent, music_to_add);
-	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
+	if (graph_to_add)
+		to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
 	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
+	to_add->putComponent(ComponentID::MusicComponent, music_to_add);
+
 
 	return to_add;
 }

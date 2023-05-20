@@ -114,4 +114,8 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 
 		scene_.push_back(temp_ent);
 	}
+
+	Entity* temp_ent;
+	temp_ent = bs.Spawn(Position(0, 0), 'g');
+	scene_.push_back(temp_ent);
 }

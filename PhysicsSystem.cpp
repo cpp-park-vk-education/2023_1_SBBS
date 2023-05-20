@@ -10,6 +10,7 @@
 #include "netConnect.h"
 #include "networkCodes.h"
 #include "ShootComponent.h"
+#include "SoundComponent.h"
 
 int base_x = 1;
 int base_y = 0;
@@ -51,11 +52,11 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
     for (int i = 0; i < scene.size(); i++) {  
         //////////////////////////////////////////////////////////////////////
-        if (scene[i] == nullptr) {
-            scene.erase(scene.begin() + i);
-            if (scene.size() == i)
-                break;
-        }
+        //if (scene[i] == nullptr) {
+        //    scene.erase(scene.begin() + i);
+        //    if (scene.size() == i)
+        //        break;
+        //}
         ///////////////////////////////////////////////////// это вставить каждый раз при ...
         ////////////////////////////////////////////////////////////////////////////////
         PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
@@ -476,6 +477,7 @@ int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
                             bot_position.rotation = alpha;
                             ///  тип пули должен соответствовать нужному типу 
                             scene.push_back(bs.Spawn(bot_position, '1'));
+
                             //std::vector<int> to_send;
                             //to_send.push_back(BULLET_SPAWN_EVENT);
                             //to_send.push_back(new_position.x);
