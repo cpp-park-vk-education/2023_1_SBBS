@@ -174,9 +174,13 @@
     <ClCompile Include="MenuSystem.cpp" />
     <ClCompile Include="netConnect.cpp" />
     <ClCompile Include="netConnect.h" />
+    <ClCompile Include="NetPositionComponent.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="MapSpawner.cpp" />
+    <ClCompile Include="PlayerPositionComponent.cpp" />
     <ClCompile Include="PlayingState.cpp" />
+    <ClCompile Include="BotPositionComponent.cpp" />
+    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="ShootComponent.h" />
     <ClCompile Include="SinglePlayerMenuGameState.cpp" />
     <ClCompile Include="SinglePlayingGameState.cpp" />
