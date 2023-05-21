@@ -80,7 +80,7 @@ void PlayingState::generateMap(const std::string& map_name) {
 			Entity* temp_ent = ws.Spawn(curr_pos, current_block);
 			scene_.push_back(temp_ent);
 		}
-
+	tank_amount = 2; // Временная штука
 	/// tank spawn 
 	for (int i = 1; i <= tank_amount; ++i)
 	{
