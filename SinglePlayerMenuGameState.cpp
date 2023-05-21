@@ -54,7 +54,7 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 	// вводить ip и получить название карты
 	// получить entity id 
 
-	setStateArgument(std::string("Maps/lvlTest2.txt"));
+	setStateArgument(std::string("Maps/lvl2.txt"));
 	PlayingArgsHolder::getInstance().setMyEntityId(2);
 
 	for (int i = 0; i < 4; ++i) {
