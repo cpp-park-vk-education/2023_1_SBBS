@@ -5,8 +5,7 @@
 #include "Component.h"
 #include "InputHandler.h"
 #include "GraphicsSystem.h"
-#include "ButtonID.h"
-#include "BannerID.h"
+#include "SpawnID.h"
 
 // on enter()<- создание всех обхъекты на сцене 
 

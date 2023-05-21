@@ -6,7 +6,7 @@
 
 class Spawner {
 public:
-    virtual Entity* Spawn(Position position, char subType) = 0;
+    virtual Entity* Spawn(Position position, int subType) = 0;
 };
 
 class SpawnerSystem : public System {
@@ -23,30 +23,30 @@ private:
 
 class TankSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };
 
 class TurretSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };
 
 class BulletSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };
 
 class MapSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };
 
 class ButtonSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };
 
 class BannerSpawner : public Spawner {
 public:
-    Entity* Spawn(Position position, char subType) override;
+    Entity* Spawn(Position position, int subType) override;
 };

@@ -10,7 +10,7 @@
 #include <fstream>
 
 
-Entity* TankSpawner::Spawn(Position position, char subType) {
+Entity* TankSpawner::Spawn(Position position, int subType) {
 
 	Entity* to_add = new Entity(ObjectType::Tank);
 	sf::SoundBuffer buffer;

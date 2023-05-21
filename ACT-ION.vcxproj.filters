@@ -155,9 +155,6 @@
     <ClInclude Include="SpawnerSystem.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Файлы заголовков\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="ClickComponent.h">
       <Filter>Файлы заголовков\Components</Filter>
     </ClInclude>
@@ -191,11 +188,11 @@
     <ClInclude Include="InputHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonID.h">
+    <ClInclude Include="SpawnID.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BannerID.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="System.h">
+      <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,11 +3,11 @@
 #include "GraphicsComponent.h"
 #include "PositionComponent.h"
 #include "ClickComponent.h"
-#include "ButtonID.h"
+#include "SpawnID.h"
 #include <fstream>
 #include <vector>
 
-Entity* ButtonSpawner::Spawn(Position position, char subType) {
+Entity* ButtonSpawner::Spawn(Position position, int subType) {
 	int height = 150;
 	int width = 700;
 

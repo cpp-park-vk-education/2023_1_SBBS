@@ -7,7 +7,7 @@
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 
-Entity* TurretSpawner::Spawn(Position position, char subType) {
+Entity* TurretSpawner::Spawn(Position position, int subType) {
 	static sf::Image img;//// почему статик???
 	sf::SoundBuffer buffer;
 

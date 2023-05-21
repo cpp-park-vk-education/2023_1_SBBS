@@ -5,7 +5,7 @@
 #include "Types.h"
 #include "System.h"
 #include "Entity.h"
-#include "ButtonID.h"
+#include "SpawnId.h"
 
 class GameState {
 public:

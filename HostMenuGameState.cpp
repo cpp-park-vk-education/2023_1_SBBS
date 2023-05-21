@@ -1,8 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "SpawnerSystem.h"
-#include "BannerID.h"
-#include "ButtonID.h"
+#include "SpawnID.h"
 
 
 HostMenuGameState::HostMenuGameState() {
@@ -38,7 +37,6 @@ HostMenuGameState::HostMenuGameState() {
 	scene_.push_back(temp_ent);
 
 	// Спавн кнопки "Играть"
-
 	Position connect_button_pos(1400, 800);
 
 	temp_ent = button_spawner.Spawn(connect_button_pos, play);

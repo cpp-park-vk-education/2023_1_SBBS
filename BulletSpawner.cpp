@@ -9,7 +9,7 @@
 #include <SFML/Audio.hpp>
 #include <fstream>
 
-Entity* BulletSpawner::Spawn(Position position, char subType) {
+Entity* BulletSpawner::Spawn(Position position, int subType) {
 
 	Entity* to_add = new Entity(ObjectType::Bullet);
 	static sf::Image bullet;

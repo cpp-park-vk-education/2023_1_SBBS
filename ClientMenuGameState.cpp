@@ -1,8 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "SpawnerSystem.h"
-#include "ButtonID.h"
-#include "BannerID.h"
+#include "SpawnID.h"
 #include "InputHandler.h"
 #include <iostream>
 #include <sstream>

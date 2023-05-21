@@ -7,8 +7,9 @@
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include "SpawnID.h"
 
-Entity* MapSpawner::Spawn(Position position, char subType) {
+Entity* MapSpawner::Spawn(Position position, int subType) {
 	Entity* to_add = new Entity(ObjectType::Map);
 	static sf::Image img;
 	
@@ -24,34 +25,45 @@ Entity* MapSpawner::Spawn(Position position, char subType) {
 	//грамотный switch - case  написать 
 	switch (subType)
 	{
-	case 'w' : // stone wall 
+	case stone_wall : // stone wall 
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setAliveImage(img);
 		img.loadFromFile("Image/dead_wall_100_100.png");
 		graph_to_add->setDeadImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
-		health_to_add = new HealthComponent(true,true,false,to_add, 100);
+		health_to_add = new HealthComponent(false, false,false,to_add, 100);
 		break;
 
-	case 's' : // sand floor
-		img.loadFromFile("Image/Sand_100_100.png");
+	case wood_wall: // wood wall 
+		img.loadFromFile("Image/Wood_100_100.png");
+		graph_to_add->setAliveImage(img);
+		img.loadFromFile("Image/dead_wall_100_100.png");
+		graph_to_add->setDeadImage(img);
+		coll_to_add = new CollisionComponent(position, 0, 50, 50);
+		health_to_add = new HealthComponent(true, true, false, to_add, 100);
+		break;
+
+	case sand : // sand floor
+		img.loadFromFile("Image/Sand_1_100_100.png");
 		graph_to_add->setAliveImage(img);
 		break;
 
-	case 'd': // dirt floor
+	case dirt: // dirt floor
 		img.loadFromFile("Image/Dirt_100_100.png");
 		graph_to_add->setAliveImage(img);
 		break;
 
-	case 'c': // cave floor
-		img.loadFromFile("Image/Cave_100_100.png");
-		graph_to_add->setAliveImage(img);
-		break;
+	//case 'c': // cave floor
+	//	img.loadFromFile("Image/Cave_100_100.png");
+	//	graph_to_add->setAliveImage(img);
+	//	break;
 
-	case 'i': // iron floor
-		img.loadFromFile("Image/Iron_100_100.png");
-		graph_to_add->setAliveImage(img);
-		break;
+	//case 'i': // iron floor
+	//	img.loadFromFile("Image/Iron_100_100.png");
+	//	graph_to_add->setAliveImage(img);
+	//	break;
+
+	
 
 	default:
 		break;
