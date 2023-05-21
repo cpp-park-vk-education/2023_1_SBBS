@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "SpawnerSystem.h"
 #include "ButtonID.h"
+#include "BannerID.h"
 #include "InputHandler.h"
 #include <iostream>
 #include <sstream>
@@ -17,14 +18,11 @@ ClientMenuGameState::ClientMenuGameState() {
 	//addSystem(SystemId::MusicSystemId);
 
 	//Спавн фона клиентского меню
-	Position banner_pos;
-	banner_pos.x = 0;
-	banner_pos.y = 0;
+	Position banner_pos(0, 0);
 
 	Entity* temp_ent = nullptr;
 
-	temp_ent = banner_spawner.Spawn(banner_pos, 'c');//// убрать магическую константу
-
+	temp_ent = banner_spawner.Spawn(banner_pos, client_banner);//// убрать магическую константу
 	scene_.push_back(temp_ent);
 
 	//Спавн кнопки назад клиенского меню
@@ -38,19 +36,17 @@ ClientMenuGameState::ClientMenuGameState() {
 
 	// Спавн кнопки "попробовать подключиться"
 
-	Position connect_button_pos;
-	connect_button_pos.x = 1400;
-	connect_button_pos.y = 800;
+	Position connect_button_pos(1400, 800);
 
 	temp_ent = button_spawner.Spawn(connect_button_pos, try_to_connect);
 	scene_.push_back(temp_ent);
 
 	// Спавн Выбора скина танка. Две башни и два корпуса
 	/////////////////////////////////////////////////////можно сократить
-	Position hull_1_pos(1300, 200);
-	Position hull_2_pos(1600, 200);
-	Position turret_1_pos(1300, 500);
-	Position turret_2_pos(1600, 500);
+	Position hull_1_pos(1300, 350);
+	Position hull_2_pos(1650, 350);
+	Position turret_1_pos(1300, 600);
+	Position turret_2_pos(1650, 600);
 
 	temp_ent = button_spawner.Spawn(hull_1_pos, tank_hull_1);
 	scene_.push_back(temp_ent);

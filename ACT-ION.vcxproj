@@ -189,6 +189,7 @@
     <ClCompile Include="TurretSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BannerID.h" />
     <ClInclude Include="ButtonID.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MusicSystem.h" />

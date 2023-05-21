@@ -126,6 +126,9 @@
     <ClCompile Include="GameStateManager.cpp">
       <Filter>Файлы ресурсов\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Types.h">
@@ -185,10 +188,13 @@
     <ClInclude Include="networkCodes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonID.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BannerID.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
