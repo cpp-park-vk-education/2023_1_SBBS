@@ -21,13 +21,13 @@ Entity* TankSpawner::Spawn(Position position, char subType) {
 	switch (current_type_)
 	{
 	case OwnerType::Network:
-		pos_to_add = new NetTurretPositionComponent();
+		pos_to_add = new NetTankPositionComponent();
 		break;
 	case OwnerType::Bot:
-		pos_to_add = new BotTurretPositionComponent();
+		pos_to_add = new BotTankPositionComponent();
 		break;
 	case OwnerType::Player:
-		pos_to_add = new TurretPositionComponent();
+		pos_to_add = new TankPositionComponent();
 		break;
 	default:
 		break;

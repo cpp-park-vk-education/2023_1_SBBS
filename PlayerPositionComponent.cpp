@@ -21,9 +21,10 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
     inputs.handleInput(window);
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
-    int currEntityId = scene[i]->getEntityID();
 
-    ObjectType currEntityType = scene[i]->getType();
+    int currEntityId = scene[i]->getEntityID();
+    if (currEntityId != myEntityId) // условие на смерть (после смерти currEntityId становится равным 0) 
+        return;
 
     PositionComponent new_component = *original_component;
 
@@ -105,14 +106,16 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
 
 void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
     int myEntityId = -1; //////////////// синглтон на мой id
-
     Input inputs;
     inputs.handleInput(window);
     BulletSpawner bs;
+    bs.setOwnerType(OwnerType::Player);
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
+
     int currEntityId = scene[i]->getEntityID();
-    ObjectType currEntityType = scene[i]->getType();
+    if (currEntityId != myEntityId) // условие на смерть (после смерти currEntityId становится равным 0) 
+        return;
 
     PositionComponent new_component = *original_component;
     Position new_position = new_component.getPosition();

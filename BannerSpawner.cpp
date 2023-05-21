@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <string>
+#include "BannerID.h"
 
 Entity* BannerSpawner::Spawn(Position position, char subType) {
 
@@ -22,16 +23,23 @@ Entity* BannerSpawner::Spawn(Position position, char subType) {
 	sf::Image img;
 
 	switch (subType) {
-	case 'm': // main menu banner
+	case main_banner: // main menu banner
 		graph_to_add = new GraphicsComponent();
 		img.loadFromFile("Image/main_banner_2.png");
 		graph_to_add->setAliveImage(img);
 		music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
 		break;
 
-	case 'c': // client menu banner
+	case client_banner: // client menu banner
 		graph_to_add = new GraphicsComponent();
 		img.loadFromFile("Image/client_banner.png");
+		graph_to_add->setAliveImage(img);
+		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
+		break;
+
+	case host_banner: // host menu banner
+		graph_to_add = new GraphicsComponent();
+		img.loadFromFile("Image/host_banner.png");
 		graph_to_add->setAliveImage(img);
 		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
 		break;

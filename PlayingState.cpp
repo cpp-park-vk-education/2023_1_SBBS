@@ -44,6 +44,8 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 	BannerSpawner bs;
 	TurretSpawner tr;
 	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
+	ts.setOwnerType(OwnerType::Player);
+	tr.setOwnerType(OwnerType::Player);
 
 	std::ifstream map_file(map_name);
 

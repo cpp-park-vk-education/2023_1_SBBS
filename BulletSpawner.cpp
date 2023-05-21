@@ -21,13 +21,13 @@ Entity* BulletSpawner::Spawn(Position position, char subType) {
 	switch (current_type_)
 	{
 	case OwnerType::Network:
-		pos_to_add = new NetTurretPositionComponent();
+		pos_to_add = new NetBulletPositionComponent();
 		break;
 	case OwnerType::Bot:
-		pos_to_add = new BotTurretPositionComponent();
+		pos_to_add = new BulletPositionComponent();
 		break;
 	case OwnerType::Player:
-		pos_to_add = new TurretPositionComponent();
+		pos_to_add = new BulletPositionComponent();
 		break;
 	default:
 		break;

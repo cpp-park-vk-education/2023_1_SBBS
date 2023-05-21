@@ -6,6 +6,7 @@
 #include "InputHandler.h"
 #include "GraphicsSystem.h"
 #include "ButtonID.h"
+#include "BannerID.h"
 
 // on enter()<- создание всех обхъекты на сцене 
 
@@ -18,56 +19,42 @@ MainMenuGameState::MainMenuGameState() {
 
 
 	//Спавн фона главного меню
-	Position banner_pos;
-	banner_pos.x = 0;
-	banner_pos.y = 0;
+	Position banner_pos(0, 0);
 
-	Entity* banner_ent = nullptr;
+	Entity* temp_ent = nullptr;
 
-	banner_ent = banner_spawner.Spawn(banner_pos, 'm');//// это кто? убрать магическую константу
-	banner_ent->setEntityID(1);
+	temp_ent = banner_spawner.Spawn(banner_pos, main_banner);//// это кто? убрать магическую константу
+	temp_ent->setEntityID(1);
 
-	scene_.push_back(banner_ent);
+	scene_.push_back(temp_ent);
 	addSystem(SystemId::MenuSystemId);
 	addSystem(SystemId::GraphicsSystemId);
 	addSystem(SystemId::MusicSystemId);
 	addSystem(SystemId::MenuSystemId);
 
 	//Спавн кнопки host game главного меню
-	Position host_game_pos;
-	host_game_pos.x = 200;  //Над координатами надо думать в зависимости от размера кнопки
-	host_game_pos.y = 800;
+	Position host_game_pos(200, 800);
 
-	Entity* host_game_ent;
+	temp_ent = button_spawner.Spawn(host_game_pos,host_game);
+	temp_ent->setEntityID(1);
 
-	host_game_ent = button_spawner.Spawn(host_game_pos,host_game);
-	host_game_ent->setEntityID(1);
-
-	scene_.push_back(host_game_ent);
+	scene_.push_back(temp_ent);
 
 	//Спавн кнопки connect to game главного меню
-	Position connect_game_pos;
-	connect_game_pos.x = 1400;  //Над координатами надо думать в зависимости от размера кнопки
-	connect_game_pos.y = 800;
+	Position connect_game_pos(1400, 800);
 
-	Entity* connect_game_ent;
+	temp_ent = button_spawner.Spawn(connect_game_pos, client_game);
+	temp_ent->setEntityID(1);
 
-	connect_game_ent = button_spawner.Spawn(connect_game_pos, client_game);
-	connect_game_ent->setEntityID(1);
-
-	scene_.push_back(connect_game_ent);
+	scene_.push_back(temp_ent);
 
 	// Спавн кнопки одиночной игры
-	Position single_game_button_pos;
-	single_game_button_pos.x = 800;  //Над координатами надо думать в зависимости от размера кнопки
-	single_game_button_pos.y = 800;
+	Position single_game_button_pos(800, 800);
 
-	Entity* single_game_button_ent;
+	temp_ent = button_spawner.Spawn(single_game_button_pos, single_game);
+	temp_ent->setEntityID(1);
 
-	single_game_button_ent = button_spawner.Spawn(single_game_button_pos, single_game);
-	single_game_button_ent->setEntityID(1);
-
-	scene_.push_back(single_game_button_ent);
+	scene_.push_back(temp_ent);
 }
 
 GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
