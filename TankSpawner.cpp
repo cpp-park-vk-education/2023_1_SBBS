@@ -16,10 +16,26 @@ Entity* TankSpawner::Spawn(Position position, int subType) {
 	sf::SoundBuffer buffer;
 	static sf::Image img; /// почему статик?
 
+	PositionComponent* pos_to_add = nullptr;
+
+	switch (current_type_)
+	{
+	case OwnerType::Network:
+		pos_to_add = new NetTankPositionComponent();
+		break;
+	case OwnerType::Bot:
+		pos_to_add = new BotTankPositionComponent();
+		break;
+	case OwnerType::Player:
+		pos_to_add = new TankPositionComponent();
+		break;
+	default:
+		break;
+	}
+
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new PositionComponent();
 	CollisionComponent* coll_to_add =  new CollisionComponent(position, 0, 50, 50);
-	HealthComponent* health_to_add = new HealthComponent(true, true,true,to_add, 100);
+	HealthComponent* health_to_add = new HealthComponent(true, true,true,to_add, 100); //////////// разные танки имеют разное зддоровье
 	SoundComponent* sound_to_add = new SoundComponent();
 
 	Position pos_struc_to_add(position.x, position.y);

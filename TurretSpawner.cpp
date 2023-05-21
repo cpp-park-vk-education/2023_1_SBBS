@@ -10,10 +10,24 @@
 Entity* TurretSpawner::Spawn(Position position, int subType) {
 	static sf::Image img;//// почему статик???
 	sf::SoundBuffer buffer;
+	PositionComponent* pos_to_add = nullptr;
+
+	switch (current_type_)
+	{
+	case OwnerType::Network:
+		pos_to_add = new NetTurretPositionComponent();
+		break;
+	case OwnerType::Bot:
+		pos_to_add = new BotTurretPositionComponent();
+		break;
+	case OwnerType::Player:
+		pos_to_add = new TurretPositionComponent();
+		break;
+	default:
+		break;
+	}
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new PositionComponent();
-	//SoundComponent* sound_to_add = new SoundComponent();
 	ShootComponent* shoot_to_add = new ShootComponent();
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -22,9 +36,8 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 	Entity* to_add = new Entity(ObjectType::Turret);
 
 	graph_to_add = new GraphicsComponent();
-	PositionComponent* turr_pos_to_add = new PositionComponent();
 
-	turr_pos_to_add->setPosition(pos_struc_to_add);
+	pos_to_add->setPosition(pos_struc_to_add);
 
 	switch (subType)
 	{
@@ -51,7 +64,7 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 	graph_to_add->layer = true;
 	to_add->putComponent(ComponentID::ShootComponent, shoot_to_add);
 	to_add->putComponent(ComponentID::GraphicsComponent, graph_to_add);
-	to_add->putComponent(ComponentID::PositionComponent, turr_pos_to_add);
+	to_add->putComponent(ComponentID::PositionComponent, pos_to_add);
 	//to_add->putComponent(ComponentID::SoundComponent, sound_to_add);
 	return to_add;
 }
