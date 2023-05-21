@@ -15,17 +15,14 @@
 ClientPlayingGameState::ClientPlayingGameState(const std::string& map_name) {
 	id_ = GameStateId::ClientPlaying;
 
-	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
-
-
-	generateMap(std::string("Maps/lvl2.txt"), 0);
+	generateMap(map_name);
 
 	addSystem(SystemId::MusicSystemId);
 	addSystem(SystemId::SoundSystemId);
 	addSystem(SystemId::GraphicsSystemId);
 	addSystem(SystemId::PhysicsSystemId);
 
-	//ms.playMusic(scene); menu music
+	setMyTank();
 };
 
 GameStateId ClientPlayingGameState::update(sf::RenderWindow& window) {
@@ -35,10 +32,7 @@ GameStateId ClientPlayingGameState::update(sf::RenderWindow& window) {
 		systems_[i]->update(window, scene_);
 	}
 
-
-	Entity* my_tank = getMyTank();
-
-	if (isDead(my_tank)) {// сделать геймстейт после смерти или статистику игры
+	if (isDead(my_tank_)) {// сделать геймстейт после смерти или статистику игры
 		
 		return GameStateId::MainMenu;
 	}

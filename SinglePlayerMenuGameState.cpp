@@ -2,6 +2,8 @@
 #include "GameState.h"
 #include "SpawnerSystem.h"
 #include "SpawnID.h"
+#include "PlayingArgsHolder.h"
+#include "InputHandler.h"
 
 SinglePlayerMenuGameState::SinglePlayerMenuGameState() {
 	id_ = GameStateId::SingleMenu;
@@ -38,6 +40,55 @@ SinglePlayerMenuGameState::SinglePlayerMenuGameState() {
 }
 
 GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
+
+	Input input;
+	input.handleInput(window);
+
+	int chosen_button_id = 0;
+	for (int i = 0; i < systems_.size(); ++i) {
+		int sys_output = systems_[i]->update(window, scene_); // ненулевой будет только в menusystem
+		if (sys_output) {
+			chosen_button_id = sys_output;
+		}
+	}
+	// вводить ip и получить название карты
+	// получить entity id 
+
+	setStateArgument(std::string("Maps/lvlTest2.txt"));
+	PlayingArgsHolder::getInstance().setMyEntityId(2);
+
+	for (int i = 0; i < 4; ++i) {
+		PlayingArgsHolder::getInstance().setHullType(i, tank_hull_1);
+		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
+	}
+
+	if (input.shoot_) { ////////////////////////////// shoot не понятно, поменять на mouce click
+		switch (chosen_button_id)
+		{
+		case play_button_id:
+			return GameStateId::SinglePlaying;
+			break;
+		//case tank_hull_1_button_id:
+		//	setTankHull(tank_hull_1);
+		//	break;
+		//case tank_hull_2_button_id:
+		//	setTankHull(tank_hull_2);
+		//	break;
+		//case tank_turret_1_button_id:
+		//	setTankTurret(tank_turret_1);
+		//	break;
+		//case tank_turret_2_button_id:
+		//	setTankTurret(tank_turret_2);
+		//	break;
+		case back_button_id:
+			return GameStateId::MainMenu;
+			break;
+		default:
+			return id_;
+			break;
+		}
+	}
+
 	return id_;
 }
 

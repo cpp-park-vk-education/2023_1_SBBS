@@ -6,6 +6,7 @@
 #include "ShootComponent.h"
 #include "Types.h"
 #include <SFML/Graphics.hpp>
+#include "SpawnID.h"
 
 Entity* TurretSpawner::Spawn(Position position, int subType) {
 	static sf::Image img;//// почему статик???
@@ -41,7 +42,7 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 
 	switch (subType)
 	{
-	case '1': // tank type 1
+	case tank_turret_1: // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
 		graph_to_add->setAliveImage(img);
 		shoot_to_add->setCooldown(1.0);///////// выставить в зависимости от типа 
@@ -51,7 +52,7 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 		////
 		break;
 
-	case '2': // tank type 1
+	case tank_turret_2: // tank type 1
 		img.loadFromFile("Image/tank_2_gun_100_100.png");
 		graph_to_add->setAliveImage(img);
 		shoot_to_add->setCooldown(1.0);

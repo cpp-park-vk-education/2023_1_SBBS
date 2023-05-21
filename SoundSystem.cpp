@@ -16,12 +16,6 @@ int SoundSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 			curr_sound = current_music->getSound(SoundType::RunnungSound);
 			curr_sound->setVolume(10.f);
 			sound_queue.push(curr_sound);
-			//sf::SoundSource::Status status = curr_sound.getStatus();
-			//if (status != sf::SoundSource::Playing) {
-				//curr_sound = current_music->getSound(SoundType::RunnungSound);
-				//curr_sound.play();
-				//return 0;
-			//}
 		}
 	}
 

@@ -17,6 +17,8 @@ void StateManager::changeState(GameStateId id) {
 		break;
 	case GameStateId::ClientMenu:
 		curr_state_ = new ClientMenuGameState;
+	case GameStateId::SingleMenu:
+		curr_state_ = new SinglePlayerMenuGameState;
 		break;
 	case GameStateId::HostPlaying:
 		curr_state_ = new HostPlayingGameState(arg);

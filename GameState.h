@@ -44,15 +44,15 @@ public:
 
 
 
-class SubMenuState : public GameState {
-protected:
-    void setTankHull(const char& hull) { tank_hull = hull; }
-    void setTankTurret(const char& turret) { tank_turret = turret; }
-    char tank_hull = tank_hull_1;
-    char tank_turret = tank_turret_1;
-};
+//class SubMenuState : public GameState {
+//protected:
+//    void setTankHull(const char& hull) { tank_hull = hull; }
+//    void setTankTurret(const char& turret) { tank_turret = turret; }
+//    char tank_hull = tank_hull_1;
+//    char tank_turret = tank_turret_1;
+//};
 
-class HostMenuGameState :public SubMenuState {
+class HostMenuGameState :public GameState {
 public:
 
     HostMenuGameState();
@@ -60,7 +60,7 @@ public:
     GameStateId update(sf::RenderWindow& window) override;
 };
 
-class ClientMenuGameState :public SubMenuState {
+class ClientMenuGameState :public GameState {
 public:
 
     ClientMenuGameState();
@@ -68,7 +68,7 @@ public:
     GameStateId update(sf::RenderWindow& window) override;
 };
 
-class SinglePlayerMenuGameState : public SubMenuState {
+class SinglePlayerMenuGameState : public GameState {
 public:
     SinglePlayerMenuGameState();
 
@@ -87,9 +87,11 @@ protected:
 
     static int my_entity_id;
 
-    Entity* getMyTank();
+    void setMyTank();
 
-    void generateMap(const std::string& map_name, int my_tank_id);
+    Entity* my_tank_ = nullptr;
+
+    void generateMap(const std::string& map_name);
 
     bool isDead(Entity* tank);
 };

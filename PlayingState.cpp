@@ -10,20 +10,17 @@
 #include <fstream>
 #include "GameState.h"
 #include "HealthComponent.h"
+#include "PlayingArgsHolder.h"
 
-Entity* PlayingState::getMyTank() {
-    Entity* my_tank = nullptr;
+void PlayingState::setMyTank() {
 
     for (int i = 0; i < scene_.size(); ++i) {
-        if (scene_[i] && scene_[i]->getEntityID() == -1 && scene_[i]->getType() == ObjectType::Tank)
-            my_tank = scene_[i];
+        if (scene_[i] && scene_[i]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId() && scene_[i]->getType() == ObjectType::Tank)
+            my_tank_ = scene_[i];
     }
-    return my_tank;
 }
 
 bool PlayingState::isDead(Entity* tank) {
-    //return false;
-
     if (!tank)
         return true;
 
@@ -31,8 +28,7 @@ bool PlayingState::isDead(Entity* tank) {
     return health_component->getHealth() < 0;
 }
 
-void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
-
+void PlayingState::generateMap(const std::string& map_name) {
 	const int block_size = 50; ////////потом как-то извне задавать
 
 	int map_width = 0;
@@ -40,12 +36,31 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 	int tank_amount = 0;
 
 	MapSpawner ws;
-	TankSpawner ts;
 	BannerSpawner bs;
-	TurretSpawner tr;
-	//scene.push_back(bs.Spawn(Position(0, 0), 's')[0]); /// menu music
-	ts.setOwnerType(OwnerType::Player);
-	tr.setOwnerType(OwnerType::Player);
+	TankSpawner player_tank_spawner;
+	TurretSpawner player_turret_spawner;
+	TankSpawner opponent_tank_spawner;
+	TurretSpawner opponent_turret_spawner;
+
+	player_tank_spawner.setOwnerType(OwnerType::Player);
+	player_turret_spawner.setOwnerType(OwnerType::Player);
+
+	switch (id_) { 
+	case GameStateId::HostPlaying:
+		opponent_tank_spawner.setOwnerType(OwnerType::Network);
+		opponent_turret_spawner.setOwnerType(OwnerType::Network);
+		break;
+	case GameStateId::ClientPlaying:
+		opponent_tank_spawner.setOwnerType(OwnerType::Network);
+		opponent_turret_spawner.setOwnerType(OwnerType::Network);
+		break;
+	case GameStateId::SinglePlaying:
+		opponent_tank_spawner.setOwnerType(OwnerType::Bot);
+		opponent_turret_spawner.setOwnerType(OwnerType::Bot);
+		break;
+	default:
+		break;
+	}
 
 	std::ifstream map_file(map_name);
 
@@ -66,11 +81,16 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 			scene_.push_back(temp_ent);
 		}
 
+	tank_amount = 2; ///////////////////////////// потом убрать
+
 	/// tank spawn 
-	for (int i = 0; i < tank_amount; ++i)
+	for (int i = 1; i <= tank_amount; ++i)
 	{
 		int tank_x = 0;
 		int tank_y = 0;
+
+		Spawner* curr_tank_spawner = &(i == PlayingArgsHolder::getInstance().getMyEntityId()  ? player_tank_spawner : opponent_tank_spawner);
+		Spawner* curr_turret_spawner = &(i == PlayingArgsHolder::getInstance().getMyEntityId() ? player_turret_spawner : opponent_turret_spawner);
 
 		map_file >> tank_x >> tank_y;
 		Position curr_pos;
@@ -78,26 +98,18 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 		curr_pos.y = tank_y * block_size + int(block_size / 2);
 
 		Entity* temp_ent;
-		temp_ent = ts.Spawn(curr_pos, '1');
-		if (i == my_tank_id)
-			temp_ent->setEntityID(-1);
-		else
-			temp_ent->setEntityID(i + 1);
 
-
+		temp_ent = curr_tank_spawner->Spawn(curr_pos, PlayingArgsHolder::getInstance().getHullType(i-1));
+		temp_ent->setEntityID(i);
 		scene_.push_back(temp_ent);
-		{
+		{///// спавн башни
 			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
-			temp_ent = tr.Spawn(curr_pos, '1');
+			temp_ent = curr_turret_spawner->Spawn(curr_pos, PlayingArgsHolder::getInstance().getTurretType(i - 1));
 			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
 			turr_pos->setParent(tank_pos);
 		}
 
-		if (i == my_tank_id)
-			temp_ent->setEntityID(-1);
-		else
-			temp_ent->setEntityID(i + 1);
-
+		temp_ent->setEntityID(i);
 		scene_.push_back(temp_ent);
 	}
 

@@ -13,6 +13,7 @@
 #include "SoundComponent.h"
 #include "InputHandler.h"
 #include "PositionComponent.h"
+#include "PlayingArgsHolder.h"
 
 static Input_vector input_vector_1;
 static int counter = 0;
@@ -35,7 +36,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
             input_vector.y = l;
             for (int j = 0; j < scene.size(); j++) {
                 if (scene[j]->getType() == ObjectType::Tank) {
-                    if (scene[j]->getEntityID() == -1) {
+                    if (scene[j]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId()) {
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                         Position meet_position = meet_component->getPosition();
                         PositionComponent* Tank_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
@@ -192,6 +193,9 @@ void BotTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     int currEntityId = scene[i]->getEntityID();
+    if (currEntityId == 0) // проверка на смерть - 0 в случае смерти
+        return;
+
     ObjectType currEntityType = scene[i]->getType();
 
     PositionComponent new_component = *original_component;
@@ -270,9 +274,13 @@ void BotTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
 void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
 
     BulletSpawner bs;
+    bs.setOwnerType(OwnerType::Bot);
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     int currEntityId = scene[i]->getEntityID();
+    if (currEntityId == 0)
+        return;
+
     ObjectType currEntityType = scene[i]->getType();
 
     PositionComponent bot_component = *original_component;
@@ -284,7 +292,7 @@ void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
     for (int j = 0; j < scene.size(); j++) {
         if (scene[j]->getType() == ObjectType::Tank) {
             PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-            if (scene[j]->getEntityID() == -1) {//////////////////////////// «аменить на проверку
+            if (scene[j]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId()) {//////////////////////////// «аменить на проверку
                 Position meet_position = meet_component->getPosition();
                 if (distance_p(bot_position, meet_position) < min_dist) {
                     min_dist = distance_p(bot_position, meet_position);

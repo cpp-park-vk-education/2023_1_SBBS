@@ -8,6 +8,7 @@
 #include "Types.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include "SpawnID.h"
 
 
 Entity* TankSpawner::Spawn(Position position, int subType) {
@@ -43,14 +44,14 @@ Entity* TankSpawner::Spawn(Position position, int subType) {
 
 	switch (subType)
 	{
-	case '1': // tank type 1
+	case tank_hull_1: // tank type 1
 		img.loadFromFile("Image/tank_1_body_100_100.png");
 		buffer.loadFromFile("Sound/Engine1.wav");
 		sound_to_add->setSound(SoundType::RunnungSound, buffer);
 		graph_to_add->setAliveImage(img);
 		break;
 
-	case '2': // tank type 2
+	case tank_hull_2: // tank type 2
 		img.loadFromFile("Image/tank_2_body_100_100.png");
 		graph_to_add->setAliveImage(img);
 		break;
