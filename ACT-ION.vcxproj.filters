@@ -19,16 +19,16 @@
     <Filter Include="Файлы заголовков\Components">
       <UniqueIdentifier>{9c1535e2-da39-4957-8579-cc625592a76b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы ресурсов\Components">
-      <UniqueIdentifier>{01fb6ebe-36dc-42b9-8210-ed5abbdb8669}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы ресурсов\Systems">
+    <Filter Include="Исходные файлы\Systems">
       <UniqueIdentifier>{d80fc167-c04a-4725-966e-47fe4e9e8cbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы ресурсов\GameStates">
+    <Filter Include="Исходные файлы\Components">
+      <UniqueIdentifier>{01fb6ebe-36dc-42b9-8210-ed5abbdb8669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\GameStates">
       <UniqueIdentifier>{8a740200-4411-4abc-a00b-a995c1e23f90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы ресурсов\Spawners">
+    <Filter Include="Исходные файлы\Spawners">
       <UniqueIdentifier>{b9c14b02-58a4-41eb-9f1b-6a61526a0431}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,73 +37,70 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="ClientPlayingGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="BannerSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="MapSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="MusicSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="TankSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="MenuSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="SoundSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="BulletSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="ButtonSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="HostMenuGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="ClientMenuGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="TurretSpawner.cpp">
-      <Filter>Файлы ресурсов\Spawners</Filter>
+      <Filter>Исходные файлы\Spawners</Filter>
     </ClCompile>
     <ClCompile Include="HostPlayingGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="netConnect.h">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
-      <Filter>Файлы ресурсов\Components</Filter>
+      <Filter>Исходные файлы\Components</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Файлы ресурсов\Components</Filter>
+      <Filter>Исходные файлы\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpawnerSystem.cpp">
-      <Filter>Файлы ресурсов\Systems</Filter>
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
     <ClCompile Include="PlayingState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="netConnect.cpp">
-      <Filter>Файлы ресурсов</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.h">
       <Filter>Файлы заголовков</Filter>
@@ -112,19 +109,37 @@
       <Filter>Файлы заголовков\Components</Filter>
     </ClCompile>
     <ClCompile Include="SinglePlayerMenuGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="SinglePlayingGameState.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsComponent.cpp">
-      <Filter>Файлы ресурсов\Components</Filter>
+      <Filter>Исходные файлы\Components</Filter>
     </ClCompile>
     <ClCompile Include="SoundComponent.cpp">
-      <Filter>Файлы ресурсов\Components</Filter>
+      <Filter>Исходные файлы\Components</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
-      <Filter>Файлы ресурсов\GameStates</Filter>
+      <Filter>Исходные файлы\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="NetPositionComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPositionComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BotPositionComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="netConnect.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,10 +200,10 @@
     <ClInclude Include="networkCodes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonID.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

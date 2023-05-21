@@ -17,7 +17,7 @@ Entity* BulletSpawner::Spawn(Position position, char subType) {
 	static sf::Sound curr_sound;
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new PositionComponent();
+	PositionComponent* pos_to_add = new BulletPositionComponent();
 	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
 	HealthComponent* health_to_add = new HealthComponent(true, false,false,to_add,10,50); /////////выставить дамаг для пули
 

@@ -17,7 +17,7 @@ Entity* TankSpawner::Spawn(Position position, char subType) {
 	static sf::Image img; /// почему статик?
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new PositionComponent();
+	PositionComponent* pos_to_add = new TankPositionComponent();
 	CollisionComponent* coll_to_add =  new CollisionComponent(position, 0, 50, 50);
 	HealthComponent* health_to_add = new HealthComponent(true, true,true,to_add, 100);
 	SoundComponent* sound_to_add = new SoundComponent();
