@@ -23,9 +23,13 @@ int HealthComponent::getHealth(){
 };
 
 void HealthComponent::setHealth(int health) {
-    health_ = health;
-    if (health_ <= 0) {
-        dead_ = true;
-        setAfterlife();
+
+    if (mortal_) {
+        health_ = health;
+
+        if (health_ <= 0) {
+            dead_ = true;
+            setAfterlife();
+        }
     }
 }

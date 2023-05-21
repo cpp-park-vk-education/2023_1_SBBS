@@ -45,17 +45,17 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 	case tank_turret_1: // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
 		graph_to_add->setAliveImage(img);
-		shoot_to_add->setCooldown(1.0);///////// выставить в зависимости от типа 
-		////
+		shoot_to_add->setCooldown(1.0);
+		shoot_to_add->setBulletType(bullet_1);
 		//buffer.loadFromFile("Sound/Shot1.wav");
 		//sound_to_add->setSound(SoundType::ShootingSound, buffer);
-		////
 		break;
 
 	case tank_turret_2: // tank type 1
 		img.loadFromFile("Image/tank_2_gun_100_100.png");
 		graph_to_add->setAliveImage(img);
 		shoot_to_add->setCooldown(1.0);
+		shoot_to_add->setBulletType(bullet_2);
 		break;
 
 	default:

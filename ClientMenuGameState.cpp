@@ -58,6 +58,15 @@ ClientMenuGameState::ClientMenuGameState() {
 
 	temp_ent = button_spawner.Spawn(turret_2_pos, tank_turret_2);
 	scene_.push_back(temp_ent);
+
+
+	setStateArgument(std::string("Maps/lvlTest2.txt"));
+	PlayingArgsHolder::getInstance().setMyEntityId(2);
+
+	for (int i = 0; i < 4; ++i) {
+		PlayingArgsHolder::getInstance().setHullType(i, tank_hull_1);
+		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
+	}
 }
 
 GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
@@ -71,36 +80,30 @@ GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
 		if (sys_output) {
 			chosen_button_id = sys_output;
 		}
+		std::cout << chosen_button_id << std::endl;
+
 	}
 	// вводить ip и получить название карты
 	// получить entity id 
 
-	setStateArgument(std::string("Maps/lvlTest2.txt"));
-	PlayingArgsHolder::getInstance().setMyEntityId(2);
-
-	for (int i = 0; i < 4; ++i) {
-		PlayingArgsHolder::getInstance().setHullType(i,tank_hull_1);
-		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
-	}
-
-	if (input.shoot_) { ////////////////////////////// shoot не понятно, поменять на mouce click
+	if (input.mouse_click_) { ////////////////////////////// shoot не понятно, поменять на mouce click
 		switch (chosen_button_id)
 		{
 		case try_to_connect_button_id:
 			return GameStateId::ClientPlaying;
 			break;
-		//case tank_hull_1_button_id:
-		//	setTankHull(tank_hull_1);
-		//	break;
-		//case tank_hull_2_button_id:
-		//	setTankHull(tank_hull_2);
-		//	break;
-		//case tank_turret_1_button_id:
-		//	setTankTurret(tank_turret_1);
-		//	break;
-		//case tank_turret_2_button_id:
-		//	setTankTurret(tank_turret_2);
-		//	break;
+		case tank_hull_1_button_id:
+			setTankHull(tank_hull_1);
+			break;
+		case tank_hull_2_button_id:
+			setTankHull(tank_hull_2);
+			break;
+		case tank_turret_1_button_id:
+			setTankTurret(tank_turret_1);
+			break;
+		case tank_turret_2_button_id:
+			setTankTurret(tank_turret_2);
+			break;
 		case back_button_id:
 			return GameStateId::MainMenu;
 			break;

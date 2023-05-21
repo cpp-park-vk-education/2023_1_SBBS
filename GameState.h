@@ -18,7 +18,7 @@ public:
 
     std::string getStateArgument() { return state_argument_; }
 
-    ~GameState();
+    virtual ~GameState();
 
 protected:
 
@@ -44,36 +44,36 @@ public:
 
 
 
-//class SubMenuState : public GameState {
-//protected:
-//    void setTankHull(const char& hull) { tank_hull = hull; }
-//    void setTankTurret(const char& turret) { tank_turret = turret; }
-//    char tank_hull = tank_hull_1;
-//    char tank_turret = tank_turret_1;
-//};
-
-class HostMenuGameState :public GameState {
+class SubMenuState : public GameState {
 public:
+    SubMenuState() {};
+    virtual ~SubMenuState();
+protected:
+    void setTankHull(const char& hull) { tank_hull = hull; }
+    void setTankTurret(const char& turret) { tank_turret = turret; }
+    char tank_hull = tank_hull_1;
+    char tank_turret = tank_turret_1;
+};
 
+class HostMenuGameState :public SubMenuState {
+public:
     HostMenuGameState();
 
     GameStateId update(sf::RenderWindow& window) override;
 };
 
-class ClientMenuGameState :public GameState {
+class ClientMenuGameState :public SubMenuState {
 public:
-
     ClientMenuGameState();
 
     GameStateId update(sf::RenderWindow& window) override;
 };
 
-class SinglePlayerMenuGameState : public GameState {
+class SinglePlayerMenuGameState : public SubMenuState {
 public:
     SinglePlayerMenuGameState();
 
     GameStateId update(sf::RenderWindow& window) override;
-
 };
 
 

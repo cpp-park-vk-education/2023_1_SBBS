@@ -81,8 +81,6 @@ void PlayingState::generateMap(const std::string& map_name) {
 			scene_.push_back(temp_ent);
 		}
 
-	tank_amount = 2; ///////////////////////////// потом убрать
-
 	/// tank spawn 
 	for (int i = 1; i <= tank_amount; ++i)
 	{

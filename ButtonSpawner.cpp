@@ -9,7 +9,7 @@
 
 Entity* ButtonSpawner::Spawn(Position position, int subType) {
 	int height = 150;
-	int width = 700;
+	int width = 300;
 
 	Entity* to_add = new Entity(ObjectType::Button);
 

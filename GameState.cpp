@@ -8,6 +8,7 @@
 #include "PhysicsSystem.h"
 #include "SoundSystem.h"
 #include "SpawnerSystem.h"
+#include "PlayingArgsHolder.h"
 
 
 void GameState::addSystem(SystemId id) { 
@@ -42,4 +43,9 @@ GameState::~GameState() {
 	for (int i = 0; i < scene_.size(); ++i) {
 		delete scene_[i];
 	}
+}
+
+SubMenuState::~SubMenuState() {
+	PlayingArgsHolder::getInstance().setHullType(PlayingArgsHolder::getInstance().getMyEntityId() - 1, tank_hull);
+	PlayingArgsHolder::getInstance().setTurretType(PlayingArgsHolder::getInstance().getMyEntityId() - 1, tank_turret);
 }

@@ -11,7 +11,8 @@ public:
     int update(sf::RenderWindow& window, std::vector<Entity*>& scene) override;
 
     ~MusicSystem() override{
-        curr_music->stop();
+        if(curr_music)
+            curr_music->stop();
     }
 
 private:

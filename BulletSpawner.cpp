@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <fstream>
+#include "SpawnID.h"
 
 Entity* BulletSpawner::Spawn(Position position, int subType) {
 
@@ -42,7 +43,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 
 	switch (subType)
 	{
-	case '1': // bullet 
+	case bullet_1: // bullet 
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
 		graph_to_add->setAliveImage(bullet);
 		pos_to_add->setSpeed(10); //// change speed 
@@ -51,6 +52,14 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 		curr_sound.setVolume(50.f); ///// громкость выстрела
 		curr_sound.play();
 		break;
+	case bullet_2:
+		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
+		graph_to_add->setAliveImage(bullet);
+		pos_to_add->setSpeed(4); //// change speed 
+		buffer.loadFromFile("Sound/Shot1.wav");
+		curr_sound.setBuffer(buffer);
+		curr_sound.setVolume(50.f); ///// громкость выстрела
+		curr_sound.play();
 	default:
 		break;
 	}

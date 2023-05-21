@@ -74,7 +74,7 @@ GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
 		}
 	}
 
-	if (input.shoot_) {  ////////////////////////////// shoot не понятно, поменять на mouce click
+	if (input.mouse_click_) { 
 		switch (chosen_button_id)
 		{
 		case host_game_button_id:

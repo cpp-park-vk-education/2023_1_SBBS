@@ -335,7 +335,7 @@ void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
                 bot_position.y += 50 * sin(bot_rotation * 3.1415926 / 180);
                 bot_position.rotation = alpha;
                 ///  тип пули должен соответствовать нужному типу 
-                scene.push_back(bs.Spawn(bot_position, '1'));
+                scene.push_back(bs.Spawn(bot_position, shoot_component->getBulletType()));
 
                 //std::vector<int> to_send;
                 //to_send.push_back(BULLET_SPAWN_EVENT);

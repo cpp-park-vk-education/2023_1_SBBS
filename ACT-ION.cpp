@@ -13,6 +13,7 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
 	ConnectionType* connection);
 
+
 int main() {
 
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput = new boost::lockfree::queue<int, MAX_LENGTH>;

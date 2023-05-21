@@ -29,6 +29,10 @@ inline const int client_banner = 202;
 inline const int host_banner = 203;
 inline const int single_banner = 204;
 
+//bullet determinant
+inline const int bullet_1 = 300;
+inline const int bullet_2 = 301;
+
 // Map structure determonent
 inline const char stone_wall = 'w';
 inline const char wood_wall = 't';

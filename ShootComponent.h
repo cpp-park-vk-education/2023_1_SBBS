@@ -11,11 +11,11 @@ public:
 
 	double getCooldown() { return cooldown_; };
 
-	void setBulletType(const char& type) { type_ = type; };
+	void setBulletType(const int type) { type_ = type; };
 
-	char getBulletType() { return type_; };
+	int getBulletType() { return type_; };
 
 private:
-	char type_;
+	int type_;
 	double cooldown_;
 };

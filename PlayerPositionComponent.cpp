@@ -149,7 +149,7 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
     NetConnector::getInstance().send(to_send);
     ///////////
 
-    if (inputs.shoot_ == true) {
+    if (inputs.mouse_click_ == true) {
         static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
         std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
         double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
@@ -162,7 +162,7 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             new_position.rotation = alpha;
             ///  тип пули должен соответствовать нужному типу 
 
-            scene.push_back(bs.Spawn(new_position, '1'));
+            scene.push_back(bs.Spawn(new_position, shoot_component->getBulletType()));
 
             std::vector<int> to_send;
             to_send.push_back(BULLET_SPAWN_EVENT);

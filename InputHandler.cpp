@@ -36,7 +36,7 @@ void Input::handleInput(sf::Window& window) {
     *this = curr_input;
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        shoot_ = true;
+        mouse_click_ = true;
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     mouse_x_ = mousePosition.x;
