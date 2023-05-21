@@ -28,8 +28,6 @@ Entity* MapSpawner::Spawn(Position position, int subType) {
 	case stone_wall : // stone wall 
 		img.loadFromFile("Image/Stone_100_100.png");
 		graph_to_add->setAliveImage(img);
-		img.loadFromFile("Image/dead_wall_100_100.png");
-		graph_to_add->setDeadImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
 		health_to_add = new HealthComponent(false, false,false,to_add, 100);
 		break;
@@ -37,7 +35,7 @@ Entity* MapSpawner::Spawn(Position position, int subType) {
 	case wood_wall: // wood wall 
 		img.loadFromFile("Image/Wood_100_100.png");
 		graph_to_add->setAliveImage(img);
-		img.loadFromFile("Image/dead_wall_100_100.png");
+		img.loadFromFile("Image/dead_wood_100_100.png");
 		graph_to_add->setDeadImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
 		health_to_add = new HealthComponent(true, true, false, to_add, 100);

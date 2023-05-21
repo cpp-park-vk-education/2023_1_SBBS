@@ -62,24 +62,8 @@ void PlayingState::generateMap(const std::string& map_name, int my_tank_id) {
 			Position curr_pos;
 			curr_pos.x = j * block_size + int(block_size / 2);
 			curr_pos.y = i * block_size + int(block_size / 2);
-			Entity* temp_ent;
-
-			switch (current_block) {
-			case 'w':
-				temp_ent = ws.Spawn(curr_pos, 'w');
-				scene_.push_back(temp_ent);
-				break;
-			case's':
-				temp_ent = ws.Spawn(curr_pos, 's');
-				scene_.push_back(temp_ent);
-				break;
-			case'd':
-				temp_ent = ws.Spawn(curr_pos, 'd');
-				scene_.push_back(temp_ent);
-				break;
-			default:
-				break;
-			}
+			Entity* temp_ent = ws.Spawn(curr_pos, current_block);
+			scene_.push_back(temp_ent);
 		}
 
 	/// tank spawn 
