@@ -26,9 +26,7 @@ ClientMenuGameState::ClientMenuGameState() {
 	scene_.push_back(temp_ent);
 
 	//Спавн кнопки назад клиенского меню
-	Position back_button_pos;	// Эта кнопка будет возвращать игрока в главное меню
-	back_button_pos.x = 200;  
-	back_button_pos.y = 800;
+	Position back_button_pos(200, 800);	// Эта кнопка будет возвращать игрока в главное меню
 
 
 	temp_ent = button_spawner.Spawn(back_button_pos, back);

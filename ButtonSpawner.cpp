@@ -77,6 +77,12 @@ Entity* ButtonSpawner::Spawn(Position position, char subType) {
 			click_to_add->setButtonId(tank_turret_2_button_id);
 			break;
 
+		case play:  // play button
+			img.loadFromFile("Image/GUI_play_button.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(play_button_id);
+			break;
+
 		default: break;
 	}
 

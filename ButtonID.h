@@ -8,6 +8,7 @@ inline const int tank_hull_1_button_id = 6;
 inline const int tank_hull_2_button_id = 7;
 inline const int tank_turret_1_button_id = 8;
 inline const int tank_turret_2_button_id = 9;
+inline const int play_button_id = 10;
 
 
 inline const char host_game = 1;
@@ -19,3 +20,4 @@ inline const char tank_hull_1 = 6;
 inline const char tank_hull_2 = 7;
 inline const char tank_turret_1 = 8;
 inline const char tank_turret_2 = 9;
+inline const char play = 10;

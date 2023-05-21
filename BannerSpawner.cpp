@@ -37,6 +37,13 @@ Entity* BannerSpawner::Spawn(Position position, char subType) {
 		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
 		break;
 
+	case host_banner: // host menu banner
+		graph_to_add = new GraphicsComponent();
+		img.loadFromFile("Image/host_banner.png");
+		graph_to_add->setAliveImage(img);
+		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
+		break;
+
 	case 'g': // game music
 		music_to_add->setMusic(std::string("Sound/music_track_2.wav"));
 		break;
