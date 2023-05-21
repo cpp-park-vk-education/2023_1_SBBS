@@ -10,10 +10,24 @@
 Entity* TurretSpawner::Spawn(Position position, char subType) {
 	static sf::Image img;//// почему статик???
 	sf::SoundBuffer buffer;
+	PositionComponent* pos_to_add = nullptr;
+
+	switch (current_type_)
+	{
+	case OwnerType::Network:
+		pos_to_add = new NetTurretPositionComponent();
+		break;
+	case OwnerType::Bot:
+		pos_to_add = new BotTurretPositionComponent();
+		break;
+	case OwnerType::Player:
+		pos_to_add = new TurretPositionComponent();
+		break;
+	default:
+		break;
+	}
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new TurretPositionComponent();
-	//SoundComponent* sound_to_add = new SoundComponent();
 	ShootComponent* shoot_to_add = new ShootComponent();
 	Position pos_struc_to_add(position.x, position.y);
 	pos_to_add->setPosition(pos_struc_to_add);

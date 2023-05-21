@@ -16,8 +16,24 @@ Entity* BulletSpawner::Spawn(Position position, char subType) {
 	static sf::SoundBuffer buffer;
 	static sf::Sound curr_sound;
 
+	PositionComponent* pos_to_add = nullptr;
+
+	switch (current_type_)
+	{
+	case OwnerType::Network:
+		pos_to_add = new NetTurretPositionComponent();
+		break;
+	case OwnerType::Bot:
+		pos_to_add = new BotTurretPositionComponent();
+		break;
+	case OwnerType::Player:
+		pos_to_add = new TurretPositionComponent();
+		break;
+	default:
+		break;
+	}
+
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
-	PositionComponent* pos_to_add = new BulletPositionComponent();
 	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
 	HealthComponent* health_to_add = new HealthComponent(true, false,false,to_add,10,50); /////////выставить дамаг для пули
 

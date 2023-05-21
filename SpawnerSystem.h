@@ -9,10 +9,14 @@ public:
     virtual Entity* Spawn(Position position, char subType) = 0;
 };
 
+enum class OwnerType {
+    Network, Bot, Player
+};
+
 class SpawnerSystem : public System {
 public:
 
-    Spawner* getSpawner(ObjectType type);
+    Spawner* getSpawner(ObjectType type); /// видимо не нужен 
 
     int update(sf::RenderWindow& window, std::vector<Entity*>& scene) override;
 
@@ -21,20 +25,32 @@ private:
 
 };
 
-class TankSpawner : public Spawner {
+class PlayingObjectSpawner : public Spawner {
+public:
+    void setOwnerType(OwnerType type) { current_type_ = type; }
+
+    OwnerType getOwnerType() { return current_type_; }
+
+protected:
+    OwnerType current_type_;
+};
+
+class TankSpawner : public PlayingObjectSpawner {
 public:
     Entity* Spawn(Position position, char subType) override;
 };
 
-class TurretSpawner : public Spawner {
+class TurretSpawner : public PlayingObjectSpawner {
 public:
     Entity* Spawn(Position position, char subType) override;
 };
 
-class BulletSpawner : public Spawner {
+class BulletSpawner : public PlayingObjectSpawner {
 public:
     Entity* Spawn(Position position, char subType) override;
 };
+
+
 
 class MapSpawner : public Spawner {
 public:
