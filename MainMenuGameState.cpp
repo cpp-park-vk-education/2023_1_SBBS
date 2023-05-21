@@ -60,7 +60,7 @@ MainMenuGameState::MainMenuGameState() {
 	// Спавн кнопки одиночной игры
 	Position single_game_button_pos;
 	single_game_button_pos.x = 800;  //Над координатами надо думать в зависимости от размера кнопки
-	single_game_button_pos.y = 500;
+	single_game_button_pos.y = 800;
 
 	Entity* single_game_button_ent;
 
