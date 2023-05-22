@@ -249,7 +249,11 @@ public:
 //Функции для перехода в нужное состояние игры
 void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput, ConnectionType* _connection) {
-    while (*_connection == ConnectionType::Null) {}
+    while (*_connection == ConnectionType::Null) {
+        std::cout << " " << std::endl;
+
+
+    }
 
     std::cout << "Connection type aquired\n";
 
