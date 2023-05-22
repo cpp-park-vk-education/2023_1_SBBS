@@ -57,20 +57,29 @@ std::vector<int> NetConnector::get() {
 class con_handler : public boost::enable_shared_from_this<con_handler> {
 private:
     tcp::socket sock;
+
     std::string message = "Hello From Server!";
+
     enum { max_length = 1024 };
+
     char data[max_length];
+
     boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueInput;
+
     boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueOutput;
+
     bool state = false;
 
 public:
     typedef boost::shared_ptr<con_handler> pointer;
+
     con_handler(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
         sock(io_service), ServerQueueInput(LockFreeQueueInput), ServerQueueOutput(LockFreeQueueOutput) {}
+
     static pointer create(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
         return pointer(new con_handler(io_service, LockFreeQueueInput, LockFreeQueueOutput));
     }
+
     tcp::socket& socket() {
         return sock;
     }
@@ -105,6 +114,7 @@ public:
             sock.close();
         }
     }
+
     void handle_write(const boost::system::error_code& err, size_t bytes_transferred) {
         if (!err) {
             cout << "Server sent Hello message!" << endl;
@@ -115,6 +125,7 @@ public:
             sock.close();
         }
     }
+
     string translate_to_string() {
         int a;
         message = "";
@@ -122,6 +133,7 @@ public:
             //cout << a << endl;
             message += std::to_string(a) + " ";
         }
+        message += "\r\n";
         return message;
     }
 };
@@ -129,8 +141,11 @@ public:
 class Server {
 private:
     tcp::acceptor acceptor_;
+
     boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueInput;
+
     boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueOutput;
+
     void start_accept() {
         con_handler::pointer connection = con_handler::create(GET_IO_SERVICE(acceptor_), ServerQueueInput, ServerQueueOutput);
 
@@ -138,11 +153,13 @@ private:
             boost::bind(&Server::handle_accept, this, connection,
                 boost::asio::placeholders::error));
     }
+
 public:
     Server(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
         acceptor_(io_service, tcp::endpoint(tcp::v4(), 6001)), ServerQueueInput(LockFreeQueueInput), ServerQueueOutput(LockFreeQueueOutput) {
         start_accept();
     }
+
     void handle_accept(con_handler::pointer connection, const boost::system::error_code& err) {
         if (!err) {
             connection->start();
@@ -155,11 +172,19 @@ public:
 class Client {
 private:
     tcp::socket sock;
+
     std::string message = "1 2 3 4";
+
     enum { max_length = 1024 };
+
     char data[max_length];
+
+    std::string line;
+
     boost::lockfree::queue<int, MAX_LENGTH>* ClientQueueInput;
+
     boost::lockfree::queue<int, MAX_LENGTH>* ClientQueueOutput;
+
 public:
     Client(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
         boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
@@ -182,12 +207,18 @@ public:
             cout << "send failed: " << error.message() << endl;
         }
 
-        boost::asio::read(sock, boost::asio::buffer(data, max_length), boost::asio::transfer_all(), error);
+
+        boost::asio::streambuf b;
+        boost::asio::read_until(sock, b, "\r\n");
+        std::istream is(&b);
+        std::getline(is, line);
+
+        //boost::asio::read_until(sock, boost::asio::streambuf, '\\');
         if (error && error != boost::asio::error::eof) {
             cout << "receive failed: " << error.message() << endl;
         }
         else {
-            std::stringstream s(data);
+            std::stringstream s(line);
             string num;
             while (s >> num) {
                 ClientQueueInput->push(std::stoi(num));
@@ -196,6 +227,8 @@ public:
         }
     }
 
+
+
     string translate_to_string() {
         int a;
         string mess = "";
@@ -203,6 +236,7 @@ public:
             //cout << a << endl;
             mess += std::to_string(a) + " ";
         }
+        mess += "\r\n";
         return mess;
     }
     /*string return_string_array() {
@@ -223,6 +257,7 @@ void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
         std::cout << "Host State Active\n";
         startServer(LockFreeQueueInput, LockFreeQueueOutput);
     }
+
     else if (*_connection == ConnectionType::Client) {
         std::cout << "Client State Active\n";
         startClient(LockFreeQueueInput, LockFreeQueueOutput);
