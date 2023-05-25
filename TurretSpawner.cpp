@@ -9,7 +9,8 @@
 #include "SpawnID.h"
 
 Entity* TurretSpawner::Spawn(Position position, int subType) {
-	static sf::Image img;//// почему статик???
+	sf::Image img;
+	sf::Image dead_img;
 	sf::SoundBuffer buffer;
 	PositionComponent* pos_to_add = nullptr;
 
@@ -44,7 +45,9 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 	{
 	case tank_turret_1: // tank type 1
 		img.loadFromFile("Image/tank_1_gun_100_100.png");
+		dead_img.loadFromFile("Image/crashed_turret.png");
 		graph_to_add->setAliveImage(img);
+		graph_to_add->setDeadImage(dead_img);
 		shoot_to_add->setCooldown(1.0);
 		shoot_to_add->setBulletType(bullet_1);
 		//buffer.loadFromFile("Sound/Shot1.wav");
@@ -53,7 +56,9 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 
 	case tank_turret_2: // tank type 1
 		img.loadFromFile("Image/tank_2_gun_100_100.png");
+		dead_img.loadFromFile("Image/crashed_turret.png");
 		graph_to_add->setAliveImage(img);
+		graph_to_add->setDeadImage(dead_img);
 		shoot_to_add->setCooldown(1.0);
 		shoot_to_add->setBulletType(bullet_2);
 		break;

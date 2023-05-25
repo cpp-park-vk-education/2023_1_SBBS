@@ -15,7 +15,8 @@ Entity* TankSpawner::Spawn(Position position, int subType) {
 
 	Entity* to_add = new Entity(ObjectType::Tank);
 	sf::SoundBuffer buffer;
-	static sf::Image img; /// почему статик?
+	sf::Image img; /// почему статик?
+	sf::Image dead_img;
 
 	PositionComponent* pos_to_add = nullptr;
 
@@ -46,14 +47,18 @@ Entity* TankSpawner::Spawn(Position position, int subType) {
 	{
 	case tank_hull_1: // tank type 1
 		img.loadFromFile("Image/tank_1_body_100_100.png");
+		dead_img.loadFromFile("Image/crashed_tank.png");
 		buffer.loadFromFile("Sound/Engine1.wav");
 		sound_to_add->setSound(SoundType::RunnungSound, buffer);
 		graph_to_add->setAliveImage(img);
+		graph_to_add->setDeadImage(dead_img);
 		break;
 
 	case tank_hull_2: // tank type 2
 		img.loadFromFile("Image/tank_2_body_100_100.png");
+		dead_img.loadFromFile("Image/crashed_tank.png");
 		graph_to_add->setAliveImage(img);
+		graph_to_add->setDeadImage(dead_img);
 		break;
 
 	default:

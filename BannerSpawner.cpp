@@ -46,7 +46,7 @@ Entity* BannerSpawner::Spawn(Position position, int subType) {
 
 	case single_banner: // single menu banner
 		graph_to_add = new GraphicsComponent();
-		img.loadFromFile("Image/client_banner.png");
+		img.loadFromFile("Image/host_banner.png");
 		graph_to_add->setAliveImage(img);
 		//music_to_add->setMusic(std::string("Sound/music_track_1.ogg"));
 		break;

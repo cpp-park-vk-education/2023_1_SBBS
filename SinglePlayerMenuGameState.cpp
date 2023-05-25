@@ -38,10 +38,43 @@ SinglePlayerMenuGameState::SinglePlayerMenuGameState() {
 	temp_ent = button_spawner.Spawn(connect_button_pos, play);
 	scene_.push_back(temp_ent);
 
+	// Спавн Выбора скина танка. Две башни и два корпуса
+	Position hull_1_pos(1300, 350);
+	Position hull_2_pos(1650, 350);
+	Position turret_1_pos(1300, 600);
+	Position turret_2_pos(1650, 600);
+
+	temp_ent = button_spawner.Spawn(hull_1_pos, tank_hull_1);
+	scene_.push_back(temp_ent);
+
+	temp_ent = button_spawner.Spawn(hull_2_pos, tank_hull_2);
+	scene_.push_back(temp_ent);
+
+	temp_ent = button_spawner.Spawn(turret_1_pos, tank_turret_1);
+	scene_.push_back(temp_ent);
+
+	temp_ent = button_spawner.Spawn(turret_2_pos, tank_turret_2);
+	scene_.push_back(temp_ent);
+
+
+	// Спавн кнопок выбора карты
+	Position map_2_pos(120, 300);
+	Position map_3_pos(520, 300);
+	Position map_4_pos(320, 550);
+
+	temp_ent = button_spawner.Spawn(map_2_pos, map_2);
+	scene_.push_back(temp_ent);
+
+	temp_ent = button_spawner.Spawn(map_3_pos, map_3);
+	scene_.push_back(temp_ent);
+
+	temp_ent = button_spawner.Spawn(map_4_pos, map_4);
+	scene_.push_back(temp_ent);
+
 
 	// вводить ip и получить название карты
 	// получить entity id 
-	setStateArgument(std::string("Maps/lvl2.txt"));
+	setStateArgument(std::string("Maps/lvl4.txt"));
 	Game::getInstance().setMyEntityId(2);
 
 	for (int i = 0; i < 4; ++i) {

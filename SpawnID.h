@@ -21,7 +21,15 @@ inline const int tank_hull_1 = 106;
 inline const int tank_hull_2 = 107;
 inline const int tank_turret_1 = 108;
 inline const int tank_turret_2 = 109;
+
 inline const int play = 110;
+
+inline const int map_2 = 111;
+inline const int map_3 = 112;
+inline const int map_4 = 113;
+inline const int map_2_contoured = 114;
+inline const int map_3_contoured = 115;
+inline const int map_4_contoured = 116;
 
 //Banner determinant
 inline const int main_banner = 201;
