@@ -86,32 +86,35 @@ Entity* ButtonSpawner::Spawn(Position position, int subType) {
 		case map_2: // map_2 button
 			img.loadFromFile("Image/map_2_.png");
 			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(map_2_button_id);
 			break;
 
 		case map_3: // map_3 button
 			img.loadFromFile("Image/map_3_.png");
 			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(map_3_button_id);
 			break;
 
 		case map_4: // map_4 button
 			img.loadFromFile("Image/map_4_.png");
 			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(map_4_button_id);
 			break;
 
-		case map_2_contoured: // map_2 button
-			img.loadFromFile("Image/map_2_contoured.png");
-			graph_to_add->setAliveImage(img);
-			break;
+		//case map_2_contoured: // map_2 button
+		//	img.loadFromFile("Image/map_2_contoured.png");
+		//	graph_to_add->setAliveImage(img);
+		//	break;
 
-		case map_3_contoured: // map_3 button
-			img.loadFromFile("Image/map_3_contoured.png");
-			graph_to_add->setAliveImage(img);
-			break;
+		//case map_3_contoured: // map_3 button
+		//	img.loadFromFile("Image/map_3_contoured.png");
+		//	graph_to_add->setAliveImage(img);
+		//	break;
 
-		case map_4_contoured: // map_4 button
-			img.loadFromFile("Image/map_4_contoured.png");
-			graph_to_add->setAliveImage(img);
-			break;
+		//case map_4_contoured: // map_4 button
+		//	img.loadFromFile("Image/map_4_contoured.png");
+		//	graph_to_add->setAliveImage(img);
+		//	break;
 
 		default: break;
 	}

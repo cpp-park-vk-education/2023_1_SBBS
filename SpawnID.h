@@ -10,6 +10,10 @@ inline const int tank_hull_2_button_id = 7;
 inline const int tank_turret_1_button_id = 8;
 inline const int tank_turret_2_button_id = 9;
 inline const int play_button_id = 10;
+///////////////// map 1 ? пока пусто 
+inline const int map_2_button_id = 12;
+inline const int map_3_button_id = 13;
+inline const int map_4_button_id = 14;
 
 //Button determinant
 inline const int host_game = 100;

@@ -110,7 +110,7 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 	// вводить ip и получить название карты
 	// получить entity id 
 
-	if (input.mouse_click_) { ////////////////////////////// shoot не понятно, поменять на mouce click
+	if (input.mouse_click_) {
 		switch (chosen_button_id)
 		{
 		case play_button_id:
@@ -130,6 +130,15 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 			break;
 		case back_button_id:
 			return GameStateId::MainMenu;
+			break;
+		case map_2_button_id:
+			setStateArgument(std::string("Maps/lvl2.txt"));
+			break;
+		case map_3_button_id:
+			setStateArgument(std::string("Maps/lvl3.txt"));
+			break;
+		case map_4_button_id:
+			setStateArgument(std::string("Maps/lvl4.txt"));
 			break;
 		default:
 			return id_;
