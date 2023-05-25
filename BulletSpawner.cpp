@@ -51,12 +51,12 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
 		curr_sound.play();
-		health_to_add = new HealthComponent(true, false, false, to_add, 10, 40);
+		health_to_add = new HealthComponent(true, false, false, to_add, 10, 50);
 		break;
 	case bullet_2:
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
 		graph_to_add->setAliveImage(bullet);
-		pos_to_add->setSpeed(10); //// change speed 
+		pos_to_add->setSpeed(15); //// change speed 
 		buffer.loadFromFile("Sound/Shot1.wav");
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
