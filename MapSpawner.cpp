@@ -51,6 +51,11 @@ Entity* MapSpawner::Spawn(Position position, int subType) {
 		graph_to_add->setAliveImage(img);
 		break;
 
+	case smooth_stone: // snooth stone floor
+		img.loadFromFile("Image/smooth_stone_100_100.png");
+		graph_to_add->setAliveImage(img);
+		break;
+
 	//case 'c': // cave floor
 	//	img.loadFromFile("Image/Cave_100_100.png");
 	//	graph_to_add->setAliveImage(img);

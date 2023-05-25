@@ -37,5 +37,6 @@ inline const int bullet_2 = 301;
 inline const char stone_wall = 'w';
 inline const char wood_wall = 't';
 inline const char sand = 's';
-inline const char dirt = 'd';
+inline const char dirt = 'r';
+inline const char smooth_stone = 'd';
 
