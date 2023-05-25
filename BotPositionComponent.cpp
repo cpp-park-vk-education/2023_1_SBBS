@@ -15,8 +15,7 @@
 #include "PositionComponent.h"
 #include "GameSingleton.h"
 
-static Input_vector input_vector_1;
-static int counter = 0;
+const int map_title = 50;
 
 Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, std::vector<int>& blok_x, std::vector<int>& blok_y) {
     Input_vector input_vector;
@@ -55,97 +54,33 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         tmp_position.y += input_vector.y * 500;
                         int change_dist;
                         Position temp_position;
-                        temp_position.x = new_position.x + 200 * input_vector.x;
-                        temp_position.y = new_position.y + 200 * input_vector.y;
+                        temp_position.x = new_position.x + 4 * map_title * input_vector.x;
+                        temp_position.y = new_position.y + 4 * map_title * input_vector.y;
                         change_dist = distance_p(new_position, meet_position) - distance_p(temp_position, meet_position);
                         attractive += change_dist * 10;
 
+                        for (int t = 2; t < 7; t++) {
+                            temp_position.x = new_position.x + t * map_title * input_vector.x;
+                            temp_position.y = new_position.y + t * map_title * input_vector.y;
+                            bool flag2 = true;
+                            for (int u = 0; u < scene.size(); u++) {
+                                if (scene[u]->getType() == ObjectType::Map) {
+                                    CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
+                                    if (!wall_collision) continue;
+                                    if (!wall_collision->checkBullet(temp_position, meet_position)) {
+                                        flag2 = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (flag2) {
+                                attractive += 10000;
+                            }
+                        }
+
+                        temp_position.x = new_position.x + 40 * input_vector.x;
+                        temp_position.y = new_position.y + 40 * input_vector.y;
                         bool flag2 = true;
-                        for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
-                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
-                                if (!wall_collision) continue;
-                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
-                                    flag2 = false;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag2) {
-                            attractive += 1000000;
-                        }
-
-                        temp_position.x = new_position.x + 100 * input_vector.x;
-                        temp_position.y = new_position.y + 100 * input_vector.y;
-                        flag2 = true;
-                        for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
-                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
-                                if (!wall_collision) continue;
-                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
-                                    flag2 = false;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag2) {
-                            attractive += 10000;
-                        }
-
-                        temp_position.x = new_position.x + 150 * input_vector.x;
-                        temp_position.y = new_position.y + 150 * input_vector.y;
-                        flag2 = true;
-                        for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
-                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
-                                if (!wall_collision) continue;
-                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
-                                    flag2 = false;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag2) {
-                            attractive += 10000;
-                        }
-
-                        temp_position.x = new_position.x + 250 * input_vector.x;
-                        temp_position.y = new_position.y + 250 * input_vector.y;
-                        flag2 = true;
-                        for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
-                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
-                                if (!wall_collision) continue;
-                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
-                                    flag2 = false;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag2) {
-                            attractive += 10000;
-                        }
-
-                        temp_position.x = new_position.x + 300 * input_vector.x;
-                        temp_position.y = new_position.y + 300 * input_vector.y;
-                        flag2 = true;
-                        for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
-                                CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
-                                if (!wall_collision) continue;
-                                if (!wall_collision->checkBullet(temp_position, meet_position)) {
-                                    flag2 = false;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag2) {
-                            attractive += 10000;
-                        }
-
-                        temp_position.x = new_position.x + 50 * input_vector.x;
-                        temp_position.y = new_position.y + 50 * input_vector.y;
-                        flag2 = true;
                         for (int u = 0; u < scene.size(); u++) {
                             if (scene[u]->getType() == ObjectType::Map) {
                                 CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));

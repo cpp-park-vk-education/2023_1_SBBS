@@ -68,6 +68,9 @@ public:
 class BotTankPositionComponent : public PositionComponent {
 public:
     void update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) override;
+private:
+    int counter = 0;
+    Input_vector input_vector_1;
 };
 
 class BotTurretPositionComponent : public PositionComponent {
