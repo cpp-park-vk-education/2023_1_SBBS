@@ -15,7 +15,8 @@
 #include "PositionComponent.h"
 #include "GameSingleton.h"
 
-const int map_title = 50;
+
+const int map_tile = 50;
 
 Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, std::vector<int>& blok_x, std::vector<int>& blok_y) {
     Input_vector input_vector;
@@ -54,14 +55,14 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         tmp_position.y += input_vector.y * 500;
                         int change_dist;
                         Position temp_position;
-                        temp_position.x = new_position.x + 4 * map_title * input_vector.x;
-                        temp_position.y = new_position.y + 4 * map_title * input_vector.y;
+                        temp_position.x = new_position.x + 4 * map_tile * input_vector.x;
+                        temp_position.y = new_position.y + 4 * map_tile * input_vector.y;
                         change_dist = distance_p(new_position, meet_position) - distance_p(temp_position, meet_position);
                         attractive += change_dist * 10;
 
                         for (int t = 2; t < 7; t++) {
-                            temp_position.x = new_position.x + t * map_title * input_vector.x;
-                            temp_position.y = new_position.y + t * map_title * input_vector.y;
+                            temp_position.x = new_position.x + t * map_tile * input_vector.x;
+                            temp_position.y = new_position.y + t * map_tile * input_vector.y;
                             bool flag2 = true;
                             for (int u = 0; u < scene.size(); u++) {
                                 if (scene[u]->getType() == ObjectType::Map) {
@@ -78,8 +79,8 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                             }
                         }
 
-                        temp_position.x = new_position.x + 0.8 * map_title * input_vector.x;
-                        temp_position.y = new_position.y + 0.8 * map_title * input_vector.y;
+                        temp_position.x = new_position.x + 0.8 * map_tile * input_vector.x;
+                        temp_position.y = new_position.y + 0.8 * map_tile * input_vector.y;
                         bool flag2 = true;
                         for (int u = 0; u < scene.size(); u++) {
                             if (scene[u]->getType() == ObjectType::Map) {
@@ -153,7 +154,7 @@ void BotTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
         Input_vector base = input_vector_1;
         int alpha;
         if (!(input_vector_1.x == 0 && input_vector_1.y == 0)) {
-            alpha = calculate_coner(input_vector_1);
+            alpha = calculate_base_angle(input_vector_1);
         }
         else alpha = new_rotation;
         float prop;
@@ -242,7 +243,7 @@ void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
         input_vector.x = Enemy_pos.x - bot_position.x;
         input_vector.y = Enemy_pos.y - bot_position.y;
 
-        int alpha = calculate_coner(input_vector);
+        int alpha = calculate_base_angle(input_vector);
 
         if (Enemy_pos.y < bot_position.y) {
             alpha = 360 - alpha;

@@ -53,7 +53,7 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
     int alpha;
 
     if (!(input_vector.x == 0 && input_vector.y == 0)) {
-        alpha = calculate_coner(input_vector);
+        alpha = calculate_base_angle(input_vector);
     }
     else alpha = new_rotation;
     float prop;
@@ -127,7 +127,7 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
     input_vector.x = inputs.mouse_x_ - new_position.x;
     input_vector.y = inputs.mouse_y_ - new_position.y;
 
-    int alpha = calculate_coner(input_vector);
+    int alpha = calculate_base_angle(input_vector);
 
     if (inputs.mouse_y_ < new_position.y) {
         alpha = 360 - alpha;

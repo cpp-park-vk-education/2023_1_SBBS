@@ -4,7 +4,7 @@ int moving(int coordinate, int speed, float prop) {
     return coordinate + int(prop * speed);
 }
 
-int calculate_coner(const Input_vector& input_vector) {
+int calculate_base_angle(const Input_vector& input_vector) {
     double cos = (base_x * input_vector.x + base_y * input_vector.y) /
         (sqrt(base_x * base_x + base_y * base_y) * sqrt(input_vector.x * input_vector.x + input_vector.y * input_vector.y));
     return acos(cos) * 180 / 3.14;

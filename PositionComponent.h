@@ -13,7 +13,7 @@ struct Input_vector {
 
 int moving(int coordinate, int speed, float prop);
 
-int calculate_coner(const Input_vector& input_vector);
+int calculate_base_angle(const Input_vector& input_vector);
 
 int calculate_angle(Input_vector a, Input_vector b);
 
