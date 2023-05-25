@@ -18,7 +18,7 @@
 
 const int map_tile = 50;
 
-Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, std::vector<int>& blok_x, std::vector<int>& blok_y) {
+Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, std::vector<int>& blok_x, std::vector<int>& blok_y, int j) {
     Input_vector input_vector;
     double max_attractive = 0;
     Input_vector attractive_vector;
@@ -83,7 +83,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         temp_position.y = new_position.y + 0.8 * map_tile * input_vector.y;
                         bool flag2 = true;
                         for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Wall) {
+                            if (scene[u]->getType() == ObjectType::Wall || (scene[u]->getType() == ObjectType::Tank && scene[u]->getEntityID() == 0)) {
                                 CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
                                 if (!wall_collision) continue;
                                 Tank_collision.update(temp_position, betha);
@@ -98,7 +98,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         }
                     }
                 }
-                else if (scene[j]->getType() == ObjectType::Wall) {
+                else if (scene[j]->getType() == ObjectType::Wall || (scene[j]->getType() == ObjectType::Tank && scene[j]->getEntityID() == 0)) {
                     CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                     PositionComponent* wall_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                     if (!wall_collision) continue;
@@ -146,7 +146,7 @@ void BotTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
         Position new_position = new_component.getPosition();
 
         if (counter == 25) {
-            input_vector_1 = attractivness(scene, new_position, blok_x, blok_y); //////////10 - количество кадров
+            input_vector_1 = attractivness(scene, new_position, blok_x, blok_y, i); //////////10 - количество кадров
             counter = 0;
         }
         counter++;
