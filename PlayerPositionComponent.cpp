@@ -13,10 +13,10 @@
 #include "SoundComponent.h"
 #include "InputHandler.h"
 #include "PositionComponent.h"
-#include "PlayingArgsHolder.h"
+#include "GameSingleton.h"
 
 void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
-    int myEntityId = PlayingArgsHolder::getInstance().getMyEntityId();
+    int myEntityId = Game::getInstance().getMyEntityId();
 
     Input inputs;
     inputs.handleInput(window);
@@ -106,7 +106,7 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
 }
 
 void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
-    int myEntityId = PlayingArgsHolder::getInstance().getMyEntityId();
+    int myEntityId = Game::getInstance().getMyEntityId();
     Input inputs;
     inputs.handleInput(window);
     BulletSpawner bs;
@@ -179,7 +179,7 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 }
 
 void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
-    int myEntityId = PlayingArgsHolder::getInstance().getMyEntityId();
+    int myEntityId = Game::getInstance().getMyEntityId();
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     int currEntityId = scene[i]->getEntityID();

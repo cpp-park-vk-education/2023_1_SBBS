@@ -2,8 +2,8 @@
 #include "GameState.h"
 #include "SpawnerSystem.h"
 #include "SpawnID.h"
-#include "PlayingArgsHolder.h"
 #include "InputHandler.h"
+#include "GameSingleton.h"
 
 SinglePlayerMenuGameState::SinglePlayerMenuGameState() {
 	id_ = GameStateId::SingleMenu;
@@ -42,11 +42,11 @@ SinglePlayerMenuGameState::SinglePlayerMenuGameState() {
 	// вводить ip и получить название карты
 	// получить entity id 
 	setStateArgument(std::string("Maps/lvl2.txt"));
-	PlayingArgsHolder::getInstance().setMyEntityId(2);
+	Game::getInstance().setMyEntityId(2);
 
 	for (int i = 0; i < 4; ++i) {
-		PlayingArgsHolder::getInstance().setHullType(i, tank_hull_1);
-		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
+		Game::getInstance().setHullType(i, tank_hull_1);
+		Game::getInstance().setTurretType(i, tank_turret_1);
 	}
 }
 

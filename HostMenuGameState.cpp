@@ -4,7 +4,7 @@
 #include "SpawnID.h"
 #include "InputHandler.h"
 #include <iostream>
-#include "PlayingArgsHolder.h"
+#include "GameSingleton.h"
 
 HostMenuGameState::HostMenuGameState() {
 	id_ = GameStateId::HostMenu;
@@ -64,11 +64,11 @@ HostMenuGameState::HostMenuGameState() {
 
 
 	setStateArgument(std::string("Maps/lvlTest2.txt"));
-	PlayingArgsHolder::getInstance().setMyEntityId(2);
+	Game::getInstance().setMyEntityId(2);
 
 	for (int i = 0; i < 4; ++i) {
-		PlayingArgsHolder::getInstance().setHullType(i, tank_hull_1);
-		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
+		Game::getInstance().setHullType(i, tank_hull_1);
+		Game::getInstance().setTurretType(i, tank_turret_1);
 	}
 }
 

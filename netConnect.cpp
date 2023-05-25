@@ -193,7 +193,7 @@ public:
     }
 
     void connect() {
-        sock.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 6001));
+        sock.connect(tcp::endpoint(boost::asio::ip::address::from_string("25.49.68.205"), 6001));
         start();
     }
 

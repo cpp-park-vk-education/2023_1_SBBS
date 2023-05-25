@@ -13,7 +13,7 @@
 #include "SoundComponent.h"
 #include "InputHandler.h"
 #include "PositionComponent.h"
-#include "PlayingArgsHolder.h"
+#include "GameSingleton.h"
 
 static Input_vector input_vector_1;
 static int counter = 0;
@@ -36,7 +36,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
             input_vector.y = l;
             for (int j = 0; j < scene.size(); j++) {
                 if (scene[j]->getType() == ObjectType::Tank) {
-                    if (scene[j]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId()) {
+                    if (scene[j]->getEntityID() == Game::getInstance().getMyEntityId()) {
                         PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                         Position meet_position = meet_component->getPosition();
                         PositionComponent* Tank_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
@@ -292,7 +292,7 @@ void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
     for (int j = 0; j < scene.size(); j++) {
         if (scene[j]->getType() == ObjectType::Tank) {
             PositionComponent* meet_component = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
-            if (scene[j]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId()) {//////////////////////////// Заменить на проверку
+            if (scene[j]->getEntityID() == Game::getInstance().getMyEntityId()) {//////////////////////////// Заменить на проверку
                 Position meet_position = meet_component->getPosition();
                 if (distance_p(bot_position, meet_position) < min_dist) {
                     min_dist = distance_p(bot_position, meet_position);

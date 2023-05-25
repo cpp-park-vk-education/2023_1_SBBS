@@ -10,12 +10,12 @@
 #include <fstream>
 #include "GameState.h"
 #include "HealthComponent.h"
-#include "PlayingArgsHolder.h"
+#include "GameSingleton.h"
 
 void PlayingState::setMyTank() {
 
     for (int i = 0; i < scene_.size(); ++i) {
-        if (scene_[i] && scene_[i]->getEntityID() == PlayingArgsHolder::getInstance().getMyEntityId() && scene_[i]->getType() == ObjectType::Tank)
+        if (scene_[i] && scene_[i]->getEntityID() == Game::getInstance().getMyEntityId() && scene_[i]->getType() == ObjectType::Tank)
             my_tank_ = scene_[i];
     }
 }
@@ -87,8 +87,8 @@ void PlayingState::generateMap(const std::string& map_name) {
 		int tank_x = 0;
 		int tank_y = 0;
 
-		Spawner* curr_tank_spawner = &(i == PlayingArgsHolder::getInstance().getMyEntityId()  ? player_tank_spawner : opponent_tank_spawner);
-		Spawner* curr_turret_spawner = &(i == PlayingArgsHolder::getInstance().getMyEntityId() ? player_turret_spawner : opponent_turret_spawner);
+		Spawner* curr_tank_spawner = &(i == Game::getInstance().getMyEntityId()  ? player_tank_spawner : opponent_tank_spawner);
+		Spawner* curr_turret_spawner = &(i == Game::getInstance().getMyEntityId() ? player_turret_spawner : opponent_turret_spawner);
 
 		map_file >> tank_x >> tank_y;
 		Position curr_pos;
@@ -97,12 +97,12 @@ void PlayingState::generateMap(const std::string& map_name) {
 
 		Entity* temp_ent;
 
-		temp_ent = curr_tank_spawner->Spawn(curr_pos, PlayingArgsHolder::getInstance().getHullType(i-1));
+		temp_ent = curr_tank_spawner->Spawn(curr_pos, Game::getInstance().getHullType(i-1));
 		temp_ent->setEntityID(i);
 		scene_.push_back(temp_ent);
 		{///// спавн башни
 			PositionComponent* tank_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
-			temp_ent = curr_turret_spawner->Spawn(curr_pos, PlayingArgsHolder::getInstance().getTurretType(i - 1));
+			temp_ent = curr_turret_spawner->Spawn(curr_pos, Game::getInstance().getTurretType(i - 1));
 			PositionComponent* turr_pos = dynamic_cast<PositionComponent*>(temp_ent->getComponentByID(ComponentID::PositionComponent));
 			turr_pos->setParent(tank_pos);
 		}

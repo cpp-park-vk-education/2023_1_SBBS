@@ -207,7 +207,7 @@
     <ClInclude Include="MusicComponent.h" />
     <ClInclude Include="networkCodes.h" />
     <ClInclude Include="PhysicsSystem.h" />
-    <ClInclude Include="PlayingArgsHolder.h" />
+    <ClInclude Include="GameSingleton.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="SoundComponent.h" />
     <ClInclude Include="SoundSystem.h" />

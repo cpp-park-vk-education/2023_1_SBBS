@@ -10,7 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 
-class PlayingArgsHolder {
+class Game {
 public:
 
 	void setTurretType(int i, int type) { turret_type_[i] = type; };
@@ -25,8 +25,8 @@ public:
 
 	int getMyEntityId() { return my_entity_id_; }
 
-	static PlayingArgsHolder& getInstance() {
-		static PlayingArgsHolder singleton_;
+	static Game& getInstance() {
+		static Game singleton_;
 		return singleton_;
 	};
 
@@ -37,12 +37,12 @@ private:
 
 	int my_entity_id_;
 
-	PlayingArgsHolder() {};
+	Game() {};
 
-	PlayingArgsHolder(const PlayingArgsHolder&) = delete;
+	Game(const Game&) = delete;
 
-	PlayingArgsHolder& operator= (const PlayingArgsHolder&) = delete;
+	Game& operator= (const Game&) = delete;
 
-	PlayingArgsHolder& operator= (PlayingArgsHolder&&) = delete;
+	Game& operator= (Game&&) = delete;
 
 };

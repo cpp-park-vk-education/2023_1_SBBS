@@ -202,7 +202,7 @@
     <ClInclude Include="SpawnID.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayingArgsHolder.h">
+    <ClInclude Include="GameSingleton.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="System.h">

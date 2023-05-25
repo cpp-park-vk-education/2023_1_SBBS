@@ -5,7 +5,7 @@
 #include "InputHandler.h"
 #include <iostream>
 #include <sstream>
-#include "PlayingArgsHolder.h"
+#include "GameSingleton.h"
 #include "SpawnID.h"
 
 ClientMenuGameState::ClientMenuGameState() {
@@ -60,11 +60,11 @@ ClientMenuGameState::ClientMenuGameState() {
 	scene_.push_back(temp_ent);
 
 	setStateArgument(std::string("Maps/lvlTest2.txt"));
-	PlayingArgsHolder::getInstance().setMyEntityId(1);
+	Game::getInstance().setMyEntityId(1);
 
 	for (int i = 0; i < 4; ++i) {
-		PlayingArgsHolder::getInstance().setHullType(i, tank_hull_1);
-		PlayingArgsHolder::getInstance().setTurretType(i, tank_turret_1);
+		Game::getInstance().setHullType(i, tank_hull_1);
+		Game::getInstance().setTurretType(i, tank_turret_1);
 	}
 }
 
