@@ -10,8 +10,7 @@
 
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
-	ConnectionType* connection);
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput);
 
 
 int main() {
@@ -22,12 +21,10 @@ int main() {
 
 	NetConnector::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
 
-	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
-
-	producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
+	producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput]() { netWork(LockFreeQueueInput, LockFreeQueueOutput); });
 	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
 
-	gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_);
+	gameLoop(LockFreeQueueInput, LockFreeQueueOutput);
 
 	producer_threads.join_all();
 
@@ -36,8 +33,7 @@ int main() {
 }
 
 int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
-	ConnectionType* connection) {
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
 
 	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
 	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
@@ -52,15 +48,6 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		manager.run(window);
 		GameStateId curr_id = manager.getStateId();
 		 
-		///////////////////////  
-		if (curr_id == GameStateId::HostPlaying) {
-			*connection = ConnectionType::Host;
-			// тут вызввать ивент 
-			// тут хранить меняли ли ивент до этого 
-		}
-		else if (curr_id == GameStateId::ClientPlaying) {
-			*connection = ConnectionType::Client;
-		}
 		///////////////////////
 		// синглтон на время или глобальная переменная 
 

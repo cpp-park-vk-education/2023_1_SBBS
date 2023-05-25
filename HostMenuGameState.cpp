@@ -70,6 +70,9 @@ HostMenuGameState::HostMenuGameState() {
 		Game::getInstance().setHullType(i, tank_hull_1);
 		Game::getInstance().setTurretType(i, tank_turret_1);
 	}
+
+	Game::getInstance().setConnectionType(ConnectionType::Host);
+	Game::getInstance().setStateDecision(true);
 }
 
 GameStateId HostMenuGameState::update(sf::RenderWindow& window) {

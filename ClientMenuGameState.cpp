@@ -66,6 +66,9 @@ ClientMenuGameState::ClientMenuGameState() {
 		Game::getInstance().setHullType(i, tank_hull_1);
 		Game::getInstance().setTurretType(i, tank_turret_1);
 	}
+
+	Game::getInstance().setConnectionType(ConnectionType::Client);
+	Game::getInstance().setStateDecision(true);
 }
 
 GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
@@ -79,7 +82,7 @@ GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
 		if (sys_output) {
 			chosen_button_id = sys_output;
 		}
-		std::cout << chosen_button_id << std::endl;
+		//std::cout << chosen_button_id << std::endl;
 
 	}
 	// вводить ip и получить название карты

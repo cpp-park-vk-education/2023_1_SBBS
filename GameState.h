@@ -47,7 +47,9 @@ public:
 class SubMenuState : public GameState {
 public:
     SubMenuState() {};
+
     virtual ~SubMenuState();
+
 protected:
     void setTankHull(const char& hull) { tank_hull = hull; }
     void setTankTurret(const char& turret) { tank_turret = turret; }

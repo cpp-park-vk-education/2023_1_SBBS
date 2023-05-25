@@ -1,10 +1,12 @@
 #pragma once
 #include "netConnect.h"
+#include "GameSingleton.h"
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include "networkCodes.h"
 #include <string>
+#include <chrono>
 
 #define GET_IO_SERVICE(s) ((boost::asio::io_context&)(s).get_executor().context())
 
@@ -248,47 +250,47 @@ public:
 
 //Функции для перехода в нужное состояние игры
 void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput, ConnectionType* _connection) {
-    while (*_connection == ConnectionType::Null) {
-        std::cout << " " << std::endl;
+    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+    while (true) {
+        while (!Game::getInstance().getStateDecision()) {
+            std::chrono::duration<double> sleep_duration(0.1);
+            std::this_thread::sleep_for(sleep_duration);
+        }
 
+        std::cout << "Connection type aquired\n";
 
-    }
+        if (Game::getInstance().getConnectionType() == ConnectionType::Host) {
+            std::cout << "Host State Active\n";
+            startServer(LockFreeQueueInput, LockFreeQueueOutput);
+        }
 
-    std::cout << "Connection type aquired\n";
-
-    if (*_connection == ConnectionType::Host) {
-        std::cout << "Host State Active\n";
-        startServer(LockFreeQueueInput, LockFreeQueueOutput);
-    }
-
-    else if (*_connection == ConnectionType::Client) {
-        std::cout << "Client State Active\n";
-        startClient(LockFreeQueueInput, LockFreeQueueOutput);
+        else if (Game::getInstance().getConnectionType() == ConnectionType::Client) {
+            std::cout << "Client State Active\n";
+            startClient(LockFreeQueueInput, LockFreeQueueOutput);
+        }
     }
 }
-///// буст сигнал 
-/// на ивентах 
-//// вектор функций, метод call, вызывающий функции 
-// метод subscribe 
 
 void startServer(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
-    try
-    {
-        boost::asio::io_service io_service;
-        Server server(io_service, LockFreeQueueInput, LockFreeQueueOutput);
-        io_service.run();
+    while (Game::getInstance().getStateDecision()) {
+        try
+        {
+            boost::asio::io_service io_service;
+            Server server(io_service, LockFreeQueueInput, LockFreeQueueOutput);
+            io_service.run();
+        }
+        catch (std::exception& e) {
+            std::cerr << e.what() << endl;
+        }
     }
-    catch (std::exception& e) {
-        std::cerr << e.what() << endl;
-    }
+    std::cout << "Server closed" << std::endl;
 }
 
 void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
 
-    while (true) {
+    while (Game::getInstance().getStateDecision()) {
         try {
             //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
             boost::asio::io_service io_service;
@@ -302,4 +304,5 @@ void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
             std::cerr << e.what() << endl;
         }
     }
+    std::cout << "Client closed" << std::endl;
 }

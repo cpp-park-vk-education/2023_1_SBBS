@@ -47,9 +47,8 @@ private:
 
 };
 
-
 void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput, ConnectionType* _connection);
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput);
 
 void startServer(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput);

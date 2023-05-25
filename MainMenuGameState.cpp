@@ -6,6 +6,7 @@
 #include "InputHandler.h"
 #include "GraphicsSystem.h"
 #include "SpawnID.h"
+#include "GameSingleton.h"
 
 // on enter()<- создание всех обхъекты на сцене 
 
@@ -54,6 +55,9 @@ MainMenuGameState::MainMenuGameState() {
 	temp_ent->setEntityID(1);
 
 	scene_.push_back(temp_ent);
+
+	Game::getInstance().setConnectionType(ConnectionType::Host);
+	Game::getInstance().setStateDecision(false);
 }
 
 GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
