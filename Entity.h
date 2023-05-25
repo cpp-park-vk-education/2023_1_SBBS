@@ -19,6 +19,8 @@ public:
 
     void deleteComponent(ComponentID id) { components_.erase(id); }
 
+    void setType(ObjectType type) { type_ = type; }
+
     ObjectType getType() { return type_; }
 
     void putComponent(ComponentID id, Component* to_add) { components_.insert({ id,to_add }); };
@@ -29,7 +31,7 @@ public:
 
 private:
 
-    ObjectType type_;
+    ObjectType type_ = ObjectType::Null; // если не задали тип, то будет видно 
 
     std::unordered_map<ComponentID, Component*> components_;
 

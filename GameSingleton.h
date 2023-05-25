@@ -13,6 +13,8 @@
 class Game {
 public:
 
+	void setNumberOfPlayers(int number) { numberOfPlayers_ = number; }
+
 	void setTurretType(int i, int type) { turret_type_[i] = type; };
 
 	void setStateDecision(bool decision) { stateIsDecided_ = decision; }
@@ -24,6 +26,8 @@ public:
 	void setMyEntityId(int id) { myEntityId_ = id; };
 
 	void setFirstCollidable(int collidable) { firstCollidable_ = collidable; }
+
+	int getNumberOfPlayers() { return numberOfPlayers_; }
 
 	int getTurretType(int i) { return turret_type_[i]; }
 
@@ -44,6 +48,8 @@ public:
 
 private:
 
+	int myEntityId_;
+
 	int firstCollidable_ = 0;
 
 	bool stateIsDecided_ = false;
@@ -54,8 +60,6 @@ private:
 
 	std::vector<int> turret_type_ = std::vector<int>(numberOfPlayers_);
 	std::vector<int> hull_type_ = std::vector<int>(numberOfPlayers_);
-
-	int myEntityId_;
 
 	Game() {};
 

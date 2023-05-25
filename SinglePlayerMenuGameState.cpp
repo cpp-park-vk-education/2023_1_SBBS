@@ -90,7 +90,7 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 
 	int chosen_button_id = 0;
 	for (int i = 0; i < systems_.size(); ++i) {
-		int sys_output = systems_[i]->update(window, scene_); // ненулевой будет только в menusystem
+		int sys_output = systems_[i]->update(window, scene_);
 		if (sys_output) {
 			chosen_button_id = sys_output;
 		}
@@ -98,7 +98,7 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 
 
 
-	if (input.mouse_click_) { ////////////////////////////// shoot не понятно, поменять на mouce click
+	if (input.mouse_click_) {
 		switch (chosen_button_id)
 		{
 		case play_button_id:

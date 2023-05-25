@@ -65,7 +65,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                             temp_position.y = new_position.y + t * map_tile * input_vector.y;
                             bool flag2 = true;
                             for (int u = 0; u < scene.size(); u++) {
-                                if (scene[u]->getType() == ObjectType::Map) {
+                                if (scene[u]->getType() == ObjectType::Wall) {
                                     CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
                                     if (!wall_collision) continue;
                                     if (!wall_collision->checkBullet(temp_position, meet_position)) {
@@ -83,7 +83,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         temp_position.y = new_position.y + 0.8 * map_tile * input_vector.y;
                         bool flag2 = true;
                         for (int u = 0; u < scene.size(); u++) {
-                            if (scene[u]->getType() == ObjectType::Map) {
+                            if (scene[u]->getType() == ObjectType::Wall) {
                                 CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[u]->getComponentByID(ComponentID::CollisionComponent));
                                 if (!wall_collision) continue;
                                 Tank_collision.update(temp_position, betha);
@@ -98,7 +98,7 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                         }
                     }
                 }
-                else if (scene[j]->getType() == ObjectType::Map) {
+                else if (scene[j]->getType() == ObjectType::Wall) {
                     CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                     PositionComponent* wall_position = dynamic_cast<PositionComponent*>(scene[j]->getComponentByID(ComponentID::PositionComponent));
                     if (!wall_collision) continue;
@@ -252,7 +252,7 @@ void BotTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
         original_component->setRotation(bot_rotation);
         bool flag = true;
         for (int j = 0; j < scene.size(); j++) {
-            if (scene[j]->getType() == ObjectType::Map) {
+            if (scene[j]->getType() == ObjectType::Wall) {
                 CollisionComponent* wall_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
                 if (!wall_collision) continue;
                 if (!wall_collision->checkBullet(bot_position, Enemy_pos)) {

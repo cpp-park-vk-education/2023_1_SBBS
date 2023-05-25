@@ -10,7 +10,7 @@
 #include "SpawnID.h"
 
 Entity* MapSpawner::Spawn(Position position, int subType) {
-	Entity* to_add = new Entity(ObjectType::Map);
+	Entity* to_add = new Entity();
 	static sf::Image img;
 	
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
@@ -30,6 +30,7 @@ Entity* MapSpawner::Spawn(Position position, int subType) {
 		graph_to_add->setAliveImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
 		health_to_add = new HealthComponent(false, false,false,to_add, 100);
+		to_add->setType(ObjectType::Wall);
 		break;
 
 	case wood_wall: // wood wall 
@@ -39,21 +40,25 @@ Entity* MapSpawner::Spawn(Position position, int subType) {
 		graph_to_add->setDeadImage(img);
 		coll_to_add = new CollisionComponent(position, 0, 50, 50);
 		health_to_add = new HealthComponent(true, true, false, to_add, 100);
+		to_add->setType(ObjectType::Wall);
 		break;
 
 	case sand : // sand floor
 		img.loadFromFile("Image/Sand_1_100_100.png");
 		graph_to_add->setAliveImage(img);
+		to_add->setType(ObjectType::Floor);
 		break;
 
 	case dirt: // dirt floor
 		img.loadFromFile("Image/Dirt_100_100.png");
 		graph_to_add->setAliveImage(img);
+		to_add->setType(ObjectType::Floor);
 		break;
 
 	case smooth_stone: // snooth stone floor
 		img.loadFromFile("Image/smooth_stone_100_100.png");
 		graph_to_add->setAliveImage(img);
+		to_add->setType(ObjectType::Floor);
 		break;
 
 	//case 'c': // cave floor

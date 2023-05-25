@@ -80,7 +80,23 @@ void PlayingState::generateMap(const std::string& map_name) {
 			Entity* temp_ent = ws.Spawn(curr_pos, current_block);
 			scene_.push_back(temp_ent);
 		}
-	tank_amount = 3; // Временная штука
+
+	/// после генерации карты 
+	for (int i = 0; i < scene_.size(); ++i) {
+		for (int j = 0; j < scene_.size() - 1; ++j) {
+			if (scene_[j]->getType() == ObjectType::Wall && scene_[j]->getType() == ObjectType::Wall)
+				std::swap(scene_[j], scene_[j + 1]);
+		}
+	}
+
+	for (int i = 0; i < scene_.size(); ++i) {
+		if (scene_[i]->getType() == ObjectType::Wall) {
+			Game::getInstance().setFirstCollidable(i);
+		}
+	}
+
+	
+	tank_amount = Game::getInstance().getNumberOfPlayers();
 	/// tank spawn 
 	for (int i = 1; i <= tank_amount; ++i)
 	{
