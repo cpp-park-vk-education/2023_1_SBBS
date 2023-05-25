@@ -36,7 +36,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 
 	GraphicsComponent* graph_to_add = new GraphicsComponent();
 	CollisionComponent* coll_to_add = new CollisionComponent(position, 0, 10, 10);
-	HealthComponent* health_to_add = new HealthComponent(true, false,false,to_add,10,50); /////////выставить дамаг для пули
+	HealthComponent* health_to_add = nullptr; /////////выставить дамаг для пули
 
 	Position pos_struc_to_add(position.x, position.y,position.rotation);
 	pos_to_add->setPosition(pos_struc_to_add);
@@ -51,6 +51,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
 		curr_sound.play();
+		health_to_add = new HealthComponent(true, false, false, to_add, 10, 40);
 		break;
 	case bullet_2:
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
@@ -60,6 +61,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
 		curr_sound.play();
+		health_to_add = new HealthComponent(true, false, false, to_add, 10, 100);
 	default:
 		break;
 	}
