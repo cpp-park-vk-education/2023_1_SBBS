@@ -78,8 +78,8 @@ Input_vector attractivness(std::vector<Entity*>& scene, Position& new_position, 
                             }
                         }
 
-                        temp_position.x = new_position.x + 40 * input_vector.x;
-                        temp_position.y = new_position.y + 40 * input_vector.y;
+                        temp_position.x = new_position.x + 0.8 * map_title * input_vector.x;
+                        temp_position.y = new_position.y + 0.8 * map_title * input_vector.y;
                         bool flag2 = true;
                         for (int u = 0; u < scene.size(); u++) {
                             if (scene[u]->getType() == ObjectType::Map) {
