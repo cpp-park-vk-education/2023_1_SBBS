@@ -123,6 +123,9 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 		case back_button_id:
 			return GameStateId::MainMenu;
 			break;
+		case map_1_button_id:
+			setStateArgument(std::string("Maps/lvl1.txt"));
+			break;
 		case map_2_button_id:
 			setStateArgument(std::string("Maps/lvl2.txt"));
 			break;

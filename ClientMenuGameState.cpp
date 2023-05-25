@@ -23,7 +23,7 @@ ClientMenuGameState::ClientMenuGameState() {
 
 	Entity* temp_ent = nullptr;
 
-	temp_ent = banner_spawner.Spawn(banner_pos, client_banner);//// убрать магическую константу
+	temp_ent = banner_spawner.Spawn(banner_pos, client_banner);
 	scene_.push_back(temp_ent);
 
 	//Спавн кнопки назад клиенского меню
@@ -88,7 +88,7 @@ GameStateId ClientMenuGameState::update(sf::RenderWindow& window) {
 	// вводить ip и получить название карты
 	// получить entity id 
 
-	if (input.mouse_click_) { ////////////////////////////// shoot не понятно, поменять на mouce click
+	if (input.mouse_click_) { 
 		switch (chosen_button_id)
 		{
 		case try_to_connect_button_id:

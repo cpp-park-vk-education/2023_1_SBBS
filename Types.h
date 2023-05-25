@@ -7,7 +7,7 @@ enum class GameStateId : char {
 };
 
 enum class SystemId : char {
-    GraphicsSystemId, MenuSystemId, MusicSystemId, PhysicsSystemId, SoundSystemId, SpawnerSystemId
+    GraphicsSystemId, MenuSystemId, MusicSystemId, PhysicsSystemId, SoundSystemId, SpawnerSystemId, PauseSystemId
 };
 
 
@@ -18,5 +18,5 @@ enum class SoundType : char {
 };
 
 enum class ObjectType : char {
-    Tank, Bullet, Turret ,Wall,Floor ,Banner, Button, Null
+    Tank, Bullet, Turret ,Wall,Floor ,Banner, Button, Null, PauseMenu
 };

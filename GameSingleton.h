@@ -27,6 +27,8 @@ public:
 
 	void setFirstCollidable(int collidable) { firstCollidable_ = collidable; }
 
+	void setGamePause(bool pause) { gameIsPaused_ = pause; }
+
 	int getNumberOfPlayers() { return numberOfPlayers_; }
 
 	int getTurretType(int i) { return turret_type_[i]; }
@@ -36,6 +38,8 @@ public:
 	int getMyEntityId() { return myEntityId_; }
 
 	bool getStateDecision() { return stateIsDecided_; }
+
+	bool getGamePaused() { return gameIsPaused_; }
 
 	int getFirstCollidable() { return firstCollidable_; }
 	
@@ -50,11 +54,13 @@ private:
 
 	int myEntityId_;
 
+	int numberOfPlayers_ = 4;
+
 	int firstCollidable_ = 0;
 
-	bool stateIsDecided_ = false;
+	bool gameIsPaused_ = false;
 
-	int numberOfPlayers_ = 4;
+	bool stateIsDecided_ = false;
 
 	ConnectionType connectionType_ = ConnectionType::Null;
 

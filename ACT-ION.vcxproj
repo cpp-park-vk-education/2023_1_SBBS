@@ -175,6 +175,7 @@
     <ClCompile Include="netConnect.cpp" />
     <ClCompile Include="netConnect.h" />
     <ClCompile Include="NetPositionComponent.cpp" />
+    <ClCompile Include="PauseSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="MapSpawner.cpp" />
     <ClCompile Include="PlayerPositionComponent.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="MusicComponent.h" />
     <ClInclude Include="networkCodes.h" />
+    <ClInclude Include="PauseSystem.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="GameSingleton.h" />
     <ClInclude Include="PositionComponent.h" />

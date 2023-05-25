@@ -7,7 +7,7 @@ class GraphicsComponent : public Component {
 public:
     GraphicsComponent() = default;
 
-    bool layer = 0;
+    bool layer = false;
 
     void setAliveImage(sf::Image aliveimage, bool flag = false);
 

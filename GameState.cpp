@@ -8,6 +8,7 @@
 #include "PhysicsSystem.h"
 #include "SoundSystem.h"
 #include "SpawnerSystem.h"
+#include "PauseSystem.h"
 #include "GameSingleton.h"
 
 
@@ -30,6 +31,9 @@ void GameState::addSystem(SystemId id) {
 		break;
 	case SystemId::SpawnerSystemId:
 		systems_.push_back(new SpawnerSystem());
+		break;
+	case SystemId::PauseSystemId:
+		systems_.push_back(new PauseSystem());
 		break;
 	default:
 		break;

@@ -1,8 +1,7 @@
 #include "InputHandler.h"
-#include <chrono>
+#include <iostream>
 
 void Input::handleInput(sf::Window& window) {
-    static std::chrono::steady_clock::time_point last_time = std::chrono::steady_clock::now();
     static Input curr_input;
 
     sf::Event event;
@@ -17,6 +16,8 @@ void Input::handleInput(sf::Window& window) {
                 curr_input.moving_left_ = true;
             else if (event.key.code == sf::Keyboard::W)
                 curr_input.moving_up_ = true;
+            else if (event.key.code == sf::Keyboard::P)
+                curr_input.esc_pressed_ = true;
             break;
         case sf::Event::KeyReleased:///////////////////// key released
             if (event.key.code == sf::Keyboard::D)
@@ -27,8 +28,9 @@ void Input::handleInput(sf::Window& window) {
                 curr_input.moving_left_ = false;
             else if (event.key.code == sf::Keyboard::W)
                 curr_input.moving_up_ = false;
+            else if (event.key.code == sf::Keyboard::P)
+                curr_input.esc_pressed_ = false;
             break;
-
         default:
             break;
         }

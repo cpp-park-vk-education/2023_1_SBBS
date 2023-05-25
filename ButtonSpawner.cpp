@@ -121,7 +121,18 @@ Entity* ButtonSpawner::Spawn(Position position, int subType) {
 		//	img.loadFromFile("Image/map_4_contoured.png");
 		//	graph_to_add->setAliveImage(img);
 		//	break;
-
+		case back_to_main_menu:
+			img.loadFromFile("Image/GUI_to_menu_button.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(back_to_main_menu_button_id);
+			graph_to_add->layer = true;// чтобы рисовало поверх танков
+			break;
+		case resume_game_button_id:
+			img.loadFromFile("Image/GUI_continue_button.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(resume_game_button_id);
+			graph_to_add->layer = true;// чтобы рисовало поверх танков
+			break;
 		default: break;
 	}
 

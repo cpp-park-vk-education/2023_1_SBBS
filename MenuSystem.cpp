@@ -1,8 +1,6 @@
 #pragma once
 #include "MenuSystem.h"
 #include "ClickComponent.h"
-
-
 #include <iostream>
 
 

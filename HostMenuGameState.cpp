@@ -20,7 +20,6 @@ HostMenuGameState::HostMenuGameState() {
 	Entity* temp_ent = nullptr;
 
 	temp_ent = banner_spawner.Spawn(banner_pos, host_banner);
-	temp_ent->setEntityID(1);
 
 	scene_.push_back(temp_ent);
 
@@ -34,7 +33,6 @@ HostMenuGameState::HostMenuGameState() {
 
 
 	temp_ent = button_spawner.Spawn(back_button_pos, back);
-	temp_ent->setEntityID(1);
 
 	scene_.push_back(temp_ent);
 
@@ -95,11 +93,6 @@ HostMenuGameState::HostMenuGameState() {
 
 GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 
-	//for (int i = 0; i < systems_.size(); ++i) {
-	//	int sys_output = systems_[i]->update(window, scene_); // ненулевой будет только в menusystem
-	//}
-
-
 	Input input;
 	input.handleInput(window);
 
@@ -111,7 +104,6 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 		}
 		//std::cout << chosen_button_id << std::endl;
 	}
-	// вводить ip и получить название карты
 	// получить entity id 
 
 	if (input.mouse_click_) {
@@ -134,6 +126,9 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 			break;
 		case back_button_id:
 			return GameStateId::MainMenu;
+			break;
+		case map_1_button_id:
+			setStateArgument(std::string("Maps/lvl1.txt"));
 			break;
 		case map_2_button_id:
 			setStateArgument(std::string("Maps/lvl2.txt"));
