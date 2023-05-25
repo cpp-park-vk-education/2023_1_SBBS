@@ -83,6 +83,12 @@ Entity* ButtonSpawner::Spawn(Position position, int subType) {
 			click_to_add->setButtonId(play_button_id);
 			break;
 
+		case map_1: // map_1 button
+			img.loadFromFile("Image/map_1_.png");
+			graph_to_add->setAliveImage(img);
+			click_to_add->setButtonId(map_1_button_id);
+			break;
+
 		case map_2: // map_2 button
 			img.loadFromFile("Image/map_2_.png");
 			graph_to_add->setAliveImage(img);

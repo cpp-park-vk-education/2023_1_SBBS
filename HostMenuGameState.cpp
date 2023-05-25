@@ -63,9 +63,13 @@ HostMenuGameState::HostMenuGameState() {
 	scene_.push_back(temp_ent);
 
 	// Спавн кнопок выбора карты
-	Position map_2_pos(120, 300);
-	Position map_3_pos(520, 300);
-	Position map_4_pos(320, 550);
+	Position map_1_pos(120, 300);
+	Position map_2_pos(520, 300);
+	Position map_3_pos(120, 550);
+	Position map_4_pos(520, 550);
+
+	temp_ent = button_spawner.Spawn(map_1_pos, map_1);
+	scene_.push_back(temp_ent);
 
 	temp_ent = button_spawner.Spawn(map_2_pos, map_2);
 	scene_.push_back(temp_ent);
@@ -77,7 +81,7 @@ HostMenuGameState::HostMenuGameState() {
 	scene_.push_back(temp_ent);
 
 
-	setStateArgument(std::string("Maps/lvlTest2.txt"));
+	setStateArgument(std::string("Maps/lvl1.txt"));
 	Game::getInstance().setMyEntityId(2);
 
 	for (int i = 0; i < 4; ++i) {
