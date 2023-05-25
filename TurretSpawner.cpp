@@ -59,7 +59,7 @@ Entity* TurretSpawner::Spawn(Position position, int subType) {
 		dead_img.loadFromFile("Image/crashed_turret.png");
 		graph_to_add->setAliveImage(img);
 		graph_to_add->setDeadImage(dead_img);
-		shoot_to_add->setCooldown(1.0);
+		shoot_to_add->setCooldown(2.0);
 		shoot_to_add->setBulletType(bullet_2);
 		break;
 

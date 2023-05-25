@@ -189,8 +189,8 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
     Position new_position = new_component.getPosition();
     int new_rotation = new_component.getRotation();
 
-    new_position.x = moving(new_position.x, 30, cos(new_rotation * 3.1415926 / 180));
-    new_position.y = moving(new_position.y, 30, sin(new_rotation * 3.1415926 / 180));
+    new_position.x = moving(new_position.x, new_component.getSpeed(), cos(new_rotation * 3.1415926 / 180));
+    new_position.y = moving(new_position.y, new_component.getSpeed(), sin(new_rotation * 3.1415926 / 180));
 
     CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
     CollisionComponent new_collision = *my_collision;
