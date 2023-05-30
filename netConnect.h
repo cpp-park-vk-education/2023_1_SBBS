@@ -13,12 +13,12 @@
 #define MAX_LENGTH boost::lockfree::capacity<100>
 
 struct package {
-	int id_;
-	int eventType_;
-	int info1_;
-	int info2_;
-	int info3_;
-	int info4_;
+	int id_ = 0;
+	int eventType_ = 0;
+	int info1_ = 0;
+	int info2_ = 0;
+	int info3_ = 0;
+	int info4_ = 0;
 	int checker_ = CHECKER;
 	int breaker_ = BREAKER;
 
@@ -27,6 +27,8 @@ struct package {
 		info3_(info3), info4_(info4) {}
 
 	package() {};
+
+	explicit operator bool() const { return eventType_ != 0; }
 };
 
 class NetConnector {
@@ -70,5 +72,5 @@ void netWork(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 void startServer(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput);
 
-void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
+void startClient(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput);
