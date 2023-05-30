@@ -9,8 +9,10 @@ void NetTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
     Position new_position = new_component.getPosition();
     package from_net_position = NetConnector::getInstance().get();
 
-    while (from_net_position.eventType_ != TANK_POSITION_MARK) {
-        from_net_position = NetConnector::getInstance().get();
+    while (from_net_position) {
+        while (from_net_position.eventType_ != TANK_POSITION_MARK) {
+            from_net_position = NetConnector::getInstance().get();
+        }
     }
 
 
@@ -37,8 +39,10 @@ void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
     Position new_position = new_component.getPosition();
     package from_net_position = NetConnector::getInstance().get();
 
-    while (from_net_position.eventType_ != TURRET_POSITION_MARK) {
-        from_net_position = NetConnector::getInstance().get();
+    while (from_net_position) {
+        while (from_net_position.eventType_ != TURRET_POSITION_MARK) {
+            from_net_position = NetConnector::getInstance().get();
+        }
     }
 
     new_position.x = from_net_position.info1_;
@@ -61,8 +65,10 @@ void NetBulletPositionComponent::update(sf::RenderWindow& window, std::vector<En
     Position new_position = new_component.getPosition();
     package from_net_position = NetConnector::getInstance().get();
 
-    while (from_net_position.eventType_ != BULLET_POSITION_MARK) {
-        from_net_position = NetConnector::getInstance().get();
+    while (from_net_position) {
+        while (from_net_position.eventType_ != BULLET_POSITION_MARK) {
+            from_net_position = NetConnector::getInstance().get();
+        }
     }
 
     new_position.x = from_net_position.info1_;

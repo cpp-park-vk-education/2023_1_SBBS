@@ -23,6 +23,7 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 		default:
 			break;
 		}
+		net_data = NetConnector::getInstance().get();
 	}
 
 
