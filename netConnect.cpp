@@ -31,7 +31,7 @@ void NetConnector::openConnection(boost::lockfree::queue<package, MAX_LENGTH>* L
     int x = 0;
 }
 
-void  NetConnector::send(package& to_send) {
+void  NetConnector::send(const package& to_send) {
     //std::cout << "Writing into queue..." << std::endl;
 
         //std::cout << to_send[i] << " ";

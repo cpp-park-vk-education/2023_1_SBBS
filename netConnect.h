@@ -40,7 +40,7 @@ public:
 	void openConnection(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 		boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput);
 
-	void send(package& to_send);
+	void send(const package& to_send);
 
 	package get();
 

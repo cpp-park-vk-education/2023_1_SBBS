@@ -92,15 +92,9 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
         original_component->setRotation(new_rotation);
         *my_collision = new_collision;
 
-        std::vector<int> to_send;
-        to_send.push_back(myEntityId);
-        to_send.push_back(TANK_POSITION_MARK);
-        to_send.push_back(new_position.x);
-        to_send.push_back(new_position.y);
-        to_send.push_back(new_position.rotation);
-        to_send.push_back(CHECKER);
-        to_send.push_back(BREAKER);
-        NetConnector::getInstance().send(to_send);
+        NetConnector::getInstance().send(package(
+        myEntityId, TANK_POSITION_MARK, new_position.x,
+            new_position.y, new_position.rotation));
         /////// я так понимаю тут мы ставим позицию танка 
     }
 }
@@ -137,16 +131,10 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
     original_component->setRotation(new_rotation);
 
     // отправка позиции башни по сети
-    std::vector<int> to_send;
-    to_send.push_back(myEntityId);
-    to_send.push_back(TURRET_POSITION_MARK);
-    to_send.push_back(new_position.x);
-    to_send.push_back(new_position.y);
-    to_send.push_back(alpha);
-    to_send.push_back(CHECKER);
-    //to_send.push_back(new_position.rotation);
-    to_send.push_back(BREAKER);
-    NetConnector::getInstance().send(to_send);
+
+    NetConnector::getInstance().send(package(
+        myEntityId, TURRET_POSITION_MARK, new_position.x,
+        new_position.y, alpha));
     ///////////
 
     if (inputs.mouse_click_ == true) {
@@ -164,15 +152,11 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 
             scene.push_back(bs.Spawn(new_position, shoot_component->getBulletType()));
 
-            std::vector<int> to_send;
-            to_send.push_back(BULLET_SPAWN_EVENT);
-            to_send.push_back(new_position.x);
-            to_send.push_back(new_position.y);
-            to_send.push_back(new_position.rotation);
-            to_send.push_back(CHECKER);
-            to_send.push_back(BREAKER);
-            //to_send.push_back(type)  ////////////// сделать
-            NetConnector::getInstance().send(to_send);
+            NetConnector::getInstance().send(package(
+                myEntityId, BULLET_SPAWN_EVENT, new_position.x,
+                new_position.y, new_position.rotation));
+
+            //(type)  ////////////// сделать
             last_time = std::chrono::high_resolution_clock::now();
         }
     }
@@ -209,15 +193,9 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             *my_collision = new_collision;
 
             /////////// передача позиции пули по сети 
-            std::vector<int> to_send;
-            to_send.push_back(myEntityId);
-            to_send.push_back(BULLET_POSITION_MARK);
-            to_send.push_back(new_position.x);
-            to_send.push_back(new_position.y);
-            to_send.push_back(new_position.rotation);
-            to_send.push_back(CHECKER);
-            to_send.push_back(BREAKER);
-            NetConnector::getInstance().send(to_send);
+            NetConnector::getInstance().send(package(
+                myEntityId, BULLET_POSITION_MARK, new_position.x,
+                new_position.y, new_position.rotation));
         }
         else {
             HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[j]->getComponentByID(ComponentID::HealthComponent));
