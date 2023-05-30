@@ -20,11 +20,12 @@ ClientPlayingGameState::ClientPlayingGameState(const std::string& map_name) {
 	generateMap(map_name);
 
 	addSystem(SystemId::MusicSystemId);
-	addSystem(SystemId::SoundSystemId);
+	//addSystem(SystemId::SoundSystemId);
 	addSystem(SystemId::GraphicsSystemId);
 	addSystem(SystemId::PhysicsSystemId);
 	addSystem(SystemId::MenuSystemId);
 	addSystem(SystemId::PauseSystemId);
+	addSystem(SystemId::SpawnerSystemId);
 
 	setMyTank();
 };

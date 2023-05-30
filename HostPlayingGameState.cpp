@@ -17,6 +17,9 @@ HostPlayingGameState::HostPlayingGameState(const std::string& map_name) {
 	addSystem(SystemId::MusicSystemId);
 	addSystem(SystemId::GraphicsSystemId);
 	addSystem(SystemId::PhysicsSystemId);
+	addSystem(SystemId::MenuSystemId);
+	addSystem(SystemId::PauseSystemId);
+	addSystem(SystemId::SpawnerSystemId);
 
 	setMyTank();
 }
