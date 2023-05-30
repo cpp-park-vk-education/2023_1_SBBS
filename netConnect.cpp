@@ -175,6 +175,8 @@ class Client {
 private:
     tcp::socket sock;
 
+    con_handler::pointer connection;
+
     std::string message = "1 2 3 4";
 
     enum { max_length = 1024 };
@@ -191,12 +193,14 @@ public:
     Client(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
         boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
         sock(io_service), ClientQueueInput(LockFreeQueueInput), ClientQueueOutput(LockFreeQueueOutput) {
+        connection = con_handler::create(io_service, ClientQueueInput, ClientQueueOutput);
         connect();
     }
 
     void connect() {
-        sock.connect(tcp::endpoint(boost::asio::ip::address::from_string("25.49.68.205"), 6001));
-        start();
+        connection->socket().connect(tcp::endpoint(boost::asio::ip::address::from_string("192.168.43.50"), 6001));
+        connection->start();
+        //start();
     }
 
     void start() {
@@ -295,7 +299,7 @@ void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
             //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
             boost::asio::io_service io_service;
             Client client(io_service, LockFreeQueueInput, LockFreeQueueOutput);
-            int a;
+            io_service.run();
             //while (LockFreeQueueInput->pop(a)) {
             //    //cout << a << endl;
             //}
