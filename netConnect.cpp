@@ -100,11 +100,14 @@ public:
 
     void handle_read(const boost::system::error_code& err, size_t bytes_transferred) {
         if (!err) {
-            std::stringstream s(data);
-            string num;
-            while (s >> num) {
-                ServerQueueInput->push(std::stoi(num));
-                //cout << std::stoi(num) << endl;
+            std::stringstream buf(data);
+            string line;
+            while (std::getline(buf, line)) {
+                std::stringstream stringPackage(line);
+                string sId, sEventType, sInfo1, sInfo2, sInfo3, sInfo4;
+                stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4;
+                package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
+                ServerQueueInput->push(new_package);
             }
         }
         else {
@@ -125,13 +128,20 @@ public:
     }
 
     string translate_to_string() {
-        int a;
+        package a;
         message = "";
         while (ServerQueueOutput->pop(a)) { //////////// for test ServerQueueInput
             //cout << a << endl;
-            message += std::to_string(a) + " ";
+            message += std::to_string(a.id_) + " ";
+            message += std::to_string(a.eventType_) + " ";
+            message += std::to_string(a.info1_) + " ";
+            message += std::to_string(a.info2_) + " ";
+            message += std::to_string(a.info3_) + " ";
+            message += std::to_string(a.info4_) + " ";
+            message += std::to_string(a.checker_) + " ";
+            message += std::to_string(a.breaker_) + " ";
         }
-        message += "\r\n";
+        message += "\n";
         return message;
     }
 };
@@ -198,7 +208,7 @@ public:
         connection->start();
         //start();
     }
-
+    /*
     void start() {
         boost::system::error_code error;
         boost::asio::write(sock, boost::asio::buffer(translate_to_string()), error);
@@ -240,7 +250,7 @@ public:
         }
         mess += "\r\n";
         return mess;
-    }
+    }*/
     /*string return_string_array() {
         std::string a = "1 2 3 4 5 10000";
         return a;
