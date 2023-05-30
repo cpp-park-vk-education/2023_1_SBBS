@@ -12,9 +12,15 @@ int MenuSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
 		if (current_button) {
 			if (current_button->isChosen(window)) {
 				chosen_button_id = current_button->getButtonId();
+				sf::Cursor curs;
+				curs.loadFromSystem(sf::Cursor::Hand);
+				window.setMouseCursor(curs);
 				return chosen_button_id;
 			}
 		}
 	}
+	sf::Cursor curs;
+	curs.loadFromSystem(sf::Cursor::Arrow);
+	window.setMouseCursor(curs);
 	return chosen_button_id;
 }

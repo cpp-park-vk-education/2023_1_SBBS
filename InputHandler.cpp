@@ -31,6 +31,8 @@ void Input::handleInput(sf::Window& window) {
             else if (event.key.code == sf::Keyboard::P)
                 curr_input.esc_pressed_ = false;
             break;
+        case sf::Event::Closed:
+            window.close();
         default:
             break;
         }

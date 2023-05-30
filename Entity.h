@@ -4,8 +4,6 @@
 #include <unordered_map>
 #include "Types.h"
 
-class Component;
-
 class Entity {
 public:
 
@@ -14,6 +12,8 @@ public:
     Entity(ObjectType type) : type_(type) {};
 
     Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};
+
+    ~Entity() { for (const auto& element : components_) delete element.second; };
 
     Component* getComponentByID(const ComponentID& id) { return components_[id]; }
 
@@ -38,4 +38,3 @@ private:
     int entity_id_ = 0;
 
 };
-

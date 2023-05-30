@@ -16,14 +16,14 @@ using std::cout;
 using std::endl;
 using std::string;
 
-NetConnector::NetConnector(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-		boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput)
+NetConnector::NetConnector(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+		boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput)
 		: lockFreeQueueInput_(LockFreeQueueInput),
 		lockFreeQueueOutput_(LockFreeQueueOutput) {}
 
 
-void NetConnector::openConnection(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+void NetConnector::openConnection(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+    boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
 
     //std::cout << "Connection opened... "<<std::endl;
     lockFreeQueueInput_ = LockFreeQueueInput;
@@ -31,25 +31,21 @@ void NetConnector::openConnection(boost::lockfree::queue<int, MAX_LENGTH>* LockF
     int x = 0;
 }
 
-void  NetConnector::send(std::vector<int>& to_send) {
+void  NetConnector::send(package& to_send) {
     //std::cout << "Writing into queue..." << std::endl;
-    for (int i = 0; i < to_send.size(); ++i) {
-        //std::cout << to_send[i] << " ";
-        lockFreeQueueOutput_->push(to_send[i]);
-    }
-    //std::cout << "Done writing" << std::endl;
-}
 
-std::vector<int> NetConnector::get() {
-    std::vector<int> recieved;
-    int curr_data = 0;
+        //std::cout << to_send[i] << " ";
+    lockFreeQueueOutput_->push(to_send);
+
+    //std::cout << "Done writing" << std::endl;
+};
+
+package NetConnector::get() {
+    package recieved;
     //std::cout << "Got from queue..." << std::endl;
-    while (lockFreeQueueInput_->pop(curr_data)) {
-        recieved.push_back(curr_data);
-        if (curr_data == BREAKER) {
-            break;
-        }
-        //std::cout << curr_data << "\n";
+    while (lockFreeQueueInput_->pop(recieved)) {
+       
+
     }
     //std::cout << "Done recieving. " << std::endl;
     return recieved;
@@ -66,19 +62,19 @@ private:
 
     char data[max_length];
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueInput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ServerQueueInput;
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueOutput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ServerQueueOutput;
 
     bool state = false;
 
 public:
     typedef boost::shared_ptr<con_handler> pointer;
 
-    con_handler(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
+    con_handler(boost::asio::io_service& io_service, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) :
         sock(io_service), ServerQueueInput(LockFreeQueueInput), ServerQueueOutput(LockFreeQueueOutput) {}
 
-    static pointer create(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+    static pointer create(boost::asio::io_service& io_service, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
         return pointer(new con_handler(io_service, LockFreeQueueInput, LockFreeQueueOutput));
     }
 
@@ -144,9 +140,9 @@ class Server {
 private:
     tcp::acceptor acceptor_;
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueInput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ServerQueueInput;
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ServerQueueOutput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ServerQueueOutput;
 
     void start_accept() {
         con_handler::pointer connection = con_handler::create(GET_IO_SERVICE(acceptor_), ServerQueueInput, ServerQueueOutput);
@@ -157,7 +153,7 @@ private:
     }
 
 public:
-    Server(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
+    Server(boost::asio::io_service& io_service, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) :
         acceptor_(io_service, tcp::endpoint(tcp::v4(), 6001)), ServerQueueInput(LockFreeQueueInput), ServerQueueOutput(LockFreeQueueOutput) {
         start_accept();
     }
@@ -185,20 +181,20 @@ private:
 
     std::string line;
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ClientQueueInput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ClientQueueInput;
 
-    boost::lockfree::queue<int, MAX_LENGTH>* ClientQueueOutput;
+    boost::lockfree::queue<package, MAX_LENGTH>* ClientQueueOutput;
 
 public:
-    Client(boost::asio::io_service& io_service, boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-        boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) :
+    Client(boost::asio::io_service& io_service, boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+        boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) :
         sock(io_service), ClientQueueInput(LockFreeQueueInput), ClientQueueOutput(LockFreeQueueOutput) {
         connection = con_handler::create(io_service, ClientQueueInput, ClientQueueOutput);
         connect();
     }
 
     void connect() {
-        connection->socket().connect(tcp::endpoint(boost::asio::ip::address::from_string("192.168.43.50"), 6001));
+        connection->socket().connect(tcp::endpoint(boost::asio::ip::address::from_string("192.168.43.33"), 6001));
         connection->start();
         //start();
     }
@@ -253,8 +249,8 @@ public:
 };
 
 //Функции для перехода в нужное состояние игры
-void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+void netWork(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+    boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
     while (true) {
         while (!Game::getInstance().getStateDecision()) {
             std::chrono::duration<double> sleep_duration(0.1);
@@ -275,8 +271,8 @@ void netWork(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     }
 }
 
-void startServer(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+void startServer(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+    boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
     while (Game::getInstance().getStateDecision()) {
         try
         {
@@ -291,8 +287,8 @@ void startServer(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
     std::cout << "Server closed" << std::endl;
 }
 
-void startClient(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-    boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+void startClient(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+    boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
 
     while (Game::getInstance().getStateDecision()) {
         try {

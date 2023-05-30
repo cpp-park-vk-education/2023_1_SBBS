@@ -15,6 +15,7 @@ int MusicSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene){
 			if (!curr_music) {
 				curr_music = current_music_comp->getMusic();
 				curr_music->play();
+				curr_music->setVolume(20.f);
 			}
 			else if (curr_music->getStatus() != sf::SoundSource::Playing) {
 				curr_music = current_music_comp->getMusic();

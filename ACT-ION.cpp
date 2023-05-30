@@ -9,14 +9,14 @@
 #include "GameStateManager.h"
 
 
-int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput);
+int gameLoop(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput);
 
 
 int main() {
 
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput = new boost::lockfree::queue<int, MAX_LENGTH>;
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput = new boost::lockfree::queue<int, MAX_LENGTH>;
+	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput = new boost::lockfree::queue<package, MAX_LENGTH>;
+	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput = new boost::lockfree::queue<package, MAX_LENGTH>;
 	boost::thread_group producer_threads;
 
 	NetConnector::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
@@ -32,18 +32,18 @@ int main() {
 
 }
 
-int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
-	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput) {
+int gameLoop(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
+	boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput) {
 
-	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
+	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION", sf::Style::Close);
 	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
 
 	const double tick_time = 1.0 / 60;
 	
 	StateManager manager;
 	manager.changeState(GameStateId::MainMenu);
-
-	while (1) {
+	
+	while (window.isOpen()) {
 		
 		manager.run(window);
 		GameStateId curr_id = manager.getStateId();
@@ -67,4 +67,5 @@ int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
 		}
 		last_time = std::chrono::high_resolution_clock::now();
 	}
+	return 0;
 }

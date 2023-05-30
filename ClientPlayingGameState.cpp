@@ -65,5 +65,3 @@ GameStateId ClientPlayingGameState::update(sf::RenderWindow& window) {
 
 	return id_;
 }
-
-
