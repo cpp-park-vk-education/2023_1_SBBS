@@ -167,7 +167,7 @@ public:
 
     string translate_to_string() {
         package a;
-        message = "";
+        message = "\n ";
         while (ServerQueueOutput->pop(a)) { //////////// for test ServerQueueInput
             //cout << a << endl;
             message += std::to_string(a.id_) + " ";
@@ -176,7 +176,7 @@ public:
             message += std::to_string(a.info2_) + " ";
             message += std::to_string(a.info3_) + " ";
             message += std::to_string(a.info4_) + " ";
-            message += "\n";
+            message += "\n ";
         }
         return message;
     }

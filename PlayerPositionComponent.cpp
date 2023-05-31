@@ -14,7 +14,7 @@
 #include "InputHandler.h"
 #include "PositionComponent.h"
 #include "GameSingleton.h"
-#include <chrono>
+
 
 void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
     int myEntityId = Game::getInstance().getMyEntityId();
@@ -93,18 +93,13 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
         original_component->setRotation(new_rotation);
         *my_collision = new_collision;
 
-        static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
 
-        std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
-        double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
-        if (elapsed_time > 0.2) {
-            NetConnector::getInstance().send(package(
-                myEntityId, TANK_POSITION_MARK, new_position.x,
-                new_position.y, new_position.rotation));
+        NetConnector::getInstance().send(package(
+            myEntityId, TANK_POSITION_MARK, new_position.x,
+            new_position.y, new_position.rotation));
 
-            last_time = std::chrono::high_resolution_clock::now();
-            /////// я так понимаю тут мы ставим позицию танка 
-        }
+        /////// я так понимаю тут мы ставим позицию танка 
+
     }
 }
 
@@ -145,21 +140,12 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
     ///////////
 
 
-    static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
 
-    std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
-    double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
-    if (elapsed_time > 0.2) {
-        NetConnector::getInstance().send(package(
-            myEntityId, TURRET_POSITION_MARK, new_position.x,
-            new_position.y, alpha));
+    NetConnector::getInstance().send(package(
+        myEntityId, TURRET_POSITION_MARK, new_position.x,
+        new_position.y, alpha));
 
-        last_time = std::chrono::high_resolution_clock::now();
         /////// я так понимаю тут мы ставим позицию танка 
-    }
-
-
-
 
     if (inputs.mouse_click_ == true) {
         static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
