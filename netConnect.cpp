@@ -60,15 +60,21 @@ void NetConnector::get() {
 
 package NetConnector::getPosition() {
     get();
-    package position = positions_.front();
-    positions_.pop();
+    package position;
+    if (!positions_.empty()) {
+        position = positions_.front();
+        positions_.pop();
+    }
     return position;
 }
 
 package NetConnector::getEvent() {
     get();
-    package event_ = events_.front();
-    events_.pop();
+    package event_;
+    if (!events_.empty()) {
+        event_ = events_.front();
+        events_.pop();
+    }
     return event_;
 }
 
