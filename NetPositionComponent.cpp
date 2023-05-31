@@ -30,6 +30,9 @@ void NetTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
                 setPosition(new_position);
                 break;
             }
+            else {
+                from_net_position = NetConnector::getInstance().get();
+            }
         }
     }
 }
@@ -65,6 +68,9 @@ void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
                 original_component->setPosition(new_position);
                 break;
             }
+            else {
+                from_net_position = NetConnector::getInstance().get();
+            }
         }
     }
 }
@@ -95,6 +101,9 @@ void NetBulletPositionComponent::update(sf::RenderWindow& window, std::vector<En
                     *my_collision = new_collision;
                 }
                 original_component->setPosition(new_position);
+            }
+            else {
+                from_net_position = NetConnector::getInstance().get();
             }
         }
     }
