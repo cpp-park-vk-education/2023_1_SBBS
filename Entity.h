@@ -13,7 +13,7 @@ public:
 
     Entity(ObjectType type, int id) : type_(type), entity_id_(id) {};
 
-    ~Entity() { for (const auto& element : components_) delete element.second; };
+    ~Entity() { for (const auto& component : components_) delete component.second; };
 
     Component* getComponentByID(const ComponentID& id) { return components_[id]; }
 

@@ -64,6 +64,9 @@ private:
 	boost::lockfree::queue<package, MAX_LENGTH>* lockFreeQueueInput_;
 	boost::lockfree::queue<package, MAX_LENGTH>* lockFreeQueueOutput_;
 
+	std::vector<package> events;
+	std::vector<package> positions;
+
 };
 
 void netWork(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
