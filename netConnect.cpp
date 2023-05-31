@@ -105,9 +105,10 @@ public:
             while (std::getline(buf, line)) {
                 std::stringstream stringPackage(line);
                 string sId, sEventType, sInfo1, sInfo2, sInfo3, sInfo4;
-                stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4;
-                package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
-                ServerQueueInput->push(new_package);
+                if (stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4) {
+                    package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
+                    ServerQueueInput->push(new_package);
+                }
             }
         }
         else {
@@ -204,7 +205,7 @@ public:
     }
 
     void connect() {
-        connection->socket().connect(tcp::endpoint(boost::asio::ip::address::from_string("192.168.43.33"), 6001));
+        connection->socket().connect(tcp::endpoint(boost::asio::ip::address::from_string("25.49.163.248"), 6001));
         connection->start();
         //start();
     }
