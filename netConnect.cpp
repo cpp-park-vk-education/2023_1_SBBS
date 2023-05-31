@@ -52,7 +52,9 @@ void NetConnector::get() {
         }
         else if (recieved.eventType_ == TANK_HIT_EVENT || 
                  recieved.eventType_ == BULLET_SPAWN_EVENT ) {
-            events_.push(recieved);
+            package bruh_recieved(recieved);
+            events_.push(bruh_recieved);
+            std::cout << "shot\n";
         }
     }
     //std::cout << "Done recieving. " << std::endl;
@@ -62,6 +64,7 @@ package NetConnector::getPosition() {
     get();
     package position;
     if (!positions_.empty()) {
+        int x = 0;
         position = positions_.front();
         positions_.pop();
     }
@@ -72,6 +75,7 @@ package NetConnector::getEvent() {
     get();
     package event_;
     if (!events_.empty()) {
+        int x = 0;
         event_ = events_.front();
         events_.pop();
     }
@@ -135,6 +139,9 @@ public:
                 if (stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4) {
                     package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
                     ServerQueueInput->push(new_package);
+                    if (stoi(sEventType) == TURRET_POSITION_MARK) {
+                        std::cout << " i have a tank \n";
+                    }
                 }
             }
         }
@@ -169,8 +176,6 @@ public:
             message += std::to_string(a.info2_) + " ";
             message += std::to_string(a.info3_) + " ";
             message += std::to_string(a.info4_) + " ";
-            message += std::to_string(a.checker_) + " ";
-            message += std::to_string(a.breaker_) + " ";
         }
         message += "\n";
         return message;

@@ -6,12 +6,14 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include <chrono>
 #include <boost/lockfree/queue.hpp>
 #include <boost/thread/thread.hpp>
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 
-#define MAX_LENGTH boost::lockfree::capacity<100>
+#define MAX_LENGTH boost::lockfree::capacity<10000>
+
 
 struct package {
 	int id_ = 0;
@@ -28,6 +30,10 @@ struct package {
 		info3_(info3), info4_(info4) {}
 
 	package() {};
+
+	package(const package& other) : id_(other.id_), eventType_(other.eventType_), info1_(other.info1_), info2_(other.info2_),
+		info3_(other.info3_), info4_(other.info4_) {
+	};
 
 	explicit operator bool() const { return eventType_ != 0; }
 };

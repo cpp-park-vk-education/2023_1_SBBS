@@ -97,6 +97,7 @@ void PlayingState::generateMap(const std::string& map_name) {
 
 	
 	tank_amount = Game::getInstance().getNumberOfPlayers();
+	tank_amount = 2;
 	/// tank spawn 
 	for (int i = 1; i <= tank_amount; ++i)
 	{

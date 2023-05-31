@@ -41,8 +41,7 @@ void NetTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
 
 void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
     ObjectType currEntityType = scene[i]->getType();
-    PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
-    PositionComponent new_component = *original_component;
+    PositionComponent new_component = *this;
     Position new_position = new_component.getPosition();
     package from_net_position = NetConnector::getInstance().getPosition();
 
@@ -58,14 +57,9 @@ void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
                 new_position.x = from_net_position.info1_;
                 new_position.y = from_net_position.info2_;
                 new_position.rotation = from_net_position.info3_;
-
-                CollisionComponent* my_collision = dynamic_cast<CollisionComponent*>(scene[i]->getComponentByID(ComponentID::CollisionComponent));
-                if (my_collision) {
-                    CollisionComponent new_collision = *my_collision;
-                    new_collision.update(new_position, new_position.rotation);
-                    *my_collision = new_collision;
-                }
-                original_component->setPosition(new_position);
+                //std::cout << from_net_position.info3_;
+                setRotation(new_position.rotation);
+                setPosition(new_position);
                 break;
             }
             else {
