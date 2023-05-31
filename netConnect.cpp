@@ -176,8 +176,8 @@ public:
             message += std::to_string(a.info2_) + " ";
             message += std::to_string(a.info3_) + " ";
             message += std::to_string(a.info4_) + " ";
+            message += "\n";
         }
-        message += "\n";
         return message;
     }
 };
