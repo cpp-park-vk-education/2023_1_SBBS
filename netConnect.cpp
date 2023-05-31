@@ -118,14 +118,17 @@ public:
     }
 
     void handle_write(const boost::system::error_code& err, size_t bytes_transferred) {
-        if (!err) {
-            cout << "Server sent Hello message!" << endl;
-        }
-        else {
+        if (err) {
             cout << "Error" << endl;
             std::cerr << "error: " << err.message() << endl;
             sock.close();
         }
+        /*
+        else {
+            cout << "Error" << endl;
+            std::cerr << "error: " << err.message() << endl;
+            sock.close();
+        }*/
     }
 
     string translate_to_string() {
