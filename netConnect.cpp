@@ -63,8 +63,21 @@ void NetConnector::get() {
 package NetConnector::getPosition() {
     get();
     package position;
+
+
+    static std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
+    double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
+
+    if (elapsed_time > 0.1) {
+        std::queue<package> clean_queue;
+        positions_.swap(clean_queue);
+        last_time = std::chrono::high_resolution_clock::now();
+    }
+
+
     if (!positions_.empty()) {
-        int x = 0;
+
         position = positions_.front();
         positions_.pop();
     }
@@ -74,8 +87,8 @@ package NetConnector::getPosition() {
 package NetConnector::getEvent() {
     get();
     package event_;
+    
     if (!events_.empty()) {
-        int x = 0;
         event_ = events_.front();
         events_.pop();
     }
@@ -139,9 +152,6 @@ public:
                 if (stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4) {
                     package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
                     ServerQueueInput->push(new_package);
-                    if (stoi(sEventType) == TURRET_POSITION_MARK) {
-                        std::cout << " i have a tank \n";
-                    }
                 }
             }
         }
