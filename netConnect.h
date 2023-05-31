@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include <queue>
 #include <boost/lockfree/queue.hpp>
 #include <boost/thread/thread.hpp>
 #include <SFML/Graphics.hpp>
@@ -44,9 +45,12 @@ public:
 
 	void send(const package& to_send);
 
-	package get();
+	package getPosition();
+
+	package getEvent();
 
 private:
+	void get();
 
 	NetConnector() {};
 
@@ -59,13 +63,12 @@ private:
 	NetConnector(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 		boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueOutput);
 
-	int next_state_option;
 
 	boost::lockfree::queue<package, MAX_LENGTH>* lockFreeQueueInput_;
 	boost::lockfree::queue<package, MAX_LENGTH>* lockFreeQueueOutput_;
 
-	std::vector<package> events;
-	std::vector<package> positions;
+	std::queue<package> events_;
+	std::queue<package> positions_;
 
 };
 

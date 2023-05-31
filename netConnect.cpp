@@ -40,15 +40,36 @@ void  NetConnector::send(const package& to_send) {
     //std::cout << "Done writing" << std::endl;
 };
 
-package NetConnector::get() {
+void NetConnector::get() {
     package recieved;
     //std::cout << "Got from queue..." << std::endl;
     while (lockFreeQueueInput_->pop(recieved)) {
-       
 
+        if (recieved.eventType_ == TANK_POSITION_MARK ||
+            recieved.eventType_ == TURRET_POSITION_MARK ||
+            recieved.eventType_ == BULLET_POSITION_MARK) {
+            positions_.push(recieved);
+        }
+        else if (recieved.eventType_ == TANK_HIT_EVENT || 
+                 recieved.eventType_ == BULLET_SPAWN_EVENT ) {
+            events_.push(recieved);
+        }
     }
     //std::cout << "Done recieving. " << std::endl;
-    return recieved;
+}
+
+package NetConnector::getPosition() {
+    get();
+    package position = positions_.front();
+    positions_.pop();
+    return position;
+}
+
+package NetConnector::getEvent() {
+    get();
+    package event_ = events_.front();
+    events_.pop();
+    return event_;
 }
 
 // Серверная часть реализации сети

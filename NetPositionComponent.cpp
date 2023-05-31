@@ -7,13 +7,13 @@ void NetTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
 
     PositionComponent new_component = *this; // по идее создается копия 
     Position new_position = new_component.getPosition();
-    package from_net_position = NetConnector::getInstance().get();
+    package from_net_position = NetConnector::getInstance().getPosition();
 
     int current_entity_id = scene[i]->getEntityID();
 
     while (from_net_position) {
         if (from_net_position.eventType_ != TANK_POSITION_MARK) {
-            from_net_position = NetConnector::getInstance().get();
+            from_net_position = NetConnector::getInstance().getPosition();
         }
         else {
             if (current_entity_id == from_net_position.id_) {
@@ -31,7 +31,7 @@ void NetTankPositionComponent::update(sf::RenderWindow& window, std::vector<Enti
                 break;
             }
             else {
-                from_net_position = NetConnector::getInstance().get();
+                from_net_position = NetConnector::getInstance().getPosition();
             }
         }
     }
@@ -44,13 +44,13 @@ void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     PositionComponent new_component = *original_component;
     Position new_position = new_component.getPosition();
-    package from_net_position = NetConnector::getInstance().get();
+    package from_net_position = NetConnector::getInstance().getPosition();
 
     int current_entity_id = scene[i]->getEntityID();
 
     while (from_net_position) {
         if (from_net_position.eventType_ != TURRET_POSITION_MARK) {
-            from_net_position = NetConnector::getInstance().get();
+            from_net_position = NetConnector::getInstance().getPosition();
         }
         else {
             if (current_entity_id == from_net_position.id_) {
@@ -69,7 +69,7 @@ void NetTurretPositionComponent::update(sf::RenderWindow& window, std::vector<En
                 break;
             }
             else {
-                from_net_position = NetConnector::getInstance().get();
+                from_net_position = NetConnector::getInstance().getPosition();
             }
         }
     }
@@ -80,12 +80,12 @@ void NetBulletPositionComponent::update(sf::RenderWindow& window, std::vector<En
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     PositionComponent new_component = *original_component;
     Position new_position = new_component.getPosition();
-    package from_net_position = NetConnector::getInstance().get();
+    package from_net_position = NetConnector::getInstance().getPosition();
     int current_entity_id = scene[i]->getEntityID();
 
     while (from_net_position) {
         if (from_net_position.eventType_ != BULLET_POSITION_MARK) {
-            from_net_position = NetConnector::getInstance().get();
+            from_net_position = NetConnector::getInstance().getPosition();
         }
         else {
             if (current_entity_id == from_net_position.id_) {
@@ -103,7 +103,7 @@ void NetBulletPositionComponent::update(sf::RenderWindow& window, std::vector<En
                 original_component->setPosition(new_position);
             }
             else {
-                from_net_position = NetConnector::getInstance().get();
+                from_net_position = NetConnector::getInstance().getPosition();
             }
         }
     }
