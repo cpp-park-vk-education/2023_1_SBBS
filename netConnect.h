@@ -53,6 +53,8 @@ public:
 
 	package getPosition();
 
+	void pushPosition(const package& to_return);
+
 	package getEvent();
 
 private:

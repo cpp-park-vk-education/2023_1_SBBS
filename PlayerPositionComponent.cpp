@@ -15,6 +15,9 @@
 #include "PositionComponent.h"
 #include "GameSingleton.h"
 
+const int BULLET_OFFSET_1 = 10'000;
+int BULLET_OFFSET_2 = 100;
+
 
 void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
     int myEntityId = Game::getInstance().getMyEntityId();
@@ -105,6 +108,8 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
 
 void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
     int myEntityId = Game::getInstance().getMyEntityId();
+    int bulletsEntityId = myEntityId * BULLET_OFFSET_1 + BULLET_OFFSET_2;
+
     Input inputs;
     inputs.handleInput(window);
     BulletSpawner bs;
@@ -159,11 +164,14 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             new_position.y += 50 * sin(new_rotation * 3.1415926 / 180);
             new_position.rotation = alpha;
 
-            scene.push_back(bs.Spawn(new_position, shoot_component->getBulletType()));
+            Entity* bullet = bs.Spawn(new_position, shoot_component->getBulletType());
+            bullet->setEntityID(bulletsEntityId);
+            scene.push_back(bullet);
 
             NetConnector::getInstance().send(package(
-                myEntityId, BULLET_SPAWN_EVENT, new_position.x,
+                bulletsEntityId, BULLET_SPAWN_EVENT, new_position.x,
                 new_position.y, new_position.rotation, shoot_component->getBulletType()));
+            ++BULLET_OFFSET_2;
 
             last_time = std::chrono::high_resolution_clock::now();
         }

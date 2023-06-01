@@ -9,6 +9,7 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
 	BulletSpawner bs;
 	bs.setOwnerType(OwnerType::Network);
+	Entity* bullet;
 
 	while (net_data) {
 		int event_type = net_data.eventType_;
@@ -17,7 +18,9 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
 			break;
 		case BULLET_SPAWN_EVENT:
-			scene.push_back(bs.Spawn(Position(net_data.info1_, net_data.info2_, net_data.info3_), net_data.info4_));
+			bullet = bs.Spawn(Position(net_data.info1_, net_data.info2_, net_data.info3_), net_data.info4_);
+			bullet->setEntityID(net_data.id_);
+			scene.push_back(bullet);
 			break;
 
 		default:
