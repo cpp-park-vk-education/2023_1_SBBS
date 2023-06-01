@@ -179,7 +179,7 @@ void TurretPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 }
 
 void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
-    int myEntityId = Game::getInstance().getMyEntityId();
+    int bulletEntityId = scene[i]->getEntityID();
 
     PositionComponent* original_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
     int currEntityId = scene[i]->getEntityID();
@@ -210,7 +210,7 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 
             /////////// передача позиции пули по сети 
             NetConnector::getInstance().send(package(
-                myEntityId, BULLET_POSITION_MARK, new_position.x,
+                bulletEntityId, BULLET_POSITION_MARK, new_position.x,
                 new_position.y, new_position.rotation));
         }
         else {
