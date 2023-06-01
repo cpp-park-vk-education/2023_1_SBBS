@@ -227,6 +227,8 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
                 bulletEntityId, HIT_EVENT, hitObjectEntityId,
                 new_health));
 
+            std::cout << "Sent hit event \n";
+
             objectHealth->setHealth(new_health);
 
             if (scene[j]->getType() == ObjectType::Tank && objectHealth->getHealth() <= 0) {/// удаление башни

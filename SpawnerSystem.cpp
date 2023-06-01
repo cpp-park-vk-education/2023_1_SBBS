@@ -18,6 +18,7 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 		int event_type = net_data.eventType_;
 		switch (event_type) {
 		case HIT_EVENT:
+			std::cout << "Need to kill\n";
 			hitObjectOnScene(scene, net_data.id_, net_data.info1_, net_data.info2_);
 			break;
 		case BULLET_SPAWN_EVENT:
@@ -36,11 +37,14 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 }
 
 void hitObjectOnScene(std::vector<Entity*>& scene, int bulletId, int idToHit, int newHealth) {
+
 	for (int i = Game::getInstance().getFirstCollidable(); i < scene.size(); ++i) {
 		int currEntityId = scene[i]->getEntityID();
 		if (currEntityId == idToHit) {
 			HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[i]->getComponentByID(ComponentID::HealthComponent));
 			objectHealth->setHealth(newHealth);
+
+			std::cout << "Found Object\n";
 
 			if (scene[i]->getType() == ObjectType::Tank && objectHealth->getHealth() <= 0) {/// удаление башни
 
@@ -58,6 +62,9 @@ void hitObjectOnScene(std::vector<Entity*>& scene, int bulletId, int idToHit, in
 			}// если у объекта есть "жизнь после смерти", то это обработалось в HealthComponent         
 		}
 		else if (currEntityId == bulletId) {
+
+			std::cout << "Found Bullet\n";
+
 			Entity* to_delete = scene[i];
 			scene[i] = nullptr;
 			delete to_delete;
