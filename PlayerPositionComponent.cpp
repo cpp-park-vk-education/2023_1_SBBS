@@ -197,6 +197,11 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 
     new_collision.update(new_position, new_rotation);
 
+    /////////// передача позиции пули по сети 
+    NetConnector::getInstance().send(package(
+        bulletEntityId, BULLET_POSITION_MARK, new_position.x,
+        new_position.y, new_position.rotation));
+
     for (int j = Game::getInstance().getFirstCollidable(); j < scene.size(); j++) {
         if (j == i) continue;
 
@@ -208,10 +213,7 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             original_component->setRotation(new_rotation);
             *my_collision = new_collision;
 
-            /////////// передача позиции пули по сети 
-            NetConnector::getInstance().send(package(
-                bulletEntityId, BULLET_POSITION_MARK, new_position.x,
-                new_position.y, new_position.rotation));
+
         }
         else {
             HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[j]->getComponentByID(ComponentID::HealthComponent));

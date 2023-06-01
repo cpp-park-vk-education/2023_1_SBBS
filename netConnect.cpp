@@ -50,10 +50,14 @@ void NetConnector::get() {
             recieved.eventType_ == BULLET_POSITION_MARK) {
             positions_.push(recieved);
         }
-        else if (recieved.eventType_ == HIT_EVENT || 
-                 recieved.eventType_ == BULLET_SPAWN_EVENT ) {
+        else if (recieved.eventType_ == HIT_EVENT ||
+                 recieved.eventType_ == BULLET_SPAWN_EVENT) {
             package bruh_recieved(recieved);
             events_.push(bruh_recieved);
+
+            if (recieved.eventType_ == HIT_EVENT) {
+                std::cout << "HIT HERE\n";
+            }
         }
     }
     //std::cout << "Done recieving. " << std::endl;
@@ -101,7 +105,7 @@ private:
 
     std::string message = "Hello From Server!";
 
-    enum { max_length = 1024 };
+    enum { max_length = 2048 };
 
     char data[max_length];
 
@@ -149,6 +153,10 @@ public:
                 std::stringstream stringPackage(line);
                 string sId, sEventType, sInfo1, sInfo2, sInfo3, sInfo4;
                 if (stringPackage >> sId >> sEventType >> sInfo1 >> sInfo2 >> sInfo3 >> sInfo4) {
+
+                    //if (stoi(sEventType) == -50) {
+                    //    std::cout << sId << sEventType << sInfo1 << sInfo2 << sInfo3 << sInfo4 << std::endl;
+                    //}
                     package new_package(stoi(sId), stoi(sEventType), stoi(sInfo1), stoi(sInfo2), stoi(sInfo3), stoi(sInfo4));
                     ServerQueueInput->push(new_package);
                 }
