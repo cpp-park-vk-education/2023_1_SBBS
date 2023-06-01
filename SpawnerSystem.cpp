@@ -6,7 +6,6 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
 	package net_data = NetConnector::getInstance().getEvent();
 
-
 	BulletSpawner bs;
 	bs.setOwnerType(OwnerType::Network);
 	Entity* bullet;

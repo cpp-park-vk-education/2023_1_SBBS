@@ -54,7 +54,6 @@ void NetConnector::get() {
                  recieved.eventType_ == BULLET_SPAWN_EVENT ) {
             package bruh_recieved(recieved);
             events_.push(bruh_recieved);
-            std::cout << "shot\n";
         }
     }
     //std::cout << "Done recieving. " << std::endl;
