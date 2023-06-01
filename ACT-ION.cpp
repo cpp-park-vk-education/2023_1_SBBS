@@ -62,7 +62,7 @@ int gameLoop(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 		}
 		else {
 			//////////////////////////////////////////////////////////////////
-			std::cout << "missed by " << elapsed_time - tick_time << std::endl;
+			//std::cout << "missed by " << elapsed_time - tick_time << std::endl;
 			//////////////////////////////////////////////////////////////////
 		}
 		last_time = std::chrono::high_resolution_clock::now();

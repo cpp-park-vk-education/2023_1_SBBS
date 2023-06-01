@@ -8,7 +8,7 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
 
 	BulletSpawner bs;
-	bs.setOwnerType(OwnerType::Network);
+	bs.setOwnerType(OwnerType::Player);
 
 	while (net_data) {
 		int event_type = net_data.eventType_;

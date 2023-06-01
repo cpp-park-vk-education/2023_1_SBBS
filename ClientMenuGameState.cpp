@@ -59,7 +59,7 @@ ClientMenuGameState::ClientMenuGameState() {
 	temp_ent = button_spawner.Spawn(turret_2_pos, tank_turret_2);
 	scene_.push_back(temp_ent);
 
-	setStateArgument(std::string("Maps/lvlTest2.txt"));
+	setStateArgument(std::string("Maps/lvl1.txt"));
 	Game::getInstance().setMyEntityId(1);
 
 	for (int i = 0; i < 4; ++i) {
