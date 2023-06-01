@@ -65,8 +65,7 @@ Entity* TankSpawner::Spawn(Position position, int subType) {
 		break;
 	}
 
-	//////  было 7 
-	pos_to_add->setSpeed(5);///// скорость по типу, перебросить в свич
+	pos_to_add->setSpeed(7);///// скорость по типу, перебросить в свич
 	graph_to_add->layer = true;
 	to_add->putComponent(ComponentID::SoundComponent, sound_to_add);
 	to_add->putComponent(ComponentID::HealthComponent, health_to_add);

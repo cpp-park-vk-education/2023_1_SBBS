@@ -54,9 +54,15 @@ Entity* BannerSpawner::Spawn(Position position, int subType) {
 		graph_to_add = new GraphicsComponent();
 		img.loadFromFile("Image/pause_banner.png");
 		graph_to_add->setAliveImage(img);
-		graph_to_add->layer = true;// чтобы рисовало поверх танков
+		graph_to_add->layer = true;// сделать чтобы рисовало поверх танков
 		break;
-	case 'g': // game music
+	case wasted_banner:
+		graph_to_add = new GraphicsComponent();
+		img.loadFromFile("Image/WASTED.png");
+		graph_to_add->setAliveImage(img);
+		graph_to_add->layer = true;// сделать чтобы рисовало поверх танков
+		break;
+	case game_music: // game music
 		music_to_add->setMusic(std::string("Sound/music_track_2.wav"));
 		break;
 	default:

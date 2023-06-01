@@ -52,7 +52,8 @@ inline const int client_banner = 202;
 inline const int host_banner = 203;
 inline const int single_banner = 204;
 inline const int pause_banner = 205;
-
+inline const int wasted_banner = 206;
+inline const int game_music = 207;
 //bullet determinant
 inline const int bullet_1 = 300;
 inline const int bullet_2 = 301;

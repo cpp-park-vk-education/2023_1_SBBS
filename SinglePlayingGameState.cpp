@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "InputHandler.h"
 #include "GameSingleton.h"
+#include "SpawnerSystem.h"
 
 SinglePlayingGameState::SinglePlayingGameState(const std::string& map_name) {
 	id_ = GameStateId::SinglePlaying;
@@ -48,7 +49,15 @@ GameStateId SinglePlayingGameState::update(sf::RenderWindow& window) {
 
 	if (isDead(my_tank_)) {// сделать геймстейт после смерти или статистику игры
 
-		return GameStateId::MainMenu;
+		static bool flag = true;
+		if (flag) {
+			BannerSpawner bs;
+			Entity* wasted = bs.Spawn(Position(), wasted_banner);
+			scene_.push_back(wasted);
+			std::cout << "wasted\n";
+			flag = false;
+		}
+		//return GameStateId::MainMenu;
 	}
 
 	return id_;

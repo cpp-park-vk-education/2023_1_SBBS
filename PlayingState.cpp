@@ -100,7 +100,7 @@ void PlayingState::generateMap(const std::string& map_name) {
 
 	
 	tank_amount = Game::getInstance().getNumberOfPlayers();
-	tank_amount = 2;
+	//tank_amount = 2;
 	/// tank spawn 
 	for (int i = 1; i <= tank_amount; ++i)
 	{
@@ -132,6 +132,6 @@ void PlayingState::generateMap(const std::string& map_name) {
 	}
 
 	Entity* temp_ent;
-	temp_ent = bs.Spawn(Position(0, 0), 'g');
+	temp_ent = bs.Spawn(Position(0, 0), game_music);
 	scene_.push_back(temp_ent);
 }
