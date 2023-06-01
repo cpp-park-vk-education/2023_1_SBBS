@@ -40,7 +40,7 @@ void hitObjectOnScene(std::vector<Entity*>& scene, int bulletId, int idToHit, in
 
 	for (int i = Game::getInstance().getFirstCollidable(); i < scene.size(); ++i) {
 		int currEntityId = scene[i]->getEntityID();
-		if (currEntityId == idToHit) {
+		if (currEntityId == idToHit && scene[i]->getType()!= ObjectType::Turret) {
 			HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[i]->getComponentByID(ComponentID::HealthComponent));
 			objectHealth->setHealth(newHealth);
 
