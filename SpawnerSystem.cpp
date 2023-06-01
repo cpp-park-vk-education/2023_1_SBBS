@@ -17,7 +17,7 @@ int SpawnerSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene)
 
 			break;
 		case BULLET_SPAWN_EVENT:
-			scene.push_back(bs.Spawn(Position(net_data.info1_ + 100, net_data.info2_ + 100, net_data.info3_), net_data.info4_));
+			scene.push_back(bs.Spawn(Position(net_data.info1_, net_data.info2_, net_data.info3_), net_data.info4_));
 			break;
 
 		default:
