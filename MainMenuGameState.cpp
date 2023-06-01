@@ -16,7 +16,7 @@ MainMenuGameState::MainMenuGameState() {
 	/// спавн менюшки реализовать тут 
 	BannerSpawner banner_spawner;
 	ButtonSpawner button_spawner;
-
+	
 
 	//Спавн фона главного меню
 	Position banner_pos(0, 0);
@@ -58,6 +58,7 @@ MainMenuGameState::MainMenuGameState() {
 
 	Game::getInstance().setConnectionType(ConnectionType::Host);
 	Game::getInstance().setStateDecision(false);
+
 }
 
 GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
@@ -78,16 +79,23 @@ GameStateId MainMenuGameState::update(sf::RenderWindow& window) {
 		}
 	}
 
+
+	sf::Cursor curs;
+	curs.loadFromSystem(sf::Cursor::Wait);
+
 	if (input.mouse_click_) { 
 		switch (chosen_button_id)
 		{
 		case host_game_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::HostMenu;
 			break;
 		case client_game_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::ClientMenu;
 			break;
 		case single_game_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::SingleMenu;
 			break;
 		default:

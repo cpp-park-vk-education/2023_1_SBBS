@@ -106,10 +106,14 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 	}
 	// получить entity id 
 
+	sf::Cursor curs;
+	curs.loadFromSystem(sf::Cursor::Wait);
+
 	if (input.mouse_click_) {
 		switch (chosen_button_id)
 		{
 		case play_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::HostPlaying;
 			break;
 		case tank_hull_1_button_id:
@@ -125,6 +129,7 @@ GameStateId HostMenuGameState::update(sf::RenderWindow& window) {
 			setTankTurret(tank_turret_2);
 			break;
 		case back_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::MainMenu;
 			break;
 		case map_1_button_id:

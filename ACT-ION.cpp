@@ -40,12 +40,12 @@ int gameLoop(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 
 	const double tick_time = 1.0 / 60;
 	
-	StateManager manager;
+	StateManager manager(window);
 	manager.changeState(GameStateId::MainMenu);
 	
 	while (window.isOpen()) {
 		
-		manager.run(window);
+		manager.run();
 		GameStateId curr_id = manager.getStateId();
 		 
 		///////////////////////

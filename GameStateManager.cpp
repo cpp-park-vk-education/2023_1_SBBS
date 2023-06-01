@@ -32,9 +32,12 @@ void StateManager::changeState(GameStateId id) {
 	default:
 		break;
 	}
+	sf::Cursor curs;
+	curs.loadFromSystem(sf::Cursor::Arrow);
+	window.setMouseCursor(curs);
 }
 
-void StateManager::run(sf::RenderWindow& window) {
+void StateManager::run() {
 	GameStateId nextGameState = curr_state_->update(window);
 
 	if (nextGameState != curr_state_->getStateId()) {

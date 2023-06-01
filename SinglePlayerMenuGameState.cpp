@@ -99,13 +99,15 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 			chosen_button_id = sys_output;
 		}
 	}
-
+	sf::Cursor curs;
+	curs.loadFromSystem(sf::Cursor::Wait);
 
 
 	if (input.mouse_click_) {
 		switch (chosen_button_id)
 		{
 		case play_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::SinglePlaying;
 			break;
 		case tank_hull_1_button_id:
@@ -121,6 +123,7 @@ GameStateId SinglePlayerMenuGameState::update(sf::RenderWindow& window) {
 			setTankTurret(tank_turret_2);
 			break;
 		case back_button_id:
+			window.setMouseCursor(curs);
 			return GameStateId::MainMenu;
 			break;
 		case map_1_button_id:

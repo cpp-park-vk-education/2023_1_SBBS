@@ -8,9 +8,9 @@ public:
 
 	void changeState(GameStateId id);
 
-	void run(sf::RenderWindow& window);
+	void run();
 
-	StateManager() = default;
+	StateManager(sf::RenderWindow& window_) : window(window_) {};
 
 	StateManager(StateManager&) = delete;
 
@@ -18,4 +18,6 @@ public:
 
 private:
 	GameState* curr_state_ = nullptr;
+
+	sf::RenderWindow& window;
 };

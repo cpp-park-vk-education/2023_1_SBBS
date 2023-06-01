@@ -46,7 +46,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 	case bullet_1: // bullet 
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
 		graph_to_add->setAliveImage(bullet);
-		pos_to_add->setSpeed(30); //// change speed 
+		pos_to_add->setSpeed(15); //// change speed было 30 
 		buffer.loadFromFile("Sound/Shot1.wav");
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
@@ -56,7 +56,7 @@ Entity* BulletSpawner::Spawn(Position position, int subType) {
 	case bullet_2:
 		bullet.loadFromFile("Image/Bullet_20_40.png"); // пуля сжимается до 10 20, но я не знаю где 10 а где 20 
 		graph_to_add->setAliveImage(bullet);
-		pos_to_add->setSpeed(15); //// change speed 
+		pos_to_add->setSpeed(10); //// change speed было 15
 		buffer.loadFromFile("Sound/Shot1.wav");
 		curr_sound.setBuffer(buffer);
 		curr_sound.setVolume(50.f); ///// громкость выстрела
