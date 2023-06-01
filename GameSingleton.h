@@ -25,7 +25,7 @@ public:
 
 	void setMyEntityId(int id) { myEntityId_ = id; };
 
-	void setFirstCollidable(int collidable) { firstCollidable_ = collidable; }
+	void setFirstCollidable(int collidable) { firstCollidable_ = collidable; std::cout << "set fc at " << firstCollidable_ << std::endl; }
 
 	void setGamePause(bool pause) { gameIsPaused_ = pause; }
 

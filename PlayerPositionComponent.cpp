@@ -81,7 +81,7 @@ void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*
     new_collision.update(new_position, new_rotation);
 
     bool flag = true;
-    for (int j = 0; j < scene.size(); j++) {
+    for (int j = Game::getInstance().getFirstCollidable(); j < scene.size(); j++) {
         if (j == i) continue;
 
         CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
@@ -197,7 +197,7 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
 
     new_collision.update(new_position, new_rotation);
 
-    for (int j = 0; j < scene.size(); j++) {
+    for (int j = Game::getInstance().getFirstCollidable(); j < scene.size(); j++) {
         if (j == i) continue;
 
         CollisionComponent* another_collision = dynamic_cast<CollisionComponent*>(scene[j]->getComponentByID(ComponentID::CollisionComponent));
@@ -217,11 +217,15 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[j]->getComponentByID(ComponentID::HealthComponent));
             HealthComponent* BulletHealth = dynamic_cast<HealthComponent*>(scene[i]->getComponentByID(ComponentID::HealthComponent));
 
-            // прописать хит ивент для сети 
-
             int curr_health = objectHealth->getHealth();
             int curr_damage = BulletHealth->getDamage();
             int new_health = curr_health - curr_damage;
+
+            int hitObjectEntityId = scene[j]->getEntityID();
+
+            NetConnector::getInstance().send(package(
+                bulletEntityId, HIT_EVENT, hitObjectEntityId,
+                new_health));
 
             objectHealth->setHealth(new_health);
 

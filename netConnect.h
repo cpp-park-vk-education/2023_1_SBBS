@@ -22,8 +22,6 @@ struct package {
 	int info2_ = 0;
 	int info3_ = 0;
 	int info4_ = 0;
-	int checker_ = CHECKER;
-	int breaker_ = BREAKER;
 
 	package(int id, int eventType, int info1, int info2, int info3 = 0, int info4 = 0) :
 		id_(id), eventType_(eventType), info1_(info1), info2_(info2),

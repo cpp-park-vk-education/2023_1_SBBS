@@ -50,7 +50,7 @@ void NetConnector::get() {
             recieved.eventType_ == BULLET_POSITION_MARK) {
             positions_.push(recieved);
         }
-        else if (recieved.eventType_ == TANK_HIT_EVENT || 
+        else if (recieved.eventType_ == HIT_EVENT || 
                  recieved.eventType_ == BULLET_SPAWN_EVENT ) {
             package bruh_recieved(recieved);
             events_.push(bruh_recieved);

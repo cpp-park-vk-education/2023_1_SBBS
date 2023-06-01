@@ -12,10 +12,11 @@
 #include "ShootComponent.h"
 #include "SoundComponent.h"
 #include "InputHandler.h"
+#include "GameSingleton.h"
 
 int PhysicsSystem::update(sf::RenderWindow& window, std::vector<Entity*>& scene) {
-
-    for (int i = 0; i < scene.size(); ++i) {
+    
+    for (int i = Game::getInstance().getFirstCollidable(); i < scene.size(); ++i) {
         PositionComponent* current_component = dynamic_cast<PositionComponent*>(scene[i]->getComponentByID(ComponentID::PositionComponent));
         current_component->update(window, scene, i);
     }

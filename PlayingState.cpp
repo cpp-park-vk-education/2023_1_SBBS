@@ -68,6 +68,7 @@ void PlayingState::generateMap(const std::string& map_name) {
 	map_file >> map_height;
 	map_file >> tank_amount;
 
+	int baseEntityId = -1;
 	/// map generation
 	for (int i = 0; i < map_height; ++i)
 		for (int j = 0; j < map_width; ++j) {
@@ -78,13 +79,14 @@ void PlayingState::generateMap(const std::string& map_name) {
 			curr_pos.x = j * block_size + int(block_size / 2);
 			curr_pos.y = i * block_size + int(block_size / 2);
 			Entity* temp_ent = ws.Spawn(curr_pos, current_block);
+			temp_ent->setEntityID(baseEntityId--);
 			scene_.push_back(temp_ent);
 		}
 
 	/// после генерации карты 
 	for (int i = 0; i < scene_.size(); ++i) {
 		for (int j = 0; j < scene_.size() - 1; ++j) {
-			if (scene_[j]->getType() == ObjectType::Wall && scene_[j]->getType() == ObjectType::Wall)
+			if (scene_[j]->getType() == ObjectType::Wall && scene_[j+1]->getType() == ObjectType::Floor)
 				std::swap(scene_[j], scene_[j + 1]);
 		}
 	}
@@ -92,6 +94,7 @@ void PlayingState::generateMap(const std::string& map_name) {
 	for (int i = 0; i < scene_.size(); ++i) {
 		if (scene_[i]->getType() == ObjectType::Wall) {
 			Game::getInstance().setFirstCollidable(i);
+			break;
 		}
 	}
 

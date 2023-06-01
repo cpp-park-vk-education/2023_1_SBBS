@@ -9,7 +9,4 @@ public:
 
     int update(sf::RenderWindow& window, std::vector<Entity*>& scene) override;
 
-private:
-
-    int first_collidable_ = 0;
 };

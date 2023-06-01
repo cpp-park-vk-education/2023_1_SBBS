@@ -1,6 +1,6 @@
 #pragma once
 
-#define TANK_HIT_EVENT -10
+#define HIT_EVENT -10
 #define BULLET_SPAWN_EVENT -20
 
 #define TANK_POSITION_MARK -30
