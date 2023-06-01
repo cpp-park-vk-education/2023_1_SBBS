@@ -16,7 +16,7 @@
 #include "GameSingleton.h"
 
 const int BULLET_OFFSET_1 = 10'000;
-int BULLET_OFFSET_2 = 100;
+static int BULLET_OFFSET_2 = 100;
 
 
 void TankPositionComponent::update(sf::RenderWindow& window, std::vector<Entity*>& scene, int& i) {
