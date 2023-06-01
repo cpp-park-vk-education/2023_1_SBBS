@@ -201,9 +201,9 @@ void BulletPositionComponent::update(sf::RenderWindow& window, std::vector<Entit
             *my_collision = new_collision;
 
             /////////// передача позиции пули по сети 
-            //NetConnector::getInstance().send(package(
-            //    myEntityId, BULLET_POSITION_MARK, new_position.x,
-            //    new_position.y, new_position.rotation));
+            NetConnector::getInstance().send(package(
+                myEntityId, BULLET_POSITION_MARK, new_position.x,
+                new_position.y, new_position.rotation));
         }
         else {
             HealthComponent* objectHealth = dynamic_cast<HealthComponent*>(scene[j]->getComponentByID(ComponentID::HealthComponent));
