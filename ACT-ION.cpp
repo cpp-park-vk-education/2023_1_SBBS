@@ -1,118 +1,83 @@
-﻿#include <SFML/Graphics.hpp>
-
-class Entity;
-
-class Component {
-public:
-
-    virtual void deleteComponent();
-
-    virtual void update() = 0;
-};
-
-class HealthComponent : public Component {
-public:
-
-    int getHealth() const;
-
-    void setHealth();
-
-private:
-
-    int health_;
-};
-
-class GraphicsComponent : public Component {
-public:
-    void update() override;
-
-private:
-    sf::Image obj_image_;
-    sf::Texture obj_texture;
-    sf::Sprite obj_sprite;
-};
-
-class PositionComponent : public Component {
-public:
-
-    void getPosition() const;
-
-    void setPosition();
-
-private:
-
-    PositionComponent* parent_ = nullptr;
-
-    int pos_x_;
-    int pos_y_;
-    
-    int speed_x_;
-    int speed_y_;
-};
-
-class MoveComponent : public Component {
-
-};
-
-class AudioComponent : public Component {
-
-};
-
-class ShootComponent : public Component {
-public:
-    
-
-private:
-    void shoot(Entity* scene);
+﻿#pragma once
+#include <SFML/Graphics.hpp>
+#include "GameState.h"
+#include <vector>
+#include "Types.h"
+#include "netConnect.h"
+#include <chrono>
+#include <thread>
+#include "GameStateManager.h"
 
 
-};
-
-class CollisionComponent : public Component {
-public:
-
-    void onCollisionEvent(Entity ent_1, Entity ent_2);
+int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
+	ConnectionType* connection);
 
 
-private:
+int main() {
+
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput = new boost::lockfree::queue<int, MAX_LENGTH>;
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput = new boost::lockfree::queue<int, MAX_LENGTH>;
+	boost::thread_group producer_threads;
+
+	NetConnector::getInstance().openConnection(LockFreeQueueInput, LockFreeQueueOutput);
+
+	ConnectionType* connection_ = new ConnectionType(ConnectionType::Null);
+
+	producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { netWork(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
+	//producer_threads.create_thread([LockFreeQueueInput, LockFreeQueueOutput, connection_]() { gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_); });
+
+	gameLoop(LockFreeQueueInput, LockFreeQueueOutput, connection_);
+
+	producer_threads.join_all();
+
+	return 0;
+
+}
+
+int gameLoop(boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueInput,
+	boost::lockfree::queue<int, MAX_LENGTH>* LockFreeQueueOutput,
+	ConnectionType* connection) {
+
+	sf::RenderWindow window(sf::VideoMode({ 1900,1000 }), "ACT-ION");
+	std::chrono::steady_clock::time_point last_time = std::chrono::high_resolution_clock::now();
+
+	const double tick_time = 1.0 / 60;
+	
+	StateManager manager;
+	manager.changeState(GameStateId::MainMenu);
+
+	while (1) {
+		
+		manager.run(window);
+		GameStateId curr_id = manager.getStateId();
+		 
+		///////////////////////  
+		if (curr_id == GameStateId::HostPlaying) {
+			*connection = ConnectionType::Host;
+			// тут вызввать ивент 
+			// тут хранить меняли ли ивент до этого 
+		}
+		else if (curr_id == GameStateId::ClientPlaying) {
+			*connection = ConnectionType::Client;
+		}
+		///////////////////////
+		// синглтон на время или глобальная переменная 
 
 
-};
+		std::chrono::steady_clock::time_point curr_time = std::chrono::high_resolution_clock::now();
+		double elapsed_time = std::chrono::duration<double>(curr_time - last_time).count();
 
-
-class Entity {
-public:
-
-    Component* getComponentByID(int componentID) const;
-
-    int getEntityID();
-
-private:
-    Component* components_[9];
-
-    int entity_id_;
-
-};
-
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-
-    return 0;
+		if (elapsed_time < tick_time) {
+			double sleep_time = tick_time - elapsed_time;
+			std::chrono::duration<double> sleep_duration(sleep_time);
+			std::this_thread::sleep_for(sleep_duration);
+		}
+		else {
+			//////////////////////////////////////////////////////////////////
+			//std::cout << "missed by " << elapsed_time - tick_time << std::endl;
+			//////////////////////////////////////////////////////////////////
+		}
+		last_time = std::chrono::high_resolution_clock::now();
+	}
 }

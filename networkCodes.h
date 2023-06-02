@@ -1,0 +1,13 @@
+#pragma once
+
+#define TANK_HIT_EVENT -10
+#define BULLET_SPAWN_EVENT -20
+
+#define TANK_POSITION_MARK -30
+#define TURRET_POSITION_MARK -40
+#define BULLET_POSITION_MARK -50
+
+#define BREAKER -1000000
+#define CHECKER 10000
+
+// uuid
