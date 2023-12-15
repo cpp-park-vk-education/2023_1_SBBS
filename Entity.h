@@ -1,4 +1,4 @@
-#pragma once
+    #pragma once
 #include "Types.h"
 #include "Component.h"
 #include <unordered_map>

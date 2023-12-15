@@ -57,8 +57,8 @@ int gameLoop(boost::lockfree::queue<package, MAX_LENGTH>* LockFreeQueueInput,
 
 		if (elapsed_time < tick_time) {
 			double sleep_time = tick_time - elapsed_time;
-			std::chrono::duration<double> sleep_duration(sleep_time);
-			std::this_thread::sleep_for(sleep_duration);
+			std::chrono::duration<double> sleep_duration(sleep_time);	
+			std::this_thread::sleep_for(sleep_duration);	
 		}
 		else {
 			//////////////////////////////////////////////////////////////////
